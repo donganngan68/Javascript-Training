@@ -2,7 +2,7 @@
 - Understand & apply knowledge of HTML/CSS/JavaScript.
 - DOM manipulation with a simple table, form.
 ## Design on figma: ##
-[Figma](https://www.figma.com/file/c3aFzD4P3igEohZkx9KfTq/Customer-dashboard?type=design&node-id=0%3A1&mode=design&t=ANuRshVFYkk0m5X5-1)
+- [Figma](https://www.figma.com/file/c3aFzD4P3igEohZkx9KfTq/Customer-dashboard?type=design&node-id=0%3A1&mode=design&t=ANuRshVFYkk0m5X5-1)
 ## Information: ##
 - Time line: 2023/07/03 – 2023/07/18
 - Editor: Visual Studio Code
