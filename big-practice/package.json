@@ -1,0 +1,22 @@
+{
+  "name": "practice-two",
+  "version": "1.0.0",
+  "description": "- Apply knowledge to responsive design - Apply Grid css - Used media queries for popular screen size",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.9.1",
+    "parcel-bundler": "^1.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "typescript": "^5.1.3"
+  }
+}
