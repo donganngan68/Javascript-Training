@@ -1,0 +1,62 @@
+:root {
+  --primary-color: #000;
+  --bg-color: #f9fbff;
+  --secondary-color: #b5b7c0;
+  --accent-color: #aab0b7;
+  --text-color: #292d32;
+  --primary-font: 'Poppins';
+  --secondary-font: 'Inter';
+  --fw-semibold: 600;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.main {
+  position: relative;
+  width: 968px;
+  transform: translate(50%, 50%);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding-left: 38px;
+  padding-right: 22px;
+  padding-top: 30px;
+  padding-bottom: 41px;
+}
+
+/* set font-family */
+@font-face {
+  font-family: 'Poppins';
+  src: url(../font/Poppins-SemiBold.ttf);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url(../font/Poppins-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url(../font/Poppins-Medium.ttf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url(../font/Inter-Bold.ttf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url(../font/Inter-Medium.ttf);
+  font-weight: 500;
+}

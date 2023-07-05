@@ -4,8 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript</title>
+  <link rel="stylesheet" href="./assets/css/index.css" type="text/css"/>
 </head>
 <body>
+  <div class="main">
 
+    <!-- start header table -->
+    <div class="header">
+      <h2 class="header-title">All Customers</h2>
+      <div class="navbar">
+        <img src="./assets/images/add.png" alt="icon add customer" class="icon-modal">
+        <div class="search">
+          <img src="./assets/images/search.png" alt="searching customer">
+          <input class="search-text" type="text" placeholder="Search">
+        </div>
+        <div class="sort">
+          <p class="sort-text">Sort by:&nbsp;<span class="dropdown-toggle">Name</span></p>
+          <img src="./assets/images/dropt.png" alt="droptdown sort">
+        </div>
+      </div>
+    </div>
+    <!-- end header table -->
+
+    <!-- start table body -->
+    <table class="table">
+      <tr>
+        <th class="table-heading">Customer Name</th>
+        <th class="table-heading">Company</th>
+        <th class="table-heading">Phone Number</th>
+        <th class="table-heading">Email</th>
+        <th class="table-heading">Country</th>
+        <th class="table-heading">Status</th>
+      </tr>
+      <tr>
+        <td class="table-data">January</td>
+        <td class="table-data">January</td>
+        <td class="table-data">January</td>
+        <td class="table-data">Janujy</td>
+        <td class="table-data">January</td>
+        <td class="table-data table-data-icon">
+          <button class="btn-active">Active</button>
+          <img src="./assets/images/dot.png" alt="icon for click del or edit ">
+        </td>
+      </tr>
+    </table>
+    <!-- end table body -->
+
+    <!-- start modal update customer -->
+    <form class="modal-update">
+      <div class="modal-header">
+        <h2 class="title">Update Customer</h2>
+        <img src="./assets/images/cancel.png" alt="Icon cancel update customer form">
+      </div>
+
+      <!-- start sign form -->
+      <div class="sign-form">
+        <div>
+          <p class="name-customer">Customer Name</p>
+          <input type="text" class="fname" name="fname">
+        </div>
+
+        <div>
+          <p class="name-customer">Company</p>
+          <input type="number" class="fname" name="fname">
+        </div>
+
+        <div>
+          <p class="name-customer">Phone Number</p>
+          <input type="text" class="fname" name="fname">
+        </div>
+
+        <div>
+          <p class="name-customer">Email</p>
+          <input type="text" class="fname" name="fname">
+        </div>
+
+        <div>
+          <p class="name-customer">Country</p>
+          <input type="email" class="fname" name="fname">
+        </div>
+
+        <div class="status">
+          <p class="status-form">Status</p>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+      </div>
+      <!-- end sign form -->
+
+      <!-- start button submit and cancel -->
+      <div class="btn-modal-update">
+        <button class="btn submit" type="button">Submit</button>
+        <button class="btn cancel" type="button">Cancel</button>
+      </div>
+      <!-- end button submit and cancel -->
+
+    </form>
+    <!-- end modal update customer -->
+
+    <!-- start modal delete -->
+    <div class="modal-del">
+      <div class="modal-header">
+        <h2 class="title title-del">Do you want to remove this customer?</h2>
+        <img src="./assets/images/cancel.png" alt="Icon cancel update customer form">
+      </div>
+
+      <div class="btn-modal-update btn-del">
+        <button class="btn submit" type="button">Yes</button>
+        <button class="btn cancel" type="button">No</button>
+      </div>
+
+    </div>
+    <!-- end modal delete -->
+
+  </div>
+
+  <script></script>
 </body>
 </html>
