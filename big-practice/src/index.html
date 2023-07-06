@@ -7,27 +7,27 @@
   <link rel="stylesheet" href="./assets/css/index.css" type="text/css"/>
 </head>
 <body>
-  <div class="main">
+  <main class="main">
 
     <!-- start header table -->
     <div class="header">
       <h2 class="header-title">All Customers</h2>
       <div class="navbar">
         <img src="./assets/images/add.png" alt="icon add customer" class="icon-modal">
-        <div class="search">
+        <div class="search-box">
           <img src="./assets/images/search.png" alt="searching customer">
           <input class="search-text" type="text" placeholder="Search">
         </div>
-        <div class="sort">
-          <p class="sort-text">Sort by:&nbsp;<span class="dropdown-toggle">Name</span></p>
-          <img src="./assets/images/dropt.png" alt="droptdown sort">
+        <div class="dropdown">
+          <p class="dropdown select-dropdown">Sort by:&nbsp;<span class="dropdown-name">Name</span></p>
+          <img src="./assets/images/dropt.png" alt="dropdown sort">
         </div>
       </div>
     </div>
     <!-- end header table -->
 
     <!-- start table body -->
-    <table class="table">
+    <table class="table-customer">
       <tr>
         <th class="table-heading">Customer Name</th>
         <th class="table-heading">Company</th>
@@ -37,11 +37,11 @@
         <th class="table-heading">Status</th>
       </tr>
       <tr>
-        <td class="table-data">January</td>
-        <td class="table-data">January</td>
-        <td class="table-data">January</td>
-        <td class="table-data">Janujy</td>
-        <td class="table-data">January</td>
+        <td class="table-data">Ngan Do</td>
+        <td class="table-data">Agility</td>
+        <td class="table-data">03589527558</td>
+        <td class="table-data">donganngan@gmail.com</td>
+        <td class="table-data">VietNam</td>
         <td class="table-data table-data-icon">
           <button class="btn-active">Active</button>
           <img src="./assets/images/dot.png" alt="icon for click del or edit ">
@@ -51,9 +51,9 @@
     <!-- end table body -->
 
     <!-- start modal update customer -->
-    <form class="modal-update">
+    <form class="modal-customer">
       <div class="modal-header">
-        <h2 class="title">Update Customer</h2>
+        <h2 class="form-title">Update Customer</h2>
         <img src="./assets/images/cancel.png" alt="Icon cancel update customer form">
       </div>
 
@@ -61,34 +61,34 @@
       <div class="sign-form">
         <div>
           <p class="name-customer">Customer Name</p>
-          <input type="text" class="fname" name="fname">
+          <input type="text" class="input-title" name="fname">
         </div>
 
         <div>
           <p class="name-customer">Company</p>
-          <input type="number" class="fname" name="fname">
+          <input type="text" class="input-title" name="fname">
         </div>
 
         <div>
           <p class="name-customer">Phone Number</p>
-          <input type="text" class="fname" name="fname">
+          <input type="text" class="input-title" name="fname">
         </div>
 
         <div>
           <p class="name-customer">Email</p>
-          <input type="text" class="fname" name="fname">
+          <input type="email" class="input-title" name="fname">
         </div>
 
         <div>
           <p class="name-customer">Country</p>
-          <input type="email" class="fname" name="fname">
+          <input type="text" class="input-title" name="fname">
         </div>
 
-        <div class="status">
-          <p class="status-form">Status</p>
-          <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round"></span>
+        <div class="toggle-control">
+          <p class="toggle-control-title">Status</p>
+          <label class="toggle-input">
+            <input class="on-off-input" type="checkbox" checked>
+            <span class="toggle-input-slider toggle-input-round"></span>
           </label>
         </div>
 
@@ -96,9 +96,9 @@
       <!-- end sign form -->
 
       <!-- start button submit and cancel -->
-      <div class="btn-modal-update">
-        <button class="btn submit" type="button">Submit</button>
-        <button class="btn cancel" type="button">Cancel</button>
+      <div class="btn-action-group">
+        <button class="btn btn-primary" type="button">Submit</button>
+        <button class="btn btn-secondary" type="button">Cancel</button>
       </div>
       <!-- end button submit and cancel -->
 
@@ -106,21 +106,21 @@
     <!-- end modal update customer -->
 
     <!-- start modal delete -->
-    <div class="modal-del">
+    <section class="del-confirm-modal">
       <div class="modal-header">
-        <h2 class="title title-del">Do you want to remove this customer?</h2>
+        <h2 class="form-title">Do you want to remove this customer?</h2>
         <img src="./assets/images/cancel.png" alt="Icon cancel update customer form">
       </div>
 
-      <div class="btn-modal-update btn-del">
-        <button class="btn submit" type="button">Yes</button>
-        <button class="btn cancel" type="button">No</button>
+      <div class="btn-action-group btn-del">
+        <button class="btn btn-primary" type="button">Yes</button>
+        <button class="btn btn-secondary" type="button">No</button>
       </div>
 
-    </div>
+    </section>
     <!-- end modal delete -->
 
-  </div>
+  </main>
 
   <script></script>
 </body>

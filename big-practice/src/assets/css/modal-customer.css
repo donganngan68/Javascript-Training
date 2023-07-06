@@ -1,11 +1,11 @@
-.modal-update {
+.modal-customer {
   width: 968px;
   height: 797px;
   position: absolute;
   top: 290%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid black;
+  border: 1px solid #000;
   border-radius: 20px;
   padding-top: 52px;
   padding-left: 50px;
@@ -18,7 +18,7 @@
   justify-content: space-between;
 }
 
-.title {
+.form-title {
   color: var(--primary-color);
   font-size: 36px;
   font-family: var(--primary-font);
@@ -44,17 +44,17 @@
   padding-bottom: 19px;
 }
 
-.fname {
+.input-title {
   width: 413px;
   height: 62px;
-  border: 1px solid black;
+  border: 1px solid #000;
   border-radius: 5px;
   margin-bottom: 42px;
   padding-left: 10px;
   font-size: 16px;
 }
 
-.status-form {
+.toggle-control-title {
   padding-right: 34px;
   color: var(--secondary-color);
   font-size: 20px;
@@ -64,43 +64,30 @@
   line-height: 24px;
 }
 
-.btn {
-  width: 264px;
-  height: 62px;
-  color: #FFF;
-  font-size: 20px;
-  font-family: var(--secondary-font);
-  font-style: normal;
-  font-weight: var(--fw-semibold);
-  line-height: 24px;
-  border: none;
-  border-radius: 5px;
-}
-
-.btn-modal-update {
+.btn-action-group {
   display: flex;
   justify-content: center;
   padding-top: 115px;
 }
 
-.submit {
+.btn-primary {
   background-color: #377def;
   margin-right: 64px;
 }
 
-.cancel {
+.btn-secondary {
   background-color: var(--secondary-color);
 }
 
 /* modal delete */
-.modal-del {
+.del-confirm-modal {
   width: 968px;
   height: 337px;
   position: absolute;
   top: 590%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid black;
+  border: 1px solid #000;
   border-radius: 20px;
   padding-top: 52px;
   padding-left: 50px;
@@ -111,24 +98,25 @@
   padding-top: 63px;
 }
 
-.status {
+.toggle-control {
   display: flex;
   align-items: center;
 }
 
-.switch {
+.toggle-input {
   position: relative;
   display: inline-block;
   width: 56px;
   height: 26px;
 }
 
-.switch input {
+.on-off-input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-.slider {
+
+.toggle-input-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -140,7 +128,7 @@
   transition: .4s;
 }
 
-.slider:before {
+.toggle-input-slider:before {
   position: absolute;
   content: "";
   height: 22px;
@@ -152,22 +140,22 @@
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked + .toggle-input-slider {
   background-color: #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked + .toggle-input-slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 /* Rounded sliders */
-.slider.round {
+.toggle-input-slider.toggle-input-round {
   border-radius: 20px;
 }
 
-.slider.round:before {
+.toggle-input-slider.toggle-input-round:before {
   border-radius: 50%;
 }
 
