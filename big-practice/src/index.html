@@ -28,26 +28,28 @@
 
     <!-- start table body -->
     <table class="table-customer">
-      <tr>
-        <th class="table-heading">Customer Name</th>
-        <th class="table-heading">Company</th>
-        <th class="table-heading">Phone Number</th>
-        <th class="table-heading">Email</th>
-        <th class="table-heading">Country</th>
-        <th class="table-heading">Status</th>
-      </tr>
-      <tr>
-        <td class="table-data">Ngan Do</td>
-        <td class="table-data">Agility</td>
-        <td class="table-data">03589527558</td>
-        <td class="table-data">donganngan@gmail.com</td>
-        <td class="table-data">VietNam</td>
-        <td class="table-data table-data-icon">
-          <button class="btn-active">Active</button>
-          <img src="./assets/images/dot.png" alt="icon for click del or edit ">
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th class="table-heading">Customer Name</th>
+          <th class="table-heading">Company</th>
+          <th class="table-heading">Phone Number</th>
+          <th class="table-heading">Email</th>
+          <th class="table-heading">Country</th>
+          <th class="table-heading">Status</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-main">
+      </tbody>
     </table>
+
+    <div class="table-footer">
+      <p class="data-summary">Showing data 1 to 8 of  256K entries</p>
+      <div class="session-pagination">
+        <button class="arrow-button">></button>
+        <button class="arrow-button">&lt;</button>
+      </div>
+    </div>
     <!-- end table body -->
 
     <!-- start modal update customer -->
@@ -122,6 +124,6 @@
 
   </main>
 
-  <script></script>
+  <script src="./scripts/main.js"></script>
 </body>
 </html>
