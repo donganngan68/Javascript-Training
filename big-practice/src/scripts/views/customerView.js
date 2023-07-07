@@ -3,6 +3,17 @@ import imgDot from '../../assets/images/dot.png';
 class CustomerView {
   constructor() {
     this.table = document.querySelector('.table-main');
+    this.iconModal = document.querySelector('.icon-modal');
+    this.modalCustomer = document.querySelector('.modal-customer');
+    this.iconCancel = document.querySelector('.icon-cancel');
+
+    this.iconModal.addEventListener("click", () => {
+      this.modalCustomer.style.display = "block";
+    });
+
+    this.iconCancel.addEventListener("click", () => {
+      this.modalCustomer.style.display = "none";
+    });
   }
 
   renderData(list) {

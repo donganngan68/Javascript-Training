@@ -17,6 +17,15 @@
   justify-content: flex-end;
 }
 
+.icon-modal {
+  cursor: pointer;
+}
+
+.icon-modal:hover {
+  border-radius: 50%;
+  border: 1px solid;
+}
+
 .search-box {
   display: flex;
   justify-content: center;

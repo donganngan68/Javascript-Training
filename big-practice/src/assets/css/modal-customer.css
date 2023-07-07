@@ -3,7 +3,9 @@
   width: 968px;
   height: 797px;
   position: absolute;
-  transform: translate(20%, 20%);
+  top: 0;
+  background-color: var(--bg-color);
+  /* transform: translate(-50%, -50%); */
   border: 1px solid #000;
   border-radius: 20px;
   padding-top: 52px;
@@ -15,6 +17,10 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+}
+
+.icon-cancel {
+  cursor: pointer;
 }
 
 .form-title {
