@@ -1,14 +1,21 @@
 class CustomerController {
-  constructor(view, model) {
+  constructor(view, service) {
     this.view = view;
-    this.model = model;
+    this.service = service;
   }
 
   init() {
-    this.model.fetchData().then((data) => {
-      this.view.renderData(data);
-    });
+    this.handleRenderTable();
   }
+
+  handleRenderTable = async () => {
+    try {
+      const data = await this.service.getListCustomer();
+      this.view.renderData(data);
+    } catch (error) {
+      console.error('Error fetching data:', error); // TODO: update later
+    }
+  };
 }
 
 export default CustomerController;

@@ -1,6 +1,6 @@
 import CustomerController from './controllers/customerController';
-import CustomerModel from './models/customerModel';
+import CustomerService from './services/customerService';
 import CustomerView from './views/customerView';
 
-const customerController = new CustomerController(new CustomerView(), new CustomerModel());
+const customerController = new CustomerController(new CustomerView(), new CustomerService());
 customerController.init();
