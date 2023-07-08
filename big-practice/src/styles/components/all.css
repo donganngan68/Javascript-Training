@@ -1,0 +1,9 @@
+/* Commons component styles */
+@import url("./common/all.css");
+
+/* Components styles */
+@import url("./del-confirm-modal.css");
+@import url("./modal-customer.css");
+@import url("./table-customer.css");
+@import url("./container.css");
+@import url("./form.css");

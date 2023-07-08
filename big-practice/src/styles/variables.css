@@ -1,0 +1,18 @@
+:root {
+    /* Color */
+    --primary-color: #000;
+    --bg-color: #f9fbff;
+    --secondary-color: #b5b7c0;
+    --accent-color: #aab0b7;
+    --text-color: #292d32;
+
+    /* Fonts */
+    --primary-font: 'Poppins';
+    --secondary-font: 'Inter';
+
+    /* Font weight */
+    --fw-semibold: 600;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-bold: 700;
+}

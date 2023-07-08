@@ -1,6 +1,9 @@
-import CustomerController from './controllers/customerController';
-import CustomerService from './services/customerService';
-import CustomerView from './views/customerView';
+import { App } from "./app";
 
-const customerController = new CustomerController(new CustomerView(), new CustomerService());
-customerController.init();
+// Sure that scripts called after DOM loaded
+document.addEventListener("DOMContentLoaded", () => {
+    const myApp = new App();
+
+    // Start the app
+    myApp.startApp();
+});

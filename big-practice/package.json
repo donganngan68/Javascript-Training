@@ -3,21 +3,14 @@
   "version": "1.0.0",
   "description": "- Apply knowledge to responsive design - Apply Grid css - Used media queries for popular screen size",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/*.html --no-cache --no-source-maps --dist-dir dist"
+    "start": "rm -rf dist && rm -rf .parcel-cache && parcel src/index.html --no-cache --no-source-maps",
+    "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/*.html --no-cache --no-source-maps --dist-dir build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "parcel": "^1.12.4",
-    "parcel-bundler": "^1.5.1"
+    "parcel": "^2.9.3"
   },
-  "devDependencies": {
-    "eslint": "^8.44.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.26.0",
-    "typescript": "^5.1.3"
-  },
-  "main": ".eslintrc.js"
+  "devDependencies": {}
 }
