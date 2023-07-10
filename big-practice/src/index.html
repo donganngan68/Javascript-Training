@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript</title>
-  <link rel="stylesheet" href="./assets/css/index.css" type="text/css"/>
+
+  <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <main class="main">
+  <div class="container">
+    <main class="main">
 
     <!-- start header table -->
     <div class="header">
@@ -28,33 +30,35 @@
 
     <!-- start table body -->
     <table class="table-customer">
-      <tr>
-        <th class="table-heading">Customer Name</th>
-        <th class="table-heading">Company</th>
-        <th class="table-heading">Phone Number</th>
-        <th class="table-heading">Email</th>
-        <th class="table-heading">Country</th>
-        <th class="table-heading">Status</th>
-      </tr>
-      <tr>
-        <td class="table-data">Ngan Do</td>
-        <td class="table-data">Agility</td>
-        <td class="table-data">03589527558</td>
-        <td class="table-data">donganngan@gmail.com</td>
-        <td class="table-data">VietNam</td>
-        <td class="table-data table-data-icon">
-          <button class="btn-active">Active</button>
-          <img src="./assets/images/dot.png" alt="icon for click del or edit ">
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th class="table-heading">Customer Name</th>
+          <th class="table-heading">Company</th>
+          <th class="table-heading">Phone Number</th>
+          <th class="table-heading">Email</th>
+          <th class="table-heading">Country</th>
+          <th class="table-heading">Status</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-customer-body">
+      </tbody>
     </table>
+
+    <div class="table-footer">
+      <p class="data-summary">Showing data 1 to 8 of  256K entries</p>
+      <div class="session-pagination">
+        <button class="arrow-button">></button>
+        <button class="arrow-button">&lt;</button>
+      </div>
+    </div>
     <!-- end table body -->
 
     <!-- start modal update customer -->
     <form class="modal-customer">
       <div class="modal-header">
         <h2 class="form-title">Update Customer</h2>
-        <img src="./assets/images/cancel.png" alt="Icon cancel update customer form">
+        <img src="./assets/images/cancel.png" alt="Icon cancel update customer form" class="icon-cancel">
       </div>
 
       <!-- start sign form -->
@@ -106,7 +110,7 @@
     <!-- end modal update customer -->
 
     <!-- start modal delete -->
-    <section class="del-confirm-modal">
+    <section class="modal-customer">
       <div class="modal-header">
         <h2 class="form-title">Do you want to remove this customer?</h2>
         <img src="./assets/images/cancel.png" alt="Icon cancel update customer form">
@@ -121,7 +125,8 @@
     <!-- end modal delete -->
 
   </main>
+  </div>
 
-  <script></script>
+  <script type="module" src="./scripts/main.js"></script>
 </body>
 </html>

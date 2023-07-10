@@ -1,0 +1,84 @@
+.modal-customer {
+  display: none;
+  width: 868px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  background-color: var(--bg-color);
+  border: 1px solid #000;
+  border-radius: 20px;
+  margin-top: 50px;
+  padding: 52px 47px 0 50px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.icon-cancel {
+  cursor: pointer;
+}
+
+.form-title {
+  color: var(--primary-color);
+  font-size: 36px;
+  font-family: var(--primary-font);
+  font-style: normal;
+  font-weight: var(--fw-semibold);
+  line-height: normal;
+  letter-spacing: 0.36px;
+  padding-bottom: 52px;
+}
+
+.sign-form {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.name-customer {
+  color: var(--accent-color);
+  font-size: 20px;
+  font-family: var(--secondary-font);
+  font-style: normal;
+  font-weight: var(--fw-bold);
+  line-height: 24px;
+  padding-bottom: 19px;
+}
+
+.input-title {
+  width: 350px;
+  height: 60px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-bottom: 42px;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.toggle-control-title {
+  padding-right: 34px;
+  color: var(--secondary-color);
+  font-size: 20px;
+  font-family: var(--secondary-font);
+  font-style: normal;
+  font-weight: var(--fw-medium);
+  line-height: 24px;
+}
+
+.btn-action-group {
+  display: flex;
+  justify-content: center;
+  padding-top: 115px;
+  padding-bottom: 87px;
+}
+
+.btn-primary {
+  background-color: #377def;
+  margin-right: 64px;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+}
