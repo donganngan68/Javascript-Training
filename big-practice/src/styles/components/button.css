@@ -10,3 +10,19 @@
   border: none;
   border-radius: 5px;
 }
+
+.btn-action-group {
+  display: flex;
+  justify-content: center;
+  padding-top: 115px;
+  padding-bottom: 87px;
+}
+
+.btn-primary {
+  background-color: #377def;
+  margin-right: 64px;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+}

@@ -66,19 +66,3 @@
   font-weight: var(--fw-medium);
   line-height: 24px;
 }
-
-.btn-action-group {
-  display: flex;
-  justify-content: center;
-  padding-top: 115px;
-  padding-bottom: 87px;
-}
-
-.btn-primary {
-  background-color: #377def;
-  margin-right: 64px;
-}
-
-.btn-secondary {
-  background-color: var(--secondary-color);
-}
