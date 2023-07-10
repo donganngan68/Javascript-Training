@@ -1,4 +1,4 @@
-class CustomerModel {
+class CustomerService {
   constructor() {
     this.data = [];
   }
@@ -14,4 +14,4 @@ class CustomerModel {
   }
 }
 
-export default CustomerModel;
+export default CustomerService;

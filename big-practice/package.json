@@ -1,9 +1,9 @@
 {
-  "name": "practice-two",
+  "name": "big-practice",
   "version": "1.0.0",
-  "description": "- Apply knowledge to responsive design - Apply Grid css - Used media queries for popular screen size",
+  "description": "List customer, add/edit a customer, remove a customer",
   "scripts": {
-    "start": "rm -rf dist && rm -rf .parcel-cache && parcel src/index.html --no-cache --no-source-maps",
+    "start": "parcel src/index.html",
     "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/*.html --no-cache --no-source-maps --dist-dir build"
   },
   "keywords": [],
