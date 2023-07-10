@@ -18,17 +18,33 @@
       |-- images
     |-- scripts
       |-- controllers
-      |-- models
+        |-- customer-controller.js
       |-- services
+        |-- customer-service.js
       |-- views
+        |--customer-view.js
       |-- app.js
+      |-- main.js
+    |-- styles
+      |-- components
+        |-- common
+        |-- all.css
+        |-- container.css
+        |-- del-confirm-modal.css
+        |-- form.css
+        |-- modal-customer.css
+        |-- table-customer.css
+      |-- fonts.css
+      |-- main.css
+      |-- variables.css
     |-- index.html
 |-- .editorconfig
 |-- .gitignore
 |--.prettierrc.json
-|-- package-lock.json
 |-- package.json
 |-- README.md
+|-- vercel.json
+|-- yarn.lock
 ~~~
 ## Getting started:
 Step 01: Clone repository with HTTPS:
@@ -50,8 +66,8 @@ cd big-practice
 ~~~
 Step 05: Open terminal and type:
 ~~~
-npm install
+yarn install
 ~~~
 Step 06: Finally run with:
 ~~~
-npm start
+yarn start

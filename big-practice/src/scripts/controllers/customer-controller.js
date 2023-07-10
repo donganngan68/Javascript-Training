@@ -4,7 +4,7 @@ class CustomerController {
     this.service = service;
   }
 
-  init() {
+  init = () => {
     this.handleRenderTable();
   }
 

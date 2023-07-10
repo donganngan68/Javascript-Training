@@ -1,16 +1,14 @@
 .modal-customer {
   display: none;
-  width: 968px;
-  height: 797px;
+  width: 868px;
+  height: auto;
   position: absolute;
   top: 0;
   background-color: var(--bg-color);
-  /* transform: translate(-50%, -50%); */
   border: 1px solid #000;
   border-radius: 20px;
-  padding-top: 52px;
-  padding-left: 50px;
-  padding-right: 47px;
+  margin-top: 50px;
+  padding: 52px 47px 0 50px;
 }
 
 .modal-header {
@@ -50,7 +48,7 @@
 }
 
 .input-title {
-  width: 410px;
+  width: 350px;
   height: 60px;
   border: 1px solid #000;
   border-radius: 5px;
@@ -73,6 +71,7 @@
   display: flex;
   justify-content: center;
   padding-top: 115px;
+  padding-bottom: 87px;
 }
 
 .btn-primary {

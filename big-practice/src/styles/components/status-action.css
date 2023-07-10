@@ -1,21 +1,4 @@
 /* modal delete */
-.del-confirm-modal {
-  display: none;
-  width: 968px;
-  height: 337px;
-  position: absolute;
-  transform: translate(20%, 30%);
-  border: 1px solid #000;
-  border-radius: 20px;
-  padding-top: 52px;
-  padding-left: 50px;
-  padding-right: 47px;
-}
-
-.btn-del {
-  padding-top: 63px;
-}
-
 .toggle-control {
   display: flex;
   align-items: center;
@@ -53,13 +36,13 @@
   width: 22px;
   left: 3px;
   bottom: 3px;
-  background-color: white;
+  background-color: #fff;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .toggle-input-slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 input:checked + .toggle-input-slider:before {

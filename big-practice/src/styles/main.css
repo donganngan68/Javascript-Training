@@ -9,8 +9,7 @@
 .main {
   position: absolute;
   width: 968px;
-  left: 50%;
-  transform: translate(-50%, 0%);
+  transform: translate(50%, 30%);
   border: 1px solid #000;
   border-radius: 10px;
   padding: 30px 22px 41px 38px;
