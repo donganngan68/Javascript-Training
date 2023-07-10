@@ -1,9 +1,7 @@
-/* Commons component styles */
-@import url("./common/all.css");
-
 /* Components styles */
 @import url("./status-action.css");
 @import url("./modal-customer.css");
 @import url("./table-customer.css");
 @import url("./container.css");
 @import url("./form.css");
+@import url(./button.css);
