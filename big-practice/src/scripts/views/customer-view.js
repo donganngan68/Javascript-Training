@@ -8,6 +8,8 @@ class CustomerView {
     this.iconCancel = document.querySelector('.icon-cancel');
     this.btnCancel = document.querySelector('.btn-secondary');
     this.formCustomer = document.querySelector('.form-customer');
+    this.inputTitle = document.querySelectorAll('.input-title');
+    this.messInvalidForm = document.querySelectorAll('.mess-invalid-form');
 
     const showCustomerModal = () => {
       this.modalCustomer.style.display = 'block';
@@ -15,12 +17,40 @@ class CustomerView {
 
     const hideCustomerModal = () => {
       this.modalCustomer.style.display = 'none';
+      resetFormInputs();
     };
 
     const handleOutsideClick = (event) => {
       if (!this.formCustomer.contains(event.target)) {
         hideCustomerModal();
+        resetFormInputs();
       }
+    };
+
+    this.inputTitle.forEach((itemInput, i) => {
+      const showMessInvalid = (event) => {
+        if (!event.target.value) {
+          this.messInvalidForm[i].style.display = 'block';
+          itemInput.style.border = '1px solid #f00';
+        } else {
+          this.messInvalidForm[i].style.display = 'none';
+          itemInput.style.border = '1px solid #000';
+        }
+      };
+
+      itemInput.addEventListener('blur', showMessInvalid);
+      itemInput.addEventListener('input', showMessInvalid);
+    })
+
+    const resetFormInputs = () => {
+      this.inputTitle.forEach(input => {
+        input.value = '';
+        input.style.border = '1px solid #000';
+      });
+
+      this.messInvalidForm.forEach(mess => {
+        mess.style.display = 'none';
+      });
     };
 
     this.iconAddCustomer.addEventListener('click', showCustomerModal);

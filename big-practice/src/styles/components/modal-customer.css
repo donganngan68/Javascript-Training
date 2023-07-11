@@ -66,3 +66,20 @@
   font-weight: var(--fw-medium);
   line-height: 24px;
 }
+
+.name-customer:after {
+  content: '*';
+  color: var(--mess-color);
+}
+
+.mess-invalid-form {
+  display: none;
+  padding-bottom: 9px;
+  margin-top: -30px;
+  color: var(--mess-color);
+  font-family: var(--secondary-font);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: var(--fw-medium);
+  line-height: 24px;
+}
