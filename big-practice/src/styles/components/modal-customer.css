@@ -37,7 +37,7 @@
   grid-template-columns: auto auto;
 }
 
-.name-customer {
+.form-field {
   color: var(--accent-color);
   font-size: 20px;
   font-family: var(--secondary-font);
@@ -47,7 +47,7 @@
   padding-bottom: 19px;
 }
 
-.input-title {
+.input-control {
   width: 350px;
   height: 60px;
   border: 1px solid #000;
@@ -67,13 +67,13 @@
   line-height: 24px;
 }
 
-.name-customer:after {
+.form-field:after {
   content: '*';
   color: var(--mess-color);
 }
 
 .mess-invalid-form {
-  display: none;
+  display: block;
   padding-bottom: 9px;
   margin-top: -30px;
   color: var(--mess-color);
