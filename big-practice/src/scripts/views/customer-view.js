@@ -10,11 +10,11 @@ class CustomerView {
     this.formCustomer = document.querySelector('.form-customer');
 
     const showCustomerModal = () => {
-      this.modalCustomer.style.display = "block";
+      this.modalCustomer.style.display = 'block';
     };
 
     const hideCustomerModal = () => {
-      this.modalCustomer.style.display = "none";
+      this.modalCustomer.style.display = 'none';
     };
 
     const handleOutsideClick = (event) => {
@@ -23,13 +23,13 @@ class CustomerView {
       }
     };
 
-    this.iconAddCustomer.addEventListener("click", showCustomerModal);
+    this.iconAddCustomer.addEventListener('click', showCustomerModal);
 
-    this.iconCancel.addEventListener("click", hideCustomerModal);
+    this.iconCancel.addEventListener('click', hideCustomerModal);
 
-    this.btnCancel.addEventListener("click", hideCustomerModal);
+    this.btnCancel.addEventListener('click', hideCustomerModal);
 
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
   }
 
   renderData(list) {
