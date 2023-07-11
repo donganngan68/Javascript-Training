@@ -2,7 +2,34 @@ import imgDot from '../../assets/images/dot.png';
 
 class CustomerView {
   constructor() {
-    this.table = document.querySelector('.table-customer .table-customer-body');
+    this.table = document.querySelector('.table-customer-body');
+    this.iconAddCustomer = document.querySelector('.icon-add-modal');
+    this.modalCustomer = document.querySelector('.modal-customer');
+    this.iconCancel = document.querySelector('.icon-cancel');
+    this.btnCancel = document.querySelector('.btn-secondary');
+    this.formCustomer = document.querySelector('.form-customer');
+
+    const showCustomerModal = () => {
+      this.modalCustomer.style.display = 'block';
+    };
+
+    const hideCustomerModal = () => {
+      this.modalCustomer.style.display = 'none';
+    };
+
+    const handleOutsideClick = (event) => {
+      if (!this.formCustomer.contains(event.target)) {
+        hideCustomerModal();
+      }
+    };
+
+    this.iconAddCustomer.addEventListener('click', showCustomerModal);
+
+    this.iconCancel.addEventListener('click', hideCustomerModal);
+
+    this.btnCancel.addEventListener('click', hideCustomerModal);
+
+    document.addEventListener('mousedown', handleOutsideClick);
   }
 
   renderData(list) {

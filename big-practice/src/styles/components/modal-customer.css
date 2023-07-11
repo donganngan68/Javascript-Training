@@ -3,7 +3,7 @@
   width: 868px;
   height: auto;
   position: absolute;
-  top: 0;
+  top: 10%;
   background-color: var(--bg-color);
   border: 1px solid #000;
   border-radius: 20px;
@@ -32,7 +32,7 @@
   padding-bottom: 52px;
 }
 
-.sign-form {
+.input-form-wrapper {
   display: grid;
   grid-template-columns: auto auto;
 }
@@ -65,20 +65,4 @@
   font-style: normal;
   font-weight: var(--fw-medium);
   line-height: 24px;
-}
-
-.btn-action-group {
-  display: flex;
-  justify-content: center;
-  padding-top: 115px;
-  padding-bottom: 87px;
-}
-
-.btn-primary {
-  background-color: #377def;
-  margin-right: 64px;
-}
-
-.btn-secondary {
-  background-color: var(--secondary-color);
 }
