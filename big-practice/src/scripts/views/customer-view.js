@@ -1,47 +1,48 @@
 import imgDot from '../../assets/images/dot.png'
-
+import { getElementById, querySelector, querySelectorAll } from '../../utils/get-element'
 class CustomerView {
   constructor() {
-    this.table = document.querySelector('.table-customer-body')
-    this.iconAddCustomer = document.querySelector('.icon-add-modal')
-    this.modalCustomer = document.querySelector('.modal-customer')
-    this.iconCancel = document.querySelector('.icon-cancel')
-    this.btnCancel = document.querySelector('.btn-secondary')
-    this.formCustomer = document.querySelector('.form-customer')
-    this.inputTitle = document.querySelectorAll('.input-title')
-    this.countrySelect = document.getElementById('country')
-    this.inputFields = this.modalCustomer.querySelectorAll('input');
-    this.errorMessages = this.modalCustomer.querySelectorAll('.mess-invalid-form')
-
-    const showCustomerModal = () => {
-      this.modalCustomer.style.display = 'block';
-    }
-
-    const hideCustomerModal = () => {
-      this.countrySelect.selectedIndex = 0;
-      this.inputFields.forEach(function (input) {
-        input.value = '';
-      });
-      this.errorMessages.forEach(function (error) {
-        error.textContent = '';
-      });
-      this.modalCustomer.style.display = 'none';
-    }
-
-    const handleOutsideClick = (event) => {
-      if (!this.formCustomer.contains(event.target)) {
-        hideCustomerModal();
-      }
-    }
-
-    this.iconAddCustomer.addEventListener('click', showCustomerModal);
-
-    this.iconCancel.addEventListener('click', hideCustomerModal);
-
-    this.btnCancel.addEventListener('click', hideCustomerModal);
-
-    document.addEventListener('mousedown', handleOutsideClick);
+    this.table = querySelector('.table-customer-body');
+    this.iconAddCustomer = querySelector('.icon-add-modal');
+    this.modalCustomer = querySelector('.modal-customer');
+    this.iconCancel = querySelector('.icon-cancel');
+    this.btnCancel = querySelector('.btn-secondary');
+    this.formCustomer = querySelector('.form-customer');
+    this.countrySelect = getElementById('country');
+    this.inputFields = querySelectorAll('.input-control', this.modalCustomer);
+    this.errorMessages = querySelectorAll('.mess-invalid-form', this.modalCustomer);
+    this.form = document.querySelector('.modal-customer');
+    this.form.addEventListener('submit', this.handleSubmit);
   }
+
+  init() {
+    this.iconAddCustomer.addEventListener('click', this.showCustomerModal.bind(this));
+    this.iconCancel.addEventListener('click', this.hideCustomerModal.bind(this));
+    this.btnCancel.addEventListener('click', this.hideCustomerModal.bind(this));
+    document.addEventListener('mousedown', this.handleOutsideClick.bind(this));
+  }
+
+  showCustomerModal = () => {
+    this.modalCustomer.classList.add('show');
+  }
+
+  hideCustomerModal = () => {
+    this.countrySelect.selectedIndex = 0;
+    this.inputFields.forEach(function (input) {
+      input.value = '';
+    });
+    this.errorMessages.forEach(function (error) {
+      error.textContent = '';
+    });
+    this.modalCustomer.classList.remove('show');
+  }
+
+  handleOutsideClick = (event) => {
+    if (!this.formCustomer.contains(event.target)) {
+      this.hideCustomerModal();
+    }
+  }
+
 
   renderData(list) {
     const html = list.map(
@@ -63,4 +64,5 @@ class CustomerView {
     this.table.innerHTML = html.join('');
   }
 }
+
 export default CustomerView;
