@@ -7,8 +7,8 @@ export class App {
 
     startApp() {
         // Init the customer controller
-        const customerController = new CustomerController(new CustomerView(), new CustomerService());
+      const customerController = new CustomerController(new CustomerView(), new CustomerService());
 
-        customerController.init();
+      customerController.init();
     }
 }

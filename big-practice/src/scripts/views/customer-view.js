@@ -1,5 +1,5 @@
-import imgDot from '../../assets/images/dot.png'
-import { getElementById, querySelector, querySelectorAll } from '../../utils/get-element'
+import imgDot from '../../assets/images/dot.png';
+import { getElementById, querySelector, querySelectorAll } from '../../utils/get-element';
 class CustomerView {
   constructor() {
     this.table = querySelector('.table-customer-body');
@@ -12,7 +12,23 @@ class CustomerView {
     this.inputFields = querySelectorAll('.input-control', this.modalCustomer);
     this.errorMessages = querySelectorAll('.mess-invalid-form', this.modalCustomer);
     this.form = document.querySelector('.modal-customer');
-    this.form.addEventListener('submit', this.handleSubmit);
+  }
+
+  getCustomer() {
+    const name = this.form.querySelector('#name').value;
+    const company = this.form.querySelector('#company').value;
+    const phone = this.form.querySelector('#phone').value;
+    const email = this.form.querySelector('#email').value;
+    const country = this.form.querySelector('#country').value;
+    const status = this.form.querySelector('.on-off-input').checked;
+    return {
+      name,
+      company,
+      phone,
+      email,
+      country,
+      status,
+    }
   }
 
   init() {
@@ -24,13 +40,13 @@ class CustomerView {
 
   showCustomerModal = () => {
     this.modalCustomer.classList.add('show');
-    this.inputFields.classList.add('border');
   }
 
   hideCustomerModal = () => {
     this.countrySelect.selectedIndex = 0;
     this.inputFields.forEach(function (input) {
       input.value = '';
+      input.classList.remove('valid-check');
     });
     this.errorMessages.forEach(function (error) {
       error.textContent = '';
@@ -46,19 +62,24 @@ class CustomerView {
 
   renderData(list) {
     const html = list.map(
-      (customer) => `
+      (customer) => {
+        const {name, company, phone, email, country, status} = customer;
+        const customerStatus = status === true ? 'Active' : 'Inactive';
+        const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
+        return  `
         <tr class="table-body">
-          <td class="table-data">${customer.name}</td>
-          <td class="table-data">${customer.company}</td>
-          <td class="table-data">${customer.phone}</td>
-          <td class="table-data">${customer.email}</td>
-          <td class="table-data">${customer.country}</td>
+          <td class="table-data">${name}</td>
+          <td class="table-data">${company}</td>
+          <td class="table-data">${phone}</td>
+          <td class="table-data">${email}</td>
+          <td class="table-data">${country}</td>
           <td class="table-data table-data-icon">
-            <button class="btn-active">Active</button>
+            <button class='${btnStatusClassName}'>${customerStatus}</button>
             <img src="${imgDot}" alt="icon for click del or edit">
           </td>
         </tr>
       `
+      }
     )
 
     this.table.innerHTML = html.join('');

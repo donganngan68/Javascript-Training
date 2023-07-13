@@ -1,9 +1,2 @@
-export const BASE_URL = 'https://649ed887245f077f3e9cfdc5.mockapi.io/ngan/';
-export const errorName = 'The customer name is required';
-export const errorNameRegex = 'Please enter a valid customer name';
-export const errorPhone = 'The phone number is required';
-export const errorPhoneRegex = 'Please enter a valid phone number';
-export const errorCompany = 'The company name is required';
-export const errorEmail = 'The email is required';
-export const errorEmailRegex = 'Please enter a valid email';
-export const errorCountry = 'The country is required';
+export const BASE_URL = 'https://64a67a49096b3f0fcc7fda51.mockapi.io/ngando/';
+

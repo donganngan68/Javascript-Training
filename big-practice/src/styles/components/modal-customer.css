@@ -5,7 +5,7 @@
   position: absolute;
   top: 10%;
   background-color: var(--bg-color);
-  border: 1px solid #000;
+  border: 1px solid var(--primary-color);
   border-radius: 20px;
   margin-top: 50px;
   padding: 52px 47px 0 50px;
@@ -86,8 +86,4 @@
 
 .valid-check {
   border: 1px solid var(--mess-color);
-}
-
-.border {
-  border: 1px solid var(--primary-color);
 }

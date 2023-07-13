@@ -1,15 +1,15 @@
-import { errorName, errorNameRegex, errorPhoneRegex, errorPhone,  errorCompany, errorEmail, errorEmailRegex, errorCountry } from '../../constants/url';
+import { errorName, errorNameRegex, errorPhoneRegex, errorPhone,  errorCompany, errorEmail, errorEmailRegex, errorCountry } from '../../constants/errorMessages';
 
 class CustomerController {
   constructor(view, service) {
-    this.view = view
-    this.service = service
+    this.view = view;
+    this.service = service;
+    Object.assign(this, this.view);
   }
 
   init = () => {
-    this.handleRenderTable()
-    this.view.init()
-    this.form = document.querySelector('.modal-customer');
+    this.handleRenderTable();
+    this.view.init();
     this.form.addEventListener('submit', this.handleSubmit);
   }
 
@@ -28,7 +28,7 @@ class CustomerController {
     let isValid = true;
 
     // Regular expression to validate the customer name
-    const nameRegex = /^[a-zA-Z\s]{2,30}$/
+    const nameRegex = /^[a-zA-Z\s]{6,30}$/
     // - The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
     // - [a-zA-Z\s] matches any uppercase or lowercase letter or whitespace character.
     // - {2,30} specifies that the name should have a length between 2 and 30 characters.
@@ -69,7 +69,7 @@ class CustomerController {
     // - [1-9] matches any digit from 1 to 9, ensuring the second digit is not 0.
     // - [0-9]{8} matches exactly eight digits from 0 to 9, ensuring the total length of the phone number is 10 digits.
     // Therefore, this regex pattern helps validate whether a string represents a valid phone number starting with 0 and having a total of 10 digits.
-    
+
     if (phoneInput.value.trim() === '') {
       isValid = false;
       phoneError.textContent = `${errorPhone}`;
@@ -119,34 +119,16 @@ class CustomerController {
 
     return isValid;
   }
-  
+
   handleSubmit = async (event) => {
     event.preventDefault();
     if (!this.validateForm(event)) {
       return false;
     }
 
-    const name = this.form.querySelector('#name').value;
-    const company = this.form.querySelector('#company').value;
-    const phone = this.form.querySelector('#phone').value;
-    const email = this.form.querySelector('#email').value;
-    const country = this.form.querySelector('#country').value;
-    const status = this.form.querySelector('.on-off-input').checked;
-
-    const customer = {
-      name,
-      company,
-      phone,
-      email,
-      country,
-      status,
-    }
-
     try {
-      await this.service.createCustomer(customer);
-      this.form.reset();
-      this.inputFields.reset();
-      this.form.style.display = 'none';
+      await this.service.createCustomer(this.view.getCustomer());
+      this.form.classList.remove('show');
       this.handleRenderTable();
     } catch (error) {
       console.error('Error creating customer:', error); // TODO: update later
