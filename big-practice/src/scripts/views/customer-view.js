@@ -16,14 +16,15 @@ class CustomerView {
   }
 
   init() {
-    this.iconAddCustomer.addEventListener('click', this.showCustomerModal.bind(this));
-    this.iconCancel.addEventListener('click', this.hideCustomerModal.bind(this));
-    this.btnCancel.addEventListener('click', this.hideCustomerModal.bind(this));
-    document.addEventListener('mousedown', this.handleOutsideClick.bind(this));
+    this.iconAddCustomer.addEventListener('click', this.showCustomerModal);
+    this.iconCancel.addEventListener('click', this.hideCustomerModal);
+    this.btnCancel.addEventListener('click', this.hideCustomerModal);
+    document.addEventListener('mousedown', this.handleOutsideClick);
   }
 
   showCustomerModal = () => {
     this.modalCustomer.classList.add('show');
+    this.inputFields.classList.add('border');
   }
 
   hideCustomerModal = () => {
@@ -42,7 +43,6 @@ class CustomerView {
       this.hideCustomerModal();
     }
   }
-
 
   renderData(list) {
     const html = list.map(
