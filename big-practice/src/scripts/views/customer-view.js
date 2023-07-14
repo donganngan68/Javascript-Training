@@ -14,6 +14,8 @@ class CustomerView {
     this.form = querySelector('.modal-customer');
     this.successSnackbar = querySelector('.valid-snackbar');
     this.wrongSnackbar = querySelector('.wrong-snackbar');
+    this.snackbarCustomer = querySelector('.snackbar-customer');
+    this.imgDot = querySelector('.img-dot-customer');
 
     this.nameInput = getElementById('name');
     this.nameError = getElementById('name-error');
@@ -48,6 +50,7 @@ class CustomerView {
     this.iconCancel.addEventListener('click', this.hideCustomerModal);
     this.btnCancel.addEventListener('click', this.hideCustomerModal);
     document.addEventListener('mousedown', this.handleOutsideClick);
+    this.imgDot.addEventListener('click', this.showActionButton);
   }
 
   showCustomerModal = () => {
@@ -72,6 +75,10 @@ class CustomerView {
     }
   }
 
+  showActionButton = () => {
+    this.snackbarCustomer.style.visibility = 'visible';
+  }
+
   renderData(list) {
     const html = list.map(
       (customer) => {
@@ -86,8 +93,12 @@ class CustomerView {
           <td class="table-data">${email}</td>
           <td class="table-data">${country}</td>
           <td class="table-data table-data-icon">
-            <button class='${btnStatusClassName}'>${customerStatus}</button>
-            <img src="${imgDot}" alt="icon for click del or edit">
+            <button class="${btnStatusClassName}">${customerStatus}</button>
+            <img class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
+            <div class="snackbar-customer">
+              <button class="action-btn">Edit</button>
+              <button class="action-btn">Remove</button>
+            </div>
           </td>
         </tr>
       `
