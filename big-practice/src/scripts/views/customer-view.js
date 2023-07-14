@@ -1,5 +1,5 @@
 import imgDot from '../../assets/images/dot.png';
-import { getElementById, querySelector, querySelectorAll } from '../../utils/get-element';
+import { getElementById, querySelector, querySelectorAll } from '../../dom-helpers/get-element';
 class CustomerView {
   constructor() {
     this.table = querySelector('.table-customer-body');
@@ -11,16 +11,28 @@ class CustomerView {
     this.countrySelect = getElementById('country');
     this.inputFields = querySelectorAll('.input-control', this.modalCustomer);
     this.errorMessages = querySelectorAll('.mess-invalid-form', this.modalCustomer);
-    this.form = document.querySelector('.modal-customer');
+    this.form = querySelector('.modal-customer');
+    this.successSnackbar = querySelector('.valid-snackbar');
+    this.wrongSnackbar = querySelector('.wrong-snackbar');
+
+    this.nameInput = getElementById('name');
+    this.nameError = getElementById('name-error');
+    this.companyInput = getElementById('company');
+    this.companyError = getElementById('company-error');
+    this.phoneInput = getElementById('phone');
+    this.phoneError = getElementById('phone-error');
+    this.emailInput = getElementById('email');
+    this.emailError = getElementById('email-error');
+    this.countryError = getElementById('country-error');
   }
 
   getCustomer() {
-    const name = this.form.querySelector('#name').value;
-    const company = this.form.querySelector('#company').value;
-    const phone = this.form.querySelector('#phone').value;
-    const email = this.form.querySelector('#email').value;
-    const country = this.form.querySelector('#country').value;
-    const status = this.form.querySelector('.on-off-input').checked;
+    const name = querySelector('#name', this.form).value;
+    const company = querySelector('#company', this.form).value;
+    const phone = querySelector('#phone', this.form).value;
+    const email = querySelector('#email', this.form).value;
+    const country = querySelector('#country', this.form).value;
+    const status = querySelector('.on-off-input', this.form).checked;
     return {
       name,
       company,

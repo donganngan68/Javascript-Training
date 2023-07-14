@@ -1,0 +1,43 @@
+.valid-snackbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--valid-snackbar);
+  width: 449px;
+  height: 52px;
+  border-radius: 16px;
+  color: #fff;
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: var(--fw-semibold);
+  line-height: 24px;
+  letter-spacing: -0.14px;
+  position: absolute;
+  top: 3%;
+  left: 52%;
+  visibility: hidden;
+}
+
+.wrong-snackbar {
+  display: flex;
+  align-items: center;
+  padding-left: 18px;
+  gap: 18px;
+  border-radius: 16px;
+  background: var(--wrong-snackbar);
+  width: 341px;
+  height: 52px;
+  color: #fff;
+  font-family: var(--secondary-font);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: var(--fw-semibold);
+  line-height: 24px;
+  letter-spacing: -0.14px;
+  position: absolute;
+  top: 5%;
+  left: 55%;
+  visibility: hidden;
+}
+

@@ -1,4 +1,4 @@
-import { errorName, errorNameRegex, errorPhoneRegex, errorPhone,  errorCompany, errorEmail, errorEmailRegex, errorCountry } from '../../constants/errorMessages';
+import { NAME_REQUIRED_ERROR_MESSAGE, INVALID_NAME_ERROR_MESSAGE, INVALID_PHONE_ERROR_MESSAGE, PHONE_REQUIRED_ERROR_MESSAGE,  COMPANY_REQUIRED_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, COUNTRY_REQUIRED_ERROR_MESSAGE } from '../../constants/error-messages';
 
 class CustomerController {
   constructor(view, service) {
@@ -23,97 +23,95 @@ class CustomerController {
   }
 
   validateForm() {
-    let nameInput = document.getElementById('name');
-    let nameError = document.getElementById('name-error');
     let isValid = true;
 
     // Regular expression to validate the customer name
-    const nameRegex = /^[a-zA-Z\s]{6,30}$/
-    // - The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
-    // - [a-zA-Z\s] matches any uppercase or lowercase letter or whitespace character.
-    // - {2,30} specifies that the name should have a length between 2 and 30 characters.
-    // Therefore, this regex pattern helps validate whether a string represents a valid name containing only letters and spaces, with a length between 2 and 30 characters.
+    const nameRegex = /^[a-zA-Z\s]{6,30}$/;
+    /**
+     * The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
+     * [a-zA-Z\s] matches any uppercase or lowercase letter or whitespace character.
+     * {6,30} specifies that the name should have a length between 2 and 30 characters.
+     * Therefore, this regex pattern helps validate whether a string represents a valid name containing only letters and spaces, with a length between 2 and 30 characters.
+    */
 
-    if (nameInput.value.trim() === '') {
+    if (this.nameInput.value.trim() === '') {
       isValid = false;
-      nameError.textContent = `${errorName}`;
-      nameInput.classList.add('valid-check');
-    } else if (!nameInput.value.match(nameRegex)) {
+      this.nameError.textContent = `${NAME_REQUIRED_ERROR_MESSAGE}`;
+      this.nameInput.classList.add('valid-check');
+    } else if (!this.nameInput.value.match(nameRegex)) {
       isValid = false;
-      nameError.textContent = `${errorNameRegex}`;
-      nameInput.classList.add('valid-check');
+      this.nameError.textContent = `${INVALID_NAME_ERROR_MESSAGE}`;
+      this.nameInput.classList.add('valid-check');
     } else {
-      nameError.textContent = '';
-      nameInput.classList.remove('valid-check');
+      this.nameError.textContent = '';
+      this.nameInput.classList.remove('valid-check');
     }
 
-    let companyInput = document.getElementById('company');
-    let companyError = document.getElementById('company-error');
-    if (companyInput.value.trim() === '') {
+    if (this.companyInput.value.trim() === '') {
       isValid = false;
-      companyError.textContent = `${errorCompany}`;
-      companyInput.classList.add('valid-check');
+      this.companyError.textContent = `${COMPANY_REQUIRED_ERROR_MESSAGE}`;
+      this.companyInput.classList.add('valid-check');
     } else {
-      companyError.textContent = '';
-      companyInput.classList.remove('valid-check');
+      this.companyError.textContent = '';
+      this.companyInput.classList.remove('valid-check');
 
     }
-
-    let phoneInput = document.getElementById('phone');
-    let phoneError = document.getElementById('phone-error');
 
     // Regular expression to validate the phone number (start with 0 and no additional zeros after the initial zero)
     const phoneRegex = /^0[1-9][0-9]{8}$/;
-    // - The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
-    // - 0 matches the digit 0 at the beginning of the phone number.
-    // - [1-9] matches any digit from 1 to 9, ensuring the second digit is not 0.
-    // - [0-9]{8} matches exactly eight digits from 0 to 9, ensuring the total length of the phone number is 10 digits.
-    // Therefore, this regex pattern helps validate whether a string represents a valid phone number starting with 0 and having a total of 10 digits.
+    /**
+     * The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
+     * 0 matches the digit 0 at the beginning of the phone number.
+     * [1-9] matches any digit from 1 to 9, ensuring the second digit is not 0.
+     * [0-9]{8} matches exactly eight digits from 0 to 9, ensuring the total length of the phone number is 10 digits.
+     * Therefore, this regex pattern helps validate whether a string represents a valid phone number starting with 0 and having a total of 10 digits.
+    */
 
-    if (phoneInput.value.trim() === '') {
+    if (this.phoneInput.value.trim() === '') {
       isValid = false;
-      phoneError.textContent = `${errorPhone}`;
-      phoneInput.classList.add('valid-check');
-    } else if (!phoneInput.value.match(phoneRegex)) {
+      this.phoneError.textContent = `${PHONE_REQUIRED_ERROR_MESSAGE}`;
+      this.phoneInput.classList.add('valid-check');
+    } else if (!this.phoneInput.value.match(phoneRegex)) {
       isValid = false;
-      phoneError.textContent = `${errorPhoneRegex}`;
-      phoneInput.classList.add('valid-check');
+      this.phoneError.textContent = `${INVALID_PHONE_ERROR_MESSAGE}`;
+      this.phoneInput.classList.add('valid-check');
     } else {
-      phoneError.textContent = '';
-      phoneInput.classList.remove('valid-check');
+      this.phoneError.textContent = '';
+      this.phoneInput.classList.remove('valid-check');
     }
-
-    let emailInput = document.getElementById('email');
-    let emailError = document.getElementById('email-error');
 
     // Regular expression pattern to validate an email address
-    const emailRegex = /^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}$/ ;
-    // - The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
-    // - [\w\.-]+ matches one or more word characters (a-z, A-Z, 0-9, or _) or dots (.) or hyphens (-) before the @ symbol.
-    // - @[a-zA-Z0-9-]+ matches the @ symbol followed by one or more alphanumeric characters or hyphens before the dot.
-    // - \.[a-zA-Z]{2,4} matches a dot followed by two to four uppercase or lowercase letters.
-    // Therefore, this regex pattern helps validate whether a string represents a valid email address.
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    /**
+     * ^ asserts the start of the string.
+     * [a-zA-Z0-9._%+-]+ matches one or more alphanumeric characters, dots, underscores, percentage signs, plus signs, or hyphens.
+     *  This represents the username part of the email address.
+     * '@' matches the "@" symbol.
+     * '[a-zA-Z0-9.-]+' matches one or more alphanumeric characters, dots, or hyphens. This represents the domain name part of the email address.
+     * '\.' matches a dot character. We need to escape it with a backslash since the dot has a special meaning in regex.
+     * '[a-zA-Z]{2,}' matches two or more letters. This represents the top-level domain (TLD) part of the email address.
+     * '$' asserts the end of the string.
+    */
 
-    if (emailInput.value.trim() === ''){
+    if (this.emailInput.value.trim() === ''){
       isValid = false;
-      emailError.textContent = `${errorEmail}`;
-      emailInput.classList.add('valid-check');
-    } else if (!emailInput.value.match(emailRegex)) {
+      this.emailError.textContent = `${EMAIL_REQUIRED_ERROR_MESSAGE}`;
+      this.emailInput.classList.add('valid-check');
+    } else if (!this.emailInput.value.match(emailRegex)) {
       isValid = false;
-      emailError.textContent = `${errorEmailRegex}`;
-      emailInput.classList.add('valid-check');
+      this.emailError.textContent = `${INVALID_EMAIL_ERROR_MESSAGE}`;
+      this.emailInput.classList.add('valid-check');
     } else {
-      emailError.textContent = '';
-      emailInput.classList.remove('valid-check');
+      this.emailError.textContent = '';
+      this.emailInput.classList.remove('valid-check');
     }
 
-    let countryError = document.getElementById('country-error');
     if (country.value === '') {
       isValid = false;
-      countryError.textContent = `${errorCountry}`;
+      this.countryError.textContent = `${COUNTRY_REQUIRED_ERROR_MESSAGE}`;
       country.classList.add('valid-check');
     } else {
-      countryError.textContent = '';
+      this.countryError.textContent = '';
       country.classList.remove('valid-check');
     }
 
@@ -130,8 +128,16 @@ class CustomerController {
       await this.service.createCustomer(this.view.getCustomer());
       this.form.classList.remove('show');
       this.handleRenderTable();
+      this.successSnackbar.style.visibility = 'visible';
+      setTimeout(() => {
+        this.successSnackbar.style.visibility = 'hidden';
+      }, 3000);
     } catch (error) {
       console.error('Error creating customer:', error); // TODO: update later
+      this.wrongSnackbar.style.visibility = 'visible';
+      setTimeout(() => {
+        this.wrongSnackbar.style.visibility = 'hidden';
+      }, 3000);
     }
   }
 }
