@@ -15,7 +15,6 @@ class CustomerView {
     this.successSnackbar = querySelector('.valid-snackbar');
     this.wrongSnackbar = querySelector('.wrong-snackbar');
     this.snackbarCustomer = querySelector('.snackbar-customer');
-    this.imgDot = querySelector('.img-dot-customer');
 
     this.nameInput = getElementById('name');
     this.nameError = getElementById('name-error');
@@ -50,7 +49,6 @@ class CustomerView {
     this.iconCancel.addEventListener('click', this.hideCustomerModal);
     this.btnCancel.addEventListener('click', this.hideCustomerModal);
     document.addEventListener('mousedown', this.handleOutsideClick);
-    this.imgDot.addEventListener('click', this.showActionButton);
   }
 
   showCustomerModal = () => {
@@ -74,15 +72,11 @@ class CustomerView {
       this.hideCustomerModal();
     }
   }
-
-  showActionButton = () => {
-    this.snackbarCustomer.style.visibility = 'visible';
-  }
-
+  
   renderData(list) {
     const html = list.map(
       (customer) => {
-        const {name, company, phone, email, country, status} = customer;
+        const {id, name, company, phone, email, country, status} = customer;
         const customerStatus = status === true ? 'Active' : 'Inactive';
         const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
         return  `
@@ -94,8 +88,8 @@ class CustomerView {
           <td class="table-data">${country}</td>
           <td class="table-data table-data-icon">
             <button class="${btnStatusClassName}">${customerStatus}</button>
-            <img class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
-            <div class="snackbar-customer">
+            <img id="image-${id}" class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
+            <div id="action-panel-${id}" class="action-panel show">
               <button class="action-btn">Edit</button>
               <button class="action-btn">Remove</button>
             </div>

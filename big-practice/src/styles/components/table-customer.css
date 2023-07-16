@@ -114,6 +114,18 @@
   align-items: center;
 }
 
+.action-panel {
+  visibility: hidden;
+  position: absolute;
+  width: 111px;
+  height: 71px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  top: 10%;
+  right: -10%;
+}
+
 .data-summary {
   color: var(--secondary-color);
   font-family: var(--primary-font);
@@ -144,3 +156,4 @@
   margin-right: 10px;
   color: #404b52;
 }
+
