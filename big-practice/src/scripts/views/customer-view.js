@@ -14,8 +14,8 @@ class CustomerView {
     this.form = querySelector('.modal-customer');
     this.successSnackbar = querySelector('.valid-snackbar');
     this.wrongSnackbar = querySelector('.wrong-snackbar');
-    this.snackbarCustomer = querySelector('.snackbar-customer');
-    this.actionPanel = querySelector('.action-panel');
+    // this.snackbarCustomer = querySelector('.snackbar-customer');
+    // this.actionPanel = querySelector('.action-panel');
 
     this.nameInput = getElementById('name');
     this.nameError = getElementById('name-error');
@@ -26,6 +26,7 @@ class CustomerView {
     this.emailInput = getElementById('email');
     this.emailError = getElementById('email-error');
     this.countryError = getElementById('country-error');
+    this.customerTable = getElementById('customer-table');
   }
 
   getCustomer() {
@@ -50,6 +51,39 @@ class CustomerView {
     this.iconCancel.addEventListener('click', this.hideCustomerModal);
     this.btnCancel.addEventListener('click', this.hideCustomerModal);
     document.addEventListener('mousedown', this.handleOutsideClick);
+    this.table.addEventListener('click', (e) => {
+      const currentItem = e.target?.getAttribute('data-option-id');
+
+      const editItemId = e.target?.getAttribute('data-edit-id');
+
+      const removeItemId = e.target?.getAttribute('data-remove-id');
+
+      const isKeepActionsPanel = !!editItemId || !!removeItemId;
+
+      // TODO: Refactor this
+      const actionsPanel = document.querySelectorAll('div[data-actions-id]');
+
+      if (editItemId) {
+        console.log(`Action edit: ${editItemId}`);
+      }
+
+      if (removeItemId) {
+        console.log(`Remove edit: ${removeItemId}`);
+      }
+
+      actionsPanel.forEach(nodeItem => {
+        const panelId = nodeItem.getAttribute('data-actions-id');
+
+        if (currentItem === panelId) {
+          nodeItem.style.visibility = nodeItem.style.visibility === "visible" ? "hidden" : "visible";
+        } else {
+          // TODO: Refactor this condition
+          if (!isKeepActionsPanel) {
+            nodeItem.style.visibility = "hidden";
+          }
+        }
+      })
+    })
   }
 
   showCustomerModal = () => {
@@ -74,16 +108,6 @@ class CustomerView {
     }
   }
 
-  showActionButton = (id) => {
-    const actionBtn = document.querySelectorAll('.table-data-icon');
-    // actionBtn.map(action => action.addEventListener('click', console.log(action)))
-    console.log(typeof(actionBtn));
-    // actionBtn.addEventListener('click', () => {
-    // })
-    this.table.addEventListener('click', (e) => {
-    });
-  }
-
   renderData(list) {
     let result = ''
     list.map(
@@ -92,7 +116,7 @@ class CustomerView {
         const customerStatus = status === true ? 'Active' : 'Inactive';
         const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
         result += `
-        <tr class="table-body">
+        <tr class="table-body" id="customer-table">
           <td class="table-data">${name}</td>
           <td class="table-data">${company}</td>
           <td class="table-data">${phone}</td>
@@ -100,16 +124,15 @@ class CustomerView {
           <td class="table-data">${country}</td>
           <td class="table-data table-data-icon">
             <button class="${btnStatusClassName}">${customerStatus}</button>
-            <img id="data-${id}" class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
-            <div class="action-panel">
-              <button class="action-btn">Edit</button>
-              <button class="action-btn">Remove</button>
+            <img data-option-id="${id}" class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
+            <div data-actions-id="${id}" class="action-panel">
+              <button data-edit-id="${id}" class="action-btn">Edit</button>
+              <button data-remove-id="${id}" class="action-btn">Remove</button>
             </div>
           </td>
         </tr>
       `
       this.table.innerHTML = result;
-      this.showActionButton(id)
       }
     )
   }
