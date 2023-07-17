@@ -15,6 +15,7 @@ class CustomerView {
     this.successSnackbar = querySelector('.valid-snackbar');
     this.wrongSnackbar = querySelector('.wrong-snackbar');
     this.snackbarCustomer = querySelector('.snackbar-customer');
+    this.actionPanel = querySelector('.action-panel');
 
     this.nameInput = getElementById('name');
     this.nameError = getElementById('name-error');
@@ -72,14 +73,25 @@ class CustomerView {
       this.hideCustomerModal();
     }
   }
-  
+
+  showActionButton = (id) => {
+    const actionBtn = document.querySelectorAll('.table-data-icon');
+    // actionBtn.map(action => action.addEventListener('click', console.log(action)))
+    console.log(typeof(actionBtn));
+    // actionBtn.addEventListener('click', () => {
+    // })
+    this.table.addEventListener('click', (e) => {
+    });
+  }
+
   renderData(list) {
-    const html = list.map(
+    let result = ''
+    list.map(
       (customer) => {
-        const {id, name, company, phone, email, country, status} = customer;
+        const { name, company, phone, email, country, status, id } = customer;
         const customerStatus = status === true ? 'Active' : 'Inactive';
         const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
-        return  `
+        result += `
         <tr class="table-body">
           <td class="table-data">${name}</td>
           <td class="table-data">${company}</td>
@@ -88,18 +100,18 @@ class CustomerView {
           <td class="table-data">${country}</td>
           <td class="table-data table-data-icon">
             <button class="${btnStatusClassName}">${customerStatus}</button>
-            <img id="image-${id}" class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
-            <div id="action-panel-${id}" class="action-panel show">
+            <img id="data-${id}" class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
+            <div class="action-panel">
               <button class="action-btn">Edit</button>
               <button class="action-btn">Remove</button>
             </div>
           </td>
         </tr>
       `
+      this.table.innerHTML = result;
+      this.showActionButton(id)
       }
     )
-
-    this.table.innerHTML = html.join('');
   }
 }
 
