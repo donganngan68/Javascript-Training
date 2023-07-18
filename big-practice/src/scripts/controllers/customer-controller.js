@@ -11,20 +11,13 @@ class CustomerController {
     this.handleRenderTable();
     this.view.init();
     this.form.addEventListener('submit', this.handleSubmit);
+    this.btnConfirmDelete.addEventListener('click', this.handleDeleteCustomer)
+    // this.bindHandleDeleteCustomer(this.handleDeleteCustomer.bind(this))
   }
 
   handleRenderTable = async () => {
     try {
       const data = await this.service.getListCustomer();
-      this.view.renderData(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);// TODO: update later
-    }
-  }
-
-  handleRenderForm = async () => {
-    try {
-      const data = await this.service.editCustomer();
       this.view.renderData(data);
     } catch (error) {
       console.error('Error fetching data:', error);// TODO: update later
@@ -133,21 +126,33 @@ class CustomerController {
       return false;
     }
 
+    const formValue = this.view.getCustomer()
+
     try {
-      await this.service.createCustomer(this.view.getCustomer());
-      this.form.classList.remove('show');
+      if (formValue.id.length > 0) {
+        await this.service.editCustomer(formValue)
+      } else {
+        await this.service.createCustomer(formValue);
+      }
       this.handleRenderTable();
-      this.successSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.successSnackbar.style.visibility = 'hidden';
-      }, 3000);
+      this.view.handleSubmitDataSuccess()
     } catch (error) {
       console.error('Error creating customer:', error); // TODO: update later
-      this.wrongSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.wrongSnackbar.style.visibility = 'hidden';
-      }, 3000);
+      this.view.handleSubmitDataFailed()
     }
+  }
+  
+  handleDeleteCustomer = async() => {
+    const id = this.getDeleteCustomerId()
+    try {
+      await this.service.deleteCustomer(id)
+      this.handleRenderTable();
+      // this.view.handleSubmitDataSuccess()
+    } catch (error) {
+      // console.error('Error creating customer:', error); // TODO: update later
+      // this.view.handleSubmitDataFailed()
+    }
+    this.hideDeleteCustomerModal()
   }
 }
 

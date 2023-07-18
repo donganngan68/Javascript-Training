@@ -5,8 +5,8 @@ class CustomerView {
     this.table = querySelector('.table-customer-body');
     this.iconAddCustomer = querySelector('.icon-add-modal');
     this.modalCustomer = querySelector('.modal-customer');
-    this.iconCancel = querySelector('.icon-cancel');
-    this.btnCancel = querySelector('.btn-secondary');
+    this.iconCancelSubmit = querySelector('.icon-cancel-submit');
+    this.btnCancelSubmit = querySelector('.btn-secondary');
     this.formCustomer = querySelector('.form-customer');
     this.countrySelect = getElementById('country');
     this.inputFields = querySelectorAll('.input-control', this.modalCustomer);
@@ -14,6 +14,7 @@ class CustomerView {
     this.form = querySelector('.modal-customer');
     this.successSnackbar = querySelector('.valid-snackbar');
     this.wrongSnackbar = querySelector('.wrong-snackbar');
+    this.modalCustomerDel = querySelector('.modal-customer-del'); // Del = Delete
 
     this.nameInput = getElementById('name');
     this.nameError = getElementById('name-error');
@@ -25,90 +26,22 @@ class CustomerView {
     this.emailError = getElementById('email-error');
     this.countryError = getElementById('country-error');
     this.customerTable = getElementById('customer-table');
-  }
-
-  getCustomer() {
-    const name = querySelector('#name', this.form).value;
-    const company = querySelector('#company', this.form).value;
-    const phone = querySelector('#phone', this.form).value;
-    const email = querySelector('#email', this.form).value;
-    const country = querySelector('#country', this.form).value;
-    const status = querySelector('.on-off-input', this.form).checked;
-    return {
-      name,
-      company,
-      phone,
-      email,
-      country,
-      status,
-    }
+    this.toggleInput = querySelector('.on-off-input');
+    this.btnSubmit = querySelector('.btn-submit')
+    this.iconCancelDelete = querySelector('.icon-cancel-delete');
+    this.btnCancelDelete = querySelector('.btn-cancel-delete');
+    this.btnConfirmDelete = querySelector('.btn-confirm-delete');
   }
 
   init() {
     this.iconAddCustomer.addEventListener('click', this.showCustomerModal);
-    this.iconCancel.addEventListener('click', this.hideCustomerModal);
-    this.btnCancel.addEventListener('click', this.hideCustomerModal);
+    this.iconCancelSubmit.addEventListener('click', this.hideCustomerModal);
+    this.btnCancelSubmit.addEventListener('click', this.hideCustomerModal);
     document.addEventListener('mousedown', this.handleOutsideClick);
-    this.table.addEventListener('click', (e) => {
-      const currentItem = e.target?.getAttribute('data-option-id');
-
-      const editItemId = e.target?.getAttribute('data-edit-id');
-
-      const removeItemId = e.target?.getAttribute('data-remove-id');
-
-      const isKeepActionsPanel = !!editItemId || !!removeItemId;
-
-      // TODO: Refactor this
-      const actionsPanel = document.querySelectorAll('div[data-actions-id]');
-
-      if (editItemId) {
-        console.log(`Action edit: ${editItemId}`);
-        this.form.classList.add('show');
-        const formTitle = querySelector('.form-title', this.modalCustomer);
-        formTitle.innerHTML = 'Update Customer';
-      }
-
-      if (removeItemId) {
-        console.log(`Remove edit: ${removeItemId}`);
-      }
-
-      actionsPanel.forEach(nodeItem => {
-        const panelId = nodeItem.getAttribute('data-actions-id');
-
-        if (currentItem === panelId) {
-          nodeItem.style.visibility = nodeItem.style.visibility === "visible" ? "hidden" : "visible";
-        } else {
-          // TODO: Refactor this condition
-          if (!isKeepActionsPanel) {
-            nodeItem.style.visibility = "hidden";
-          }
-        }
-      })
-    })
-  }
-
-  showCustomerModal = () => {
-    this.modalCustomer.classList.add('show');
-    const formTitle = querySelector('.form-title', this.modalCustomer);
-    formTitle.innerHTML = 'Create Customer';
-  }
-
-  hideCustomerModal = () => {
-    this.countrySelect.selectedIndex = 0;
-    this.inputFields.forEach(function (input) {
-      input.value = '';
-      input.classList.remove('valid-check');
-    });
-    this.errorMessages.forEach(function (error) {
-      error.textContent = '';
-    });
-    this.modalCustomer.classList.remove('show');
-  }
-
-  handleOutsideClick = (event) => {
-    if (!this.formCustomer.contains(event.target)) {
-      this.hideCustomerModal();
-    }
+    this.handleClickAction();
+    this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
+    this.btnCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
+    this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer)
   }
 
   renderData(list) {
@@ -135,10 +68,143 @@ class CustomerView {
           </td>
         </tr>
       `
-      this.table.innerHTML = result;
+        this.table.innerHTML = result;
+        this.handleClickAction(list)
       }
     )
   }
+
+  getCustomer() {
+    const name = querySelector('#name', this.form).value;
+    const company = querySelector('#company', this.form).value;
+    const phone = querySelector('#phone', this.form).value;
+    const email = querySelector('#email', this.form).value;
+    const country = querySelector('#country', this.form).value;
+    const status = querySelector('.on-off-input', this.form).checked;
+    const id = this.btnSubmit.value
+    return {
+      id,
+      name,
+      company,
+      phone,
+      email,
+      country,
+      status,
+    }
+  }
+
+  initializeEditForm = (customer) => {
+    const {name, company, phone, email, country, id, status} = customer
+    this.nameInput.value = name,
+    this.companyInput.value = company
+    this.phoneInput.value = phone
+    this.emailInput.value = email
+    this.countrySelect.value = country
+    this.btnSubmit.value = id  
+    status === false ? this.toggleInput.removeAttribute('checked') : this.toggleInput.setAttribute('checked', 'checked')
+  }
+
+  handleClickAction = (customers) => {
+    this.table.addEventListener('click', (e) => {
+      const currentItem = e.target?.getAttribute('data-option-id');
+      
+      const editItemId = e.target?.getAttribute('data-edit-id');
+
+      const removeItemId = e.target?.getAttribute('data-remove-id');
+
+      const isKeepActionsPanel = !!editItemId || !!removeItemId;
+
+      // TODO: Refactor this
+      const actionsPanel = document.querySelectorAll('div[data-actions-id]');
+
+      if (editItemId) {
+
+        this.form.classList.add('show');
+        const formTitle = querySelector('.form-title', this.modalCustomer);
+        formTitle.innerHTML = 'Update Customer';
+        customers && customers.map(item => {
+          item.id === editItemId && this.initializeEditForm(item)
+        })
+      }
+
+      if (removeItemId) {
+        this.showDeleteCustomerModal()
+        this.btnConfirmDelete.value = removeItemId
+      }
+
+      actionsPanel.forEach(nodeItem => {
+        const panelId = nodeItem.getAttribute('data-actions-id');
+        if (currentItem === panelId) {
+          // nodeItem.style.visibility = nodeItem.style.visibility === "visible" ? "hidden" : "visible";
+          nodeItem.style.visibility = "visible"
+        } else {
+          // TODO: Refactor this condition
+          if (!isKeepActionsPanel) {
+            nodeItem.style.visibility = "hidden";
+          }
+        }
+      })
+    })
+  }
+
+  showCustomerModal = () => {
+    this.modalCustomer.classList.add('show');
+    const formTitle = querySelector('.form-title', this.modalCustomer);
+    formTitle.innerHTML = 'Create Customer';
+    this.btnSubmit.value = ''
+  }
+
+  hideCustomerModal = () => {
+    this.countrySelect.selectedIndex = 0;
+    this.inputFields.forEach(function (input) {
+      input.value = '';
+      input.classList.remove('valid-check');
+    });
+    this.errorMessages.forEach(function (error) {
+      error.textContent = '';
+    });
+    this.modalCustomer.classList.remove('show');
+  }
+
+  showDeleteCustomerModal = () => {
+    this.modalCustomerDel.classList.add('show');
+  }
+
+  hideDeleteCustomerModal = () => {
+    this.modalCustomerDel.classList.remove('show');
+  }
+
+  handleOutsideClick = (event) => {
+    if (!this.formCustomer.contains(event.target)) {
+      this.hideCustomerModal();
+    }
+  }
+  
+  getDeleteCustomerId = () => {
+    return this.btnConfirmDelete.value
+  }
+
+  // bindHandleDeleteCustomer = (handler) => {
+  //   this.hideDeleteCustomerModal()
+  //   const customerId = this.btnConfirmDelete.value
+  //   handler(customerId)
+  // }
+
+  handleSubmitDataSuccess = () => {
+    this.form.classList.remove('show');
+      this.successSnackbar.style.visibility = 'visible';
+      setTimeout(() => {
+        this.successSnackbar.style.visibility = 'hidden';
+      }, 3000);
+  }
+
+  handleSubmitDataFailed = () => {
+    this.wrongSnackbar.style.visibility = 'visible';
+      setTimeout(() => {
+        this.wrongSnackbar.style.visibility = 'hidden';
+      }, 3000);
+  }
+
 }
 
 export default CustomerView;
