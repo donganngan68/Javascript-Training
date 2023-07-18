@@ -22,6 +22,15 @@ class CustomerController {
     }
   }
 
+  handleRenderForm = async () => {
+    try {
+      const data = await this.service.editCustomer();
+      this.view.renderData(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);// TODO: update later
+    }
+  }
+
   validateForm() {
     let isValid = true;
 

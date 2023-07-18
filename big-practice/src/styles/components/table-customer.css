@@ -117,7 +117,7 @@
 .action-panel {
   visibility: hidden;
   position: absolute;
-  width: 111px;
+  width: 107px;
   height: 71px;
   border-radius: 4px;
   background: #fff;
@@ -155,5 +155,10 @@
   background: #f5f5f5;
   margin-right: 10px;
   color: #404b52;
+}
+
+.img-dot-customer {
+  cursor: pointer;
+  padding-left: 10px;
 }
 

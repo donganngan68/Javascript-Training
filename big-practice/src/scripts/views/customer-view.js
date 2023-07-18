@@ -14,8 +14,6 @@ class CustomerView {
     this.form = querySelector('.modal-customer');
     this.successSnackbar = querySelector('.valid-snackbar');
     this.wrongSnackbar = querySelector('.wrong-snackbar');
-    // this.snackbarCustomer = querySelector('.snackbar-customer');
-    // this.actionPanel = querySelector('.action-panel');
 
     this.nameInput = getElementById('name');
     this.nameError = getElementById('name-error');
@@ -65,6 +63,9 @@ class CustomerView {
 
       if (editItemId) {
         console.log(`Action edit: ${editItemId}`);
+        this.form.classList.add('show');
+        const formTitle = querySelector('.form-title', this.modalCustomer);
+        formTitle.innerHTML = 'Update Customer';
       }
 
       if (removeItemId) {
@@ -88,6 +89,8 @@ class CustomerView {
 
   showCustomerModal = () => {
     this.modalCustomer.classList.add('show');
+    const formTitle = querySelector('.form-title', this.modalCustomer);
+    formTitle.innerHTML = 'Create Customer';
   }
 
   hideCustomerModal = () => {
