@@ -5,6 +5,10 @@
   --secondary-color: #b5b7c0;
   --accent-color: #aab0b7;
   --text-color: #292d32;
+  --mess-color: #f00;
+  --btn-color: #df0404;
+  --valid-snackbar: #00ac4f;
+  --wrong-snackbar: #ff715b;
 
   /* Fonts */
   --primary-font: 'Poppins';

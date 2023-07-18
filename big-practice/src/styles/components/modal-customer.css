@@ -5,7 +5,7 @@
   position: absolute;
   top: 10%;
   background-color: var(--bg-color);
-  border: 1px solid #000;
+  border: 1px solid var(--primary-color);
   border-radius: 20px;
   margin-top: 50px;
   padding: 52px 47px 0 50px;
@@ -37,7 +37,7 @@
   grid-template-columns: auto auto;
 }
 
-.name-customer {
+.form-field {
   color: var(--accent-color);
   font-size: 20px;
   font-family: var(--secondary-font);
@@ -47,7 +47,7 @@
   padding-bottom: 19px;
 }
 
-.input-title {
+.input-control {
   width: 350px;
   height: 60px;
   border: 1px solid #000;
@@ -65,4 +65,25 @@
   font-style: normal;
   font-weight: var(--fw-medium);
   line-height: 24px;
+}
+
+.form-field:after {
+  content: '*';
+  color: var(--mess-color);
+}
+
+.mess-invalid-form {
+  display: block;
+  padding-bottom: 9px;
+  margin-top: -30px;
+  color: var(--mess-color);
+  font-family: var(--secondary-font);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: var(--fw-medium);
+  line-height: 24px;
+}
+
+.valid-check {
+  border: 1px solid var(--mess-color);
 }
