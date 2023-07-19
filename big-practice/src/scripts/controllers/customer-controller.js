@@ -8,8 +8,7 @@ class CustomerController {
   init = () => {
     this.handleRenderTable();
     this.view.init();
-    this.btnConfirmDelete.addEventListener('click', this.handleDeleteCustomer)
-    // this.bindHandleDeleteCustomer(this.handleDeleteCustomer.bind(this))
+    this.btnConfirmDelete.addEventListener('click', this.handleDeleteCustomer);
     this.modalCustomer.addEventListener('submit', this.handleSubmit);
   }
 
@@ -37,36 +36,31 @@ class CustomerController {
       return false;
     }
 
-    const formValue = this.view.getCustomer()
-
+    const formValue = this.view.getCustomer();
 
     try {
       if (formValue.id.length > 0) {
-        await this.service.editCustomer(formValue)
-        console.log('edit');
+        await this.service.editCustomer(formValue);
       } else {
         await this.service.createCustomer(formValue);
-        console.log('add');
       }
       this.handleRenderTable();
-      this.view.handleSubmitDataSuccess()
+      this.view.handleSubmitDataSuccess();
     } catch (error) {
-      console.error('Error creating customer:', error); // TODO: update later
-      this.view.handleSubmitDataFailed()
+      console.error('Error submit form customer:', error); // TODO: update later
+      this.view.handleSubmitDataFailed();
     }
   }
   
   handleDeleteCustomer = async() => {
-    const id = this.getDeleteCustomerId()
+    const id = this.getDeleteCustomerId();
     try {
-      await this.service.deleteCustomer(id)
+      await this.service.deleteCustomer(id);
       this.handleRenderTable();
-      // this.view.handleSubmitDataSuccess()
     } catch (error) {
-      // console.error('Error creating customer:', error); // TODO: update later
-      // this.view.handleSubmitDataFailed()
+      console.error('Error delete customer:', error); // TODO: update later
     }
-    this.hideDeleteCustomerModal()
+    this.hideDeleteCustomerModal();
   }
 }
 

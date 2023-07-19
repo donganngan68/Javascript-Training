@@ -16,15 +16,6 @@ class CustomerView {
     this.wrongSnackbar = querySelector('.wrong-snackbar');
     this.modalCustomerDel = querySelector('.modal-customer-del'); // Del = Delete
 
-    this.nameInput = getElementById('name');
-    this.nameError = getElementById('name-error');
-    this.companyInput = getElementById('company');
-    this.companyError = getElementById('company-error');
-    this.phoneInput = getElementById('phone');
-    this.phoneError = getElementById('phone-error');
-    this.emailInput = getElementById('email');
-    this.emailError = getElementById('email-error');
-    this.countryError = getElementById('country-error');
     this.customerTable = getElementById('customer-table');
     this.toggleInput = querySelector('.on-off-input');
     this.btnSubmit = querySelector('.btn-submit')
@@ -50,7 +41,7 @@ class CustomerView {
     const email = querySelector('.email', this.modalCustomer).value;
     const country = querySelector('#country', this.modalCustomer).value;
     const status = querySelector('.on-off-input', this.modalCustomer).checked;
-    const id = this.btnSubmit.value
+    const id = this.btnSubmit.value;
     return {
       id,
       name,
@@ -70,7 +61,7 @@ class CustomerView {
     this.handleClickAction();
     this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
     this.btnCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
-    this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer)
+    this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer);
   }
 
   validateForm() {
@@ -228,20 +219,20 @@ class CustomerView {
         </tr>
       `
         this.table.innerHTML = result;
-        this.handleClickAction(list)
+        this.handleClickAction(list);
       }
     )
   }
 
   initializeEditForm = (customer) => {
-    const {name, company, phone, email, country, id, status} = customer
-    this.nameInput.value = name,
-    this.companyInput.value = company
-    this.phoneInput.value = phone
-    this.emailInput.value = email
-    this.countrySelect.value = country
-    this.btnSubmit.value = id  
-    status === false ? this.toggleInput.removeAttribute('checked') : this.toggleInput.setAttribute('checked', 'checked')
+    const {name, company, phone, email, country, id, status} = customer;
+    this.nameInput.value = name;
+    this.companyInput.value = company;
+    this.phoneInput.value = phone;
+    this.emailInput.value = email;
+    this.countrySelect.value = country;
+    this.btnSubmit.value = id;
+    status === false ? this.toggleInput.removeAttribute('checked') : this.toggleInput.setAttribute('checked', 'checked');
   }
 
   handleClickAction = (customers) => {
@@ -258,25 +249,24 @@ class CustomerView {
       const actionsPanel = document.querySelectorAll('div[data-actions-id]');
 
       if (editItemId) {
-
         this.modalCustomer.classList.add('show');
         const formTitle = querySelector('.form-title', this.modalCustomer);
         formTitle.innerHTML = 'Update Customer';
         customers && customers.map(item => {
-          item.id === editItemId && this.initializeEditForm(item)
+          item.id === editItemId && this.initializeEditForm(item);
         })
       }
 
       if (removeItemId) {
         this.showDeleteCustomerModal()
-        this.btnConfirmDelete.value = removeItemId
+        this.btnConfirmDelete.value = removeItemId;
       }
 
       actionsPanel.forEach(nodeItem => {
         const panelId = nodeItem.getAttribute('data-actions-id');
         if (currentItem === panelId) {
           // nodeItem.style.visibility = nodeItem.style.visibility === "visible" ? "hidden" : "visible";
-          nodeItem.style.visibility = "visible"
+          nodeItem.style.visibility = "visible";
         } else {
           // TODO: Refactor this condition
           if (!isKeepActionsPanel) {
@@ -291,7 +281,7 @@ class CustomerView {
     this.modalCustomer.classList.add('show');
     const formTitle = querySelector('.form-title', this.modalCustomer);
     formTitle.innerHTML = 'Create Customer';
-    this.btnSubmit.value = ''
+    this.btnSubmit.value = '';
   }
 
 
@@ -322,7 +312,7 @@ class CustomerView {
   }
   
   getDeleteCustomerId = () => {
-    return this.btnConfirmDelete.value
+    return this.btnConfirmDelete.value;
   }
 
   handleSubmitDataSuccess = () => {
