@@ -97,6 +97,7 @@
 }
 
 .table-body {
+  position: relative;
   color: var(--text-color);
   font-size: 14px;
   font-family: var(--primary-font);
@@ -111,6 +112,18 @@
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.action-panel {
+  visibility: hidden;
+  position: absolute;
+  width: 107px;
+  height: 71px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  top: 10%;
+  right: -10%;
 }
 
 .data-summary {
@@ -143,3 +156,9 @@
   margin-right: 10px;
   color: #404b52;
 }
+
+.img-dot-customer {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
