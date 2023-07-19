@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../constants/url';
+import { BASE_URL } from '../constants/url';
 
 class CustomerService {
   getListCustomer = async () => {
