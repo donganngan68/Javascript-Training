@@ -7,8 +7,8 @@ class CustomerView {
     this.table = querySelector('.table-customer-body');
     this.iconAddCustomer = querySelector('.icon-add-modal');
     this.formCustomer = querySelector('.form-customer');
-    this.iconCancelSubmit = querySelector('.icon-cancel-submit');
-    this.btnCancelSubmit = querySelector('.btn-secondary');
+    this.iconCancelSubmit = querySelector('.icon-cancel-submit', this.formCustomer);
+    this.btnCancelSubmit = querySelector('.btn-secondary', this.formCustomer);
     this.modalCustomer = querySelector('.modal-customer');
     this.inputFields = querySelectorAll('.input-control', this.formCustomer);
     this.errorMessages = querySelectorAll('.mess-invalid-form', this.formCustomer);
@@ -58,7 +58,7 @@ class CustomerView {
     this.iconCancelSubmit.addEventListener('click', this.hideCustomerModal);
     this.btnCancelSubmit.addEventListener('click', this.hideCustomerModal);
     document.addEventListener('mousedown', this.handleOutsideClick);
-    this.handleClickAction();
+    this.handleTableRowAction();
     this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
     this.btnCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
     this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer);
@@ -202,7 +202,7 @@ class CustomerView {
         const customerStatus = status === true ? 'Active' : 'Inactive';
         const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
         result += `
-        <tr class="table-body" class="customer-table">
+        <tr class="table-body customer-table">
           <td class="table-data">${name}</td>
           <td class="table-data">${company}</td>
           <td class="table-data">${phone}</td>
@@ -219,7 +219,7 @@ class CustomerView {
         </tr>
       `
         this.table.innerHTML = result;
-        this.handleClickAction(list);
+        this.handleTableRowAction(list);
       }
     )
   }
@@ -235,7 +235,7 @@ class CustomerView {
     status === false ? this.toggleInput.removeAttribute('checked') : this.toggleInput.setAttribute('checked', 'checked');
   }
 
-  handleClickAction = (customers) => {
+  handleTableRowAction = (customers) => {
     this.table.addEventListener('click', (e) => {
       const currentItem = e.target?.getAttribute('data-option-id');
 
