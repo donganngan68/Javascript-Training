@@ -8,7 +8,9 @@ class CustomerController {
   init = () => {
     this.handleRenderTable();
     this.view.init();
-    this.btnConfirmDelete.addEventListener('click', this.handleDeleteCustomer);
+    // Views
+    // this.btnConfirmDelete.addEventListener('click', this.handleDeleteCustomer);
+    this.view.bindSubmitCustomer(this.createOrUpdateCustomer);
     this.modalCustomer.addEventListener('submit', this.handleSubmit);
   }
 
@@ -30,29 +32,42 @@ class CustomerController {
     }
   }
 
-  handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!this.view.validateForm(event)) {
-      return false;
+
+  createOrUpdateCustomer(customer) {
+    if (customer.id) {
+      return this.service.createCustomer(customer);
     }
 
-    const formValue = this.view.getCustomer();
-
-    try {
-      if (formValue.id.length > 0) {
-        await this.service.editCustomer(formValue);
-      } else {
-        await this.service.createCustomer(formValue);
-      }
-      this.handleRenderTable();
-      this.view.handleSubmitDataSuccess();
-    } catch (error) {
-      console.error('Error submit form customer:', error); // TODO: update later
-      this.view.handleSubmitDataFailed();
-    }
+    return this.service.editCustomer(customer);
   }
-  
-  handleDeleteCustomer = async() => {
+
+  // View
+  // handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   if (!this.view.validateForm(event)) {
+  //     return false;
+  //   }
+
+  //   const formValue = this.view.getCustomer();
+
+  //   try {
+  //     if (formValue.id.length > 0) {
+  //       await this.service.editCustomer(formValue);
+  //     } else {
+  //       await this.service.createCustomer(formValue);
+  //     }
+  //     this.handleRenderTable();
+  //     // this.handleSubmitDataSuccess();
+  //     this.view.handleSubmitDataSuccess();
+  //   } catch (error) {
+  //     console.error('Error submit form customer:', error); // TODO: update later
+  //     // this.handleSubmitDataFailed();
+  //     this.view.handleSubmitDataFailed();
+  //   }
+  // }
+
+  // View
+  handleDeleteCustomer = async () => {
     const id = this.getDeleteCustomerId();
     try {
       await this.service.deleteCustomer(id);

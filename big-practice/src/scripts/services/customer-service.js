@@ -8,6 +8,7 @@ class CustomerService {
   }
 
   createCustomer = async (customer) => {
+    // Http request helper
     const response = await fetch(`${BASE_URL}customers`, {
       method: 'POST',
       headers: {

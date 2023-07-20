@@ -1,6 +1,6 @@
 import imgDot from '../../assets/images/dot.png';
 import { getElementById, querySelector, querySelectorAll } from '../../dom-helpers/get-element';
-import { NAME_REQUIRED_ERROR_MESSAGE, INVALID_NAME_ERROR_MESSAGE, INVALID_PHONE_ERROR_MESSAGE, PHONE_REQUIRED_ERROR_MESSAGE,  COMPANY_REQUIRED_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, COUNTRY_REQUIRED_ERROR_MESSAGE } from '../constants/error-messages';
+import { NAME_REQUIRED_ERROR_MESSAGE, INVALID_NAME_ERROR_MESSAGE, INVALID_PHONE_ERROR_MESSAGE, PHONE_REQUIRED_ERROR_MESSAGE, COMPANY_REQUIRED_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, COUNTRY_REQUIRED_ERROR_MESSAGE } from '../constants/error-messages';
 
 class CustomerView {
   constructor() {
@@ -10,9 +10,11 @@ class CustomerView {
     this.iconCancelSubmit = querySelector('.icon-cancel-submit');
     this.btnCancelSubmit = querySelector('.btn-secondary');
     this.formCustomer = querySelector('.form-customer');
+    // Duplicate querying dom
     this.inputFields = querySelectorAll('.input-control', this.modalCustomer);
     this.errorMessages = querySelectorAll('.mess-invalid-form', this.modalCustomer);
     this.successSnackbar = querySelector('.valid-snackbar');
+    // error snackbar, info snackbar, warning snackbar
     this.wrongSnackbar = querySelector('.wrong-snackbar');
     this.modalCustomerDel = querySelector('.modal-customer-del'); // Del = Delete
 
@@ -22,10 +24,18 @@ class CustomerView {
     this.iconCancelDelete = querySelector('.icon-cancel-delete');
     this.btnCancelDelete = querySelector('.btn-cancel-delete');
     this.btnConfirmDelete = querySelector('.btn-confirm-delete');
-    this.nameInput = querySelector('.name');
+    // Parent DOM (Customer form)
+    const customerForm = querySelector('.customerForm')
+    this.nameInput = querySelector('.name', customerForm);
+
+    // DOM navigation
+    // form.elements - https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements
     this.nameError = querySelector('.name-error');
-    this.companyInput = querySelector('.company');
-    this.companyError = querySelector('.company-error');
+    this.companyInput = querySelector('.company', customerForm);
+
+
+    this.companyError = this.companyInput.nextSibling;
+    // this.companyError = querySelector('.company-error');
     this.phoneInput = querySelector('.phone');
     this.phoneError = querySelector('.phone-error');
     this.emailInput = querySelector('.email');
@@ -35,7 +45,11 @@ class CustomerView {
   }
 
   getCustomer() {
-    const name = querySelector('.name', this.modalCustomer).value;
+    // this.nameInput
+    // Can we use Customer form element to get value
+
+    // const name = querySelector('.name', this.modalCustomer).value;
+    const name = this.nameInput.value;
     const company = querySelector('.company', this.modalCustomer).value;
     const phone = querySelector('.phone', this.modalCustomer).value;
     const email = querySelector('.email', this.modalCustomer).value;
@@ -57,6 +71,7 @@ class CustomerView {
     this.iconAddCustomer.addEventListener('click', this.showCustomerModal);
     this.iconCancelSubmit.addEventListener('click', this.hideCustomerModal);
     this.btnCancelSubmit.addEventListener('click', this.hideCustomerModal);
+    // click
     document.addEventListener('mousedown', this.handleOutsideClick);
     this.handleClickAction();
     this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
@@ -69,6 +84,7 @@ class CustomerView {
 
     // Regular expression to validate the customer name
     const nameRegex = /^[a-zA-Z\s]{6,30}$/;
+    // Comment for what?
     /**
      * The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
      * [a-zA-Z\s] matches any uppercase or lowercase letter or whitespace character.
@@ -76,10 +92,23 @@ class CustomerView {
      * Therefore, this regex pattern helps validate whether a string represents a valid name containing only letters and spaces, with a length between 2 and 30 characters.
     */
 
+    // Use switch case
+    // Split into small functions
+
+    // validateName();
+    // validateEmail();
+
+    const showFormError = (input, message) => {
+      input.classList.add('valid-check');
+      input.nextSibling().textContent = message;
+    }
+
+    // validateName()
     if (this.nameInput.value.trim() === '') {
       isValid = false;
-      this.nameError.textContent = `${NAME_REQUIRED_ERROR_MESSAGE}`;
-      this.nameInput.classList.add('valid-check');
+      showFormError(this.nameInput, NAME_REQUIRED_ERROR_MESSAGE);
+      // this.nameError.textContent = `${NAME_REQUIRED_ERROR_MESSAGE}`;
+      // this.nameInput.classList.add('valid-check');
     } else if (!this.nameInput.value.match(nameRegex)) {
       isValid = false;
       this.nameError.textContent = `${INVALID_NAME_ERROR_MESSAGE}`;
@@ -89,6 +118,7 @@ class CustomerView {
       this.nameInput.classList.remove('valid-check');
     }
 
+    // validateCompany();
     if (this.companyInput.value.trim() === '') {
       isValid = false;
       this.companyError.textContent = `${COMPANY_REQUIRED_ERROR_MESSAGE}`;
@@ -135,7 +165,7 @@ class CustomerView {
      * '$' asserts the end of the string.
     */
 
-    if (this.emailInput.value.trim() === ''){
+    if (this.emailInput.value.trim() === '') {
       isValid = false;
       this.emailError.textContent = `${EMAIL_REQUIRED_ERROR_MESSAGE}`;
       this.emailInput.classList.add('valid-check');
@@ -163,6 +193,7 @@ class CustomerView {
 
   hideCustomerModal = () => {
     this.countrySelect.selectedIndex = 0;
+    // Reset form function
     this.inputFields.forEach(function (input) {
       input.value = '';
       input.classList.remove('valid-check');
@@ -179,19 +210,24 @@ class CustomerView {
     }
   }
 
-  handleSubmitDataSuccess = () => {
+  handleSubmitDataSuccess = async () => {
     this.modalCustomer.classList.remove('show');
-      this.successSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.successSnackbar.style.visibility = 'hidden';
-      }, 3000);
+    this.successSnackbar.style.visibility = 'visible';
+
+    // setTimeout > Promise
+    setTimeout(() => {
+      this.successSnackbar.style.visibility = 'hidden';
+    }, 3000);
+
+    // setTimeout
+    await Promise.resolve();
   }
 
   handleSubmitDataFailed = () => {
     this.wrongSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.wrongSnackbar.style.visibility = 'hidden';
-      }, 3000);
+    setTimeout(() => {
+      this.wrongSnackbar.style.visibility = 'hidden';
+    }, 3000);
   }
 
   renderData(list) {
@@ -219,22 +255,27 @@ class CustomerView {
         </tr>
       `
         this.table.innerHTML = result;
+        // Handle (customer) table actions
         this.handleClickAction(list);
       }
     )
   }
 
   initializeEditForm = (customer) => {
-    const {name, company, phone, email, country, id, status} = customer;
+    const { name, company, phone, email, country, id, status } = customer;
     this.nameInput.value = name;
     this.companyInput.value = company;
     this.phoneInput.value = phone;
     this.emailInput.value = email;
     this.countrySelect.value = country;
     this.btnSubmit.value = id;
+
+    // setToggleValue();
+    // setStatusValue(true) value
     status === false ? this.toggleInput.removeAttribute('checked') : this.toggleInput.setAttribute('checked', 'checked');
   }
 
+  // What action is clicked?
   handleClickAction = (customers) => {
     this.table.addEventListener('click', (e) => {
       const currentItem = e.target?.getAttribute('data-option-id');
@@ -280,13 +321,15 @@ class CustomerView {
   showCustomerModal = () => {
     this.modalCustomer.classList.add('show');
     const formTitle = querySelector('.form-title', this.modalCustomer);
-    formTitle.innerHTML = 'Create Customer';
+    // Text content
+    formTitle.innerHTML = 'Create  Customer';
     this.btnSubmit.value = '';
   }
 
 
   hideCustomerModal = () => {
     this.countrySelect.selectedIndex = 0;
+    // Reset form
     this.inputFields.forEach(function (input) {
       input.value = '';
       input.classList.remove('valid-check');
@@ -310,26 +353,49 @@ class CustomerView {
       this.hideCustomerModal();
     }
   }
-  
+
   getDeleteCustomerId = () => {
     return this.btnConfirmDelete.value;
   }
 
   handleSubmitDataSuccess = () => {
     this.modalCustomer.classList.remove('show');
-      this.successSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.successSnackbar.style.visibility = 'hidden';
-      }, 3000);
+    this.successSnackbar.style.visibility = 'visible';
+    setTimeout(() => {
+      this.successSnackbar.style.visibility = 'hidden';
+    }, 3000);
   }
 
+  // Handle request error;
+  // showSnackbar(success|error);
   handleSubmitDataFailed = () => {
     this.wrongSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.wrongSnackbar.style.visibility = 'hidden';
-      }, 3000);
+    setTimeout(() => {
+      this.wrongSnackbar.style.visibility = 'hidden';
+    }, 3000);
   }
 
+  bindSubmitCustomer = (handler) => {
+    this.modalCustomer.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!this.view.validateForm(event)) {
+        return false;
+      }
+
+      const formValue = this.view.getCustomer();
+
+      try {
+        await handler();
+        this.handleRenderTable();
+        // this.handleSubmitDataSuccess();
+        this.view.handleSubmitDataSuccess();
+      } catch (error) {
+        console.error('Error submit form customer:', error); // TODO: update later
+        // this.handleSubmitDataFailed();
+        this.view.handleSubmitDataFailed();
+      }
+    });
+  }
 }
 
 export default CustomerView;
