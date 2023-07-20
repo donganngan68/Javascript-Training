@@ -6,17 +6,17 @@ class CustomerView {
   constructor() {
     this.table = querySelector('.table-customer-body');
     this.iconAddCustomer = querySelector('.icon-add-modal');
-    this.modalCustomer = querySelector('.modal-customer');
+    this.formCustomer = querySelector('.form-customer');
     this.iconCancelSubmit = querySelector('.icon-cancel-submit');
     this.btnCancelSubmit = querySelector('.btn-secondary');
-    this.formCustomer = querySelector('.form-customer');
-    this.inputFields = querySelectorAll('.input-control', this.modalCustomer);
-    this.errorMessages = querySelectorAll('.mess-invalid-form', this.modalCustomer);
+    this.modalCustomer = querySelector('.modal-customer');
+    this.inputFields = querySelectorAll('.input-control', this.formCustomer);
+    this.errorMessages = querySelectorAll('.mess-invalid-form', this.formCustomer);
     this.successSnackbar = querySelector('.valid-snackbar');
-    this.wrongSnackbar = querySelector('.wrong-snackbar');
+    this.errorSnackbar = querySelector('.error-snackbar');
     this.modalCustomerDel = querySelector('.modal-customer-del'); // Del = Delete
 
-    this.customerTable = getElementById('customer-table');
+    this.customerTable = querySelector('.customer-table');
     this.toggleInput = querySelector('.on-off-input');
     this.btnSubmit = querySelector('.btn-submit')
     this.iconCancelDelete = querySelector('.icon-cancel-delete');
@@ -35,12 +35,12 @@ class CustomerView {
   }
 
   getCustomer() {
-    const name = querySelector('.name', this.modalCustomer).value;
-    const company = querySelector('.company', this.modalCustomer).value;
-    const phone = querySelector('.phone', this.modalCustomer).value;
-    const email = querySelector('.email', this.modalCustomer).value;
-    const country = querySelector('#country', this.modalCustomer).value;
-    const status = querySelector('.on-off-input', this.modalCustomer).checked;
+    const name = this.nameInput.value;
+    const company = this.companyInput.value;
+    const phone = this.phoneInput.value;
+    const email = this.emailInput.value;
+    const country = this.countrySelect.value;
+    const status = this.toggleInput.checked;
     const id = this.btnSubmit.value;
     return {
       id,
@@ -68,13 +68,13 @@ class CustomerView {
     let isValid = true;
 
     // Regular expression to validate the customer name
-    const nameRegex = /^[a-zA-Z\s]{6,30}$/;
     /**
      * The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
      * [a-zA-Z\s] matches any uppercase or lowercase letter or whitespace character.
      * {6,30} specifies that the name should have a length between 2 and 30 characters.
      * Therefore, this regex pattern helps validate whether a string represents a valid name containing only letters and spaces, with a length between 2 and 30 characters.
     */
+    const nameRegex = /^[a-zA-Z\s]{6,30}$/;
 
     if (this.nameInput.value.trim() === '') {
       isValid = false;
@@ -100,7 +100,6 @@ class CustomerView {
     }
 
     // Regular expression to validate the phone number (start with 0 and no additional zeros after the initial zero)
-    const phoneRegex = /^0[1-9][0-9]{8}$/;
     /**
      * The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
      * 0 matches the digit 0 at the beginning of the phone number.
@@ -108,6 +107,7 @@ class CustomerView {
      * [0-9]{8} matches exactly eight digits from 0 to 9, ensuring the total length of the phone number is 10 digits.
      * Therefore, this regex pattern helps validate whether a string represents a valid phone number starting with 0 and having a total of 10 digits.
     */
+    const phoneRegex = /^0[1-9][0-9]{8}$/;
 
     if (this.phoneInput.value.trim() === '') {
       isValid = false;
@@ -123,7 +123,6 @@ class CustomerView {
     }
 
     // Regular expression pattern to validate an email address
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     /**
      * ^ asserts the start of the string.
      * [a-zA-Z0-9._%+-]+ matches one or more alphanumeric characters, dots, underscores, percentage signs, plus signs, or hyphens.
@@ -134,6 +133,7 @@ class CustomerView {
      * '[a-zA-Z]{2,}' matches two or more letters. This represents the top-level domain (TLD) part of the email address.
      * '$' asserts the end of the string.
     */
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (this.emailInput.value.trim() === ''){
       isValid = false;
@@ -170,17 +170,17 @@ class CustomerView {
     this.errorMessages.forEach(function (error) {
       error.textContent = '';
     });
-    this.modalCustomer.classList.remove('show');
+    this.formCustomer.classList.remove('show');
   }
 
   handleOutsideClick = (event) => {
-    if (!this.formCustomer.contains(event.target)) {
+    if (!this.modalCustomer.contains(event.target)) {
       this.hideCustomerModal();
     }
   }
 
   handleSubmitDataSuccess = () => {
-    this.modalCustomer.classList.remove('show');
+    this.formCustomer.classList.remove('show');
       this.successSnackbar.style.visibility = 'visible';
       setTimeout(() => {
         this.successSnackbar.style.visibility = 'hidden';
@@ -188,9 +188,9 @@ class CustomerView {
   }
 
   handleSubmitDataFailed = () => {
-    this.wrongSnackbar.style.visibility = 'visible';
+    this.errorSnackbar.style.visibility = 'visible';
       setTimeout(() => {
-        this.wrongSnackbar.style.visibility = 'hidden';
+        this.errorSnackbar.style.visibility = 'hidden';
       }, 3000);
   }
 
@@ -202,7 +202,7 @@ class CustomerView {
         const customerStatus = status === true ? 'Active' : 'Inactive';
         const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
         result += `
-        <tr class="table-body" id="customer-table">
+        <tr class="table-body" class="customer-table">
           <td class="table-data">${name}</td>
           <td class="table-data">${company}</td>
           <td class="table-data">${phone}</td>
@@ -249,8 +249,8 @@ class CustomerView {
       const actionsPanel = document.querySelectorAll('div[data-actions-id]');
 
       if (editItemId) {
-        this.modalCustomer.classList.add('show');
-        const formTitle = querySelector('.form-title', this.modalCustomer);
+        this.formCustomer.classList.add('show');
+        const formTitle = querySelector('.form-title', this.formCustomer);
         formTitle.innerHTML = 'Update Customer';
         customers && customers.map(item => {
           item.id === editItemId && this.initializeEditForm(item);
@@ -278,8 +278,8 @@ class CustomerView {
   }
 
   showCustomerModal = () => {
-    this.modalCustomer.classList.add('show');
-    const formTitle = querySelector('.form-title', this.modalCustomer);
+    this.formCustomer.classList.add('show');
+    const formTitle = querySelector('.form-title', this.formCustomer);
     formTitle.innerHTML = 'Create Customer';
     this.btnSubmit.value = '';
   }
@@ -294,7 +294,7 @@ class CustomerView {
     this.errorMessages.forEach(function (error) {
       error.textContent = '';
     });
-    this.modalCustomer.classList.remove('show');
+    this.formCustomer.classList.remove('show');
   }
 
   showDeleteCustomerModal = () => {
@@ -306,17 +306,17 @@ class CustomerView {
   }
 
   handleOutsideClick = (event) => {
-    if (!this.formCustomer.contains(event.target)) {
+    if (!this.modalCustomer.contains(event.target)) {
       this.hideCustomerModal();
     }
   }
-  
+
   getDeleteCustomerId = () => {
     return this.btnConfirmDelete.value;
   }
 
   handleSubmitDataSuccess = () => {
-    this.modalCustomer.classList.remove('show');
+    this.formCustomer.classList.remove('show');
       this.successSnackbar.style.visibility = 'visible';
       setTimeout(() => {
         this.successSnackbar.style.visibility = 'hidden';
@@ -324,9 +324,9 @@ class CustomerView {
   }
 
   handleSubmitDataFailed = () => {
-    this.wrongSnackbar.style.visibility = 'visible';
+    this.errorSnackbar.style.visibility = 'visible';
       setTimeout(() => {
-        this.wrongSnackbar.style.visibility = 'hidden';
+        this.errorSnackbar.style.visibility = 'hidden';
       }, 3000);
   }
 

@@ -9,7 +9,7 @@ class CustomerController {
     this.handleRenderTable();
     this.view.init();
     this.btnConfirmDelete.addEventListener('click', this.handleDeleteCustomer);
-    this.modalCustomer.addEventListener('submit', this.handleSubmit);
+    this.formCustomer.addEventListener('submit', this.handleSubmit);
   }
 
   handleRenderTable = async () => {
@@ -51,7 +51,7 @@ class CustomerController {
       this.view.handleSubmitDataFailed();
     }
   }
-  
+
   handleDeleteCustomer = async() => {
     const id = this.getDeleteCustomerId();
     try {

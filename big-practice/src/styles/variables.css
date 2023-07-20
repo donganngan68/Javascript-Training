@@ -8,7 +8,7 @@
   --mess-color: #f00;
   --btn-color: #df0404;
   --valid-snackbar: #00ac4f;
-  --wrong-snackbar: #ff715b;
+  --error-snackbar: #ff715b;
 
   /* Fonts */
   --primary-font: 'Poppins';
