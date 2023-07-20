@@ -22,16 +22,17 @@ class CustomerView {
     this.iconCancelDelete = querySelector('.icon-cancel-delete');
     this.btnCancelDelete = querySelector('.btn-cancel-delete');
     this.btnConfirmDelete = querySelector('.btn-confirm-delete');
+    
     this.nameInput = querySelector('.name');
-    this.nameError = querySelector('.name-error');
+    this.nameError = this.nameInput.nextElementSibling;
     this.companyInput = querySelector('.company');
-    this.companyError = querySelector('.company-error');
+    this.companyError = this.companyInput.nextElementSibling;
     this.phoneInput = querySelector('.phone');
-    this.phoneError = querySelector('.phone-error');
+    this.phoneError = this.phoneInput.nextElementSibling;
     this.emailInput = querySelector('.email');
-    this.emailError = querySelector('.email-error');
+    this.emailError = this.emailInput.nextElementSibling;
     this.countrySelect = getElementById('country');
-    this.countryError = querySelector('.country-error');
+    this.countryError = this.countrySelect.nextElementSibling;
   }
 
   getCustomer() {
