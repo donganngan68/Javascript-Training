@@ -22,8 +22,15 @@
             <input class="search-text" type="text" placeholder="Search" />
           </div>
           <div class="dropdown">
-            <p class="dropdown select-dropdown">Sort by:&nbsp;<span class="dropdown-name">Name</span></p>
-            <img src="./assets/images/dropt.png" alt="dropdown sort" />
+            <div class="selected-option">Sort by: Name</div>
+            <ul class="dropdown-content">
+              <li class="dropdown-item" data-sortby="name">Name</li>
+              <li class="dropdown-item" data-sortby="company">Company</li>
+              <li class="dropdown-item" data-sortby="phone">Phone</li>
+              <li class="dropdown-item" data-sortby="email">Email</li>
+              <li class="dropdown-item" data-sortby="country">Country</li>
+            </ul>
+            <img src="./assets/images/dropt.png" class="icon-dropdown" alt="dropdown sort" />
           </div>
         </div>
       </div>
@@ -49,8 +56,9 @@
       <div class="table-footer">
         <p class="data-summary">Showing data 1 to 8 of 256K entries</p>
         <div class="session-pagination">
-          <button class="arrow-button">></button>
-          <button class="arrow-button">&lt;</button>
+          <button class="arrow-button prevPageButton">&lt;</button>
+          <span class="currentPagePlaceholder">1</span> / <span class="totalPagesPlaceholder">1</span>
+          <button class="arrow-button nextPageButton">></button>
         </div>
       </div>
       <!-- end table body -->

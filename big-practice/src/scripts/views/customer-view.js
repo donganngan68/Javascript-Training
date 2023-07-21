@@ -1,9 +1,18 @@
 import imgDot from '../../assets/images/dot.png';
 import { getElementById, querySelector, querySelectorAll } from '../../dom-helpers/get-element';
-import { NAME_REQUIRED_ERROR_MESSAGE, INVALID_NAME_ERROR_MESSAGE, INVALID_PHONE_ERROR_MESSAGE, PHONE_REQUIRED_ERROR_MESSAGE,  COMPANY_REQUIRED_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, COUNTRY_REQUIRED_ERROR_MESSAGE } from '../constants/error-messages';
+import { NAME_REQUIRED_ERROR_MESSAGE, INVALID_NAME_ERROR_MESSAGE, INVALID_PHONE_ERROR_MESSAGE, PHONE_REQUIRED_ERROR_MESSAGE, COMPANY_REQUIRED_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, COUNTRY_REQUIRED_ERROR_MESSAGE } from '../constants/error-messages';
 
 class CustomerView {
   constructor() {
+    this.selectedOptionSort = querySelector('.selected-option');
+    this.dropdownItems = querySelectorAll('.dropdown-item', this.dropDownContent);
+    this.imgDropdown = querySelector('.icon-dropdown');
+    this.dropDownContent = querySelector('.dropdown-content');
+    this.searchInput = querySelector('.search-text');
+    this.currentPagePlaceholder = querySelector('.currentPagePlaceholder');
+    this.totalPagesPlaceholder = querySelector('.totalPagesPlaceholder');
+    this.prevPageButton = querySelector('.prevPageButton');
+    this.nextPageButton = querySelector('.nextPageButton');
     this.table = querySelector('.table-customer-body');
     this.iconAddCustomer = querySelector('.icon-add-modal');
     this.formCustomer = querySelector('.form-customer');
@@ -22,7 +31,7 @@ class CustomerView {
     this.iconCancelDelete = querySelector('.icon-cancel-delete');
     this.btnCancelDelete = querySelector('.btn-cancel-delete');
     this.btnConfirmDelete = querySelector('.btn-confirm-delete');
-    
+
     this.nameInput = querySelector('.name');
     this.nameError = this.nameInput.nextElementSibling;
     this.companyInput = querySelector('.company');
@@ -63,6 +72,91 @@ class CustomerView {
     this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
     this.btnCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
     this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer);
+    this.prevPageButton.addEventListener('click', this.handPrevPageButton);
+    this.nextPageButton.addEventListener('click', this.handNextPageButton);
+    this.searchInput.addEventListener('keyup', (event) => {
+      if (event.keyCode === 13) {
+        this.handleSearchInput();
+      }
+    });
+    this.imgDropdown = addEventListener('click', this.handDropDownIcon);
+    this.currentPage = 1;
+    this.itemsPerPage = 8;
+    this.customerList = undefined;
+    this.totalPages = undefined;
+  }
+
+  handDropDownIcon = () => {
+    this.dropDownContent.classList.toggle('active')
+  }
+
+  handDropDownIconAction = () => {
+    debugger
+    this.dropdownItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        debugger
+        const selectedSortBy = item.dataset.sortby;
+        this.selectedOptionSort.textContent = `Sort by: ${selectedSortBy.charAt(0).toUpperCase() + selectedSortBy.slice(1)}`;
+        if (selectedSortBy) {
+          this.sortData(selectedSortBy);
+          this.renderData(this.customerList);
+        }
+        this.dropDownContent.classList.remove('active');
+      });
+    });
+  }
+
+  sortData(sortBy) {
+    this.customerList.sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === 'company') {
+        return a.company.localeCompare(b.company);
+      } else if (sortBy === 'phone') {
+        return a.phone.localeCompare(b.phone);
+      } else if (sortBy === 'email') {
+        return a.email.localeCompare(b.email);
+      } else if (sortBy === 'country') {
+        return a.country.localeCompare(b.country);
+      }
+    });
+  }
+
+  handleSearchInput = () => {
+    const searchTerm = this.searchInput.value.trim().toLowerCase();
+    const filteredList = this.customerList.filter((customer) => {
+      // Convert all fields to lowercase before comparison.
+      const { name, company, phone, email, country } = customer;
+      return (
+        name.toLowerCase().includes(searchTerm) ||
+        company.toLowerCase().includes(searchTerm) ||
+        phone.toLowerCase().includes(searchTerm) ||
+        email.toLowerCase().includes(searchTerm) ||
+        country.toLowerCase().includes(searchTerm)
+      );
+    });
+    this.renderData(filteredList);
+  }
+
+  handPrevPageButton = () => {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.renderData(this.customerList);
+      this.updatePaginationPlaceholders();
+    }
+  }
+
+  handNextPageButton = () => {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.renderData(this.customerList);
+      this.updatePaginationPlaceholders();
+    }
+  }
+
+  updatePaginationPlaceholders() {
+    this.currentPagePlaceholder.textContent = this.currentPage;
+    this.totalPagesPlaceholder.textContent = this.totalPages;
   }
 
   validateForm() {
@@ -136,7 +230,7 @@ class CustomerView {
     */
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (this.emailInput.value.trim() === ''){
+    if (this.emailInput.value.trim() === '') {
       isValid = false;
       this.emailError.textContent = `${EMAIL_REQUIRED_ERROR_MESSAGE}`;
       this.emailInput.classList.add('valid-check');
@@ -161,7 +255,6 @@ class CustomerView {
     return isValid;
   }
 
-
   hideCustomerModal = () => {
     this.countrySelect.selectedIndex = 0;
     this.inputFields.forEach(function (input) {
@@ -182,22 +275,31 @@ class CustomerView {
 
   handleSubmitDataSuccess = () => {
     this.formCustomer.classList.remove('show');
-      this.successSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.successSnackbar.style.visibility = 'hidden';
-      }, 3000);
+    this.successSnackbar.style.visibility = 'visible';
+    setTimeout(() => {
+      this.successSnackbar.style.visibility = 'hidden';
+    }, 3000);
   }
 
   handleSubmitDataFailed = () => {
     this.errorSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.errorSnackbar.style.visibility = 'hidden';
-      }, 3000);
+    setTimeout(() => {
+      this.errorSnackbar.style.visibility = 'hidden';
+    }, 3000);
   }
 
   renderData(list) {
+    debugger
+    const customerListExists = this.customerList !== null && this.customerList !== undefined;
+    if (!customerListExists) {
+      this.customerList = list;
+    }
+    this.totalPages = Math.ceil(list.length / this.itemsPerPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    const itemsToRender = list.slice(startIndex, endIndex);
     let result = ''
-    list.map(
+    itemsToRender.map(
       (customer) => {
         const { name, company, phone, email, country, status, id } = customer;
         const customerStatus = status === true ? 'Active' : 'Inactive';
@@ -220,13 +322,14 @@ class CustomerView {
         </tr>
       `
         this.table.innerHTML = result;
+        this.handleTableRowAction(list);
       }
-      )
-    this.handleTableRowAction(list);
+    )
+    this.handDropDownIconAction();
   }
 
   initializeEditForm = (customer) => {
-    const {name, company, phone, email, country, id, status} = customer;
+    const { name, company, phone, email, country, id, status } = customer;
     this.nameInput.value = name;
     this.companyInput.value = company;
     this.phoneInput.value = phone;
@@ -259,7 +362,7 @@ class CustomerView {
       }
 
       if (removeItemId) {
-        this.showDeleteCustomerModal()
+        this.showDeleteCustomerModal();
         this.btnConfirmDelete.value = removeItemId;
       }
 
@@ -285,19 +388,17 @@ class CustomerView {
     this.btnSubmit.value = '';
   }
 
-
-  hideCustomerModal = () => {
-    this.countrySelect.selectedIndex = 0;
-    this.inputFields.forEach(function (input) {
-      input.value = '';
-      input.classList.remove('valid-check');
-    });
-    this.errorMessages.forEach(function (error) {
-      error.textContent = '';
-    });
-    this.formCustomer.classList.remove('show');
-  }
-
+  // hideCustomerModal = () => {
+  //   this.countrySelect.selectedIndex = 0;
+  //   this.inputFields.forEach(function (input) {
+  //     input.value = '';
+  //     input.classList.remove('valid-check');
+  //   });
+  //   this.errorMessages.forEach(function (error) {
+  //     error.textContent = '';
+  //   });
+  //   this.formCustomer.classList.remove('show');
+  // }
   bindHandleSubmit = (handler) => {
     this.formCustomer.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -316,32 +417,30 @@ class CustomerView {
     this.modalCustomerDel.classList.remove('show');
   }
 
-  bindHandleDeleteCustomer = (handler) => {
-    this.btnConfirmDelete.addEventListener('click', () => {
-      handler(this.btnConfirmDelete.value)
-    })
-  }
-
   handleOutsideClick = (event) => {
     if (!this.modalCustomer.contains(event.target)) {
       this.hideCustomerModal();
     }
   }
 
-  handleSubmitDataSuccess = () => {
-    this.formCustomer.classList.remove('show');
-      this.successSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.successSnackbar.style.visibility = 'hidden';
-      }, 3000);
+  getDeleteCustomerId = () => {
+    return this.btnConfirmDelete.value;
   }
 
-  handleSubmitDataFailed = () => {
-    this.errorSnackbar.style.visibility = 'visible';
-      setTimeout(() => {
-        this.errorSnackbar.style.visibility = 'hidden';
-      }, 3000);
-  }
+  // handleSubmitDataSuccess = () => {
+  //   this.formCustomer.classList.remove('show');
+  //   this.successSnackbar.style.visibility = 'visible';
+  //   setTimeout(() => {
+  //     this.successSnackbar.style.visibility = 'hidden';
+  //   }, 3000);
+  // }
+
+  // handleSubmitDataFailed = () => {
+  //   this.errorSnackbar.style.visibility = 'visible';
+  //   setTimeout(() => {
+  //     this.errorSnackbar.style.visibility = 'hidden';
+  //   }, 3000);
+  // }
 
 }
 
