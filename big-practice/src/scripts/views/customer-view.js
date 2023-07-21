@@ -220,9 +220,9 @@ class CustomerView {
         </tr>
       `
         this.table.innerHTML = result;
-        this.handleTableRowAction(list);
       }
-    )
+      )
+    this.handleTableRowAction(list);
   }
 
   initializeEditForm = (customer) => {
@@ -298,6 +298,16 @@ class CustomerView {
     this.formCustomer.classList.remove('show');
   }
 
+  bindHandleSubmit = (handler) => {
+    this.formCustomer.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!this.validateForm(event)) {
+        return;
+      }
+      handler(this.getCustomer());
+    });
+  }
+
   showDeleteCustomerModal = () => {
     this.modalCustomerDel.classList.add('show');
   }
@@ -306,14 +316,16 @@ class CustomerView {
     this.modalCustomerDel.classList.remove('show');
   }
 
+  bindHandleDeleteCustomer = (handler) => {
+    this.btnConfirmDelete.addEventListener('click', () => {
+      handler(this.btnConfirmDelete.value)
+    })
+  }
+
   handleOutsideClick = (event) => {
     if (!this.modalCustomer.contains(event.target)) {
       this.hideCustomerModal();
     }
-  }
-
-  getDeleteCustomerId = () => {
-    return this.btnConfirmDelete.value;
   }
 
   handleSubmitDataSuccess = () => {
