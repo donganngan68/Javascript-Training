@@ -1,1 +1,1 @@
-export * from './dom';
+export * from './get-dom-elements';

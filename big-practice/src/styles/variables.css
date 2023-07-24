@@ -19,4 +19,11 @@
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-bold: 700;
+
+  /* Font size */
+  --fs-primary: 12px;
+  --fs-secondary: 14px;
+
+  /* Line height */
+  --lineHeight-primary: 24px;
 }

@@ -1,11 +1,11 @@
 .form-customer{
   display: none;
-  width: 868px;
+  width: 768px;
   height: auto;
   position: absolute;
   top: 10%;
+  left: 25%;
   background-color: var(--bg-color);
-  border: 1px solid var(--primary-color);
   border-radius: 20px;
   margin-top: 50px;
   padding: 52px 47px 0 50px;
@@ -25,9 +25,7 @@
   color: var(--primary-color);
   font-size: 36px;
   font-family: var(--primary-font);
-  font-style: normal;
   font-weight: var(--fw-semibold);
-  line-height: normal;
   letter-spacing: 0.36px;
   padding-bottom: 52px;
 }
@@ -35,22 +33,23 @@
 .input-form-wrapper {
   display: grid;
   grid-template-columns: auto auto;
+  grid-column-gap: 63px;
 }
 
 .form-field {
+  position: relative;
   color: var(--accent-color);
   font-size: 20px;
   font-family: var(--secondary-font);
-  font-style: normal;
   font-weight: var(--fw-bold);
-  line-height: 24px;
+  line-height: var(--lineHeight-primary);
   padding-bottom: 19px;
 }
 
 .input-control {
   width: 350px;
   height: 60px;
-  border: 1px solid #000;
+  border: 1px solid #eee;
   border-radius: 5px;
   margin-bottom: 42px;
   padding-left: 10px;
@@ -62,14 +61,16 @@
   color: var(--secondary-color);
   font-size: 20px;
   font-family: var(--secondary-font);
-  font-style: normal;
   font-weight: var(--fw-medium);
-  line-height: 24px;
+  line-height: var(--lineHeight-primary);
 }
 
-.form-field:after {
+.form-field::after {
   content: '*';
   color: var(--mess-color);
+  position: absolute;
+  top: -15%;
+  margin-left: 4px;
 }
 
 .mess-invalid-form {
@@ -78,12 +79,19 @@
   margin-top: -30px;
   color: var(--mess-color);
   font-family: var(--secondary-font);
-  font-size: 12px;
-  font-style: normal;
+  font-size: var(--fs-primary);
   font-weight: var(--fw-medium);
-  line-height: 24px;
+  line-height: var(--lineHeight-primary);
 }
 
 .valid-check {
   border: 1px solid var(--mess-color);
+}
+
+.icon-cancel-submit {
+  cursor: pointer;
+}
+
+#country {
+  cursor: pointer;
 }

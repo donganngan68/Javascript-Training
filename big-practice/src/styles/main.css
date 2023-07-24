@@ -7,10 +7,9 @@
 @import url("./components/all.css");
 
 .main {
-  width: 968px;
+  width: 100%;
   height: auto;
   background: #fff;
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 30px 22px 41px 38px;
 }

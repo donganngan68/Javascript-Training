@@ -8,10 +8,9 @@
   border-radius: 16px;
   color: #fff;
   font-family: var(--secondary-font);
-  font-size: 14px;
-  font-style: normal;
+  font-size: var(--fs-secondary);
   font-weight: var(--fw-semibold);
-  line-height: 24px;
+  line-height: var(--lineHeight-primary);
   letter-spacing: -0.14px;
   position: absolute;
   top: 3%;
@@ -30,10 +29,9 @@
   height: 52px;
   color: #fff;
   font-family: var(--secondary-font);
-  font-size: 14px;
-  font-style: normal;
+  font-size: var(--fs-secondary);
   font-weight: var(--fw-semibold);
-  line-height: 24px;
+  line-height: var(--lineHeight-primary);
   letter-spacing: -0.14px;
   position: absolute;
   top: 5%;

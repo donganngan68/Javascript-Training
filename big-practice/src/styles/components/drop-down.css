@@ -6,7 +6,7 @@
 .selected-option {
   color: #7e7e7e;
   font-family: var(--primary-font);
-  font-size: 12px;
+  font-size: var(--fs-primary);
   letter-spacing: -0.12px;
 }
 
@@ -27,6 +27,7 @@
   height: 38px;
   border-radius: 10px;
   background: var(--bg-color);
+  cursor: pointer;
 }
 
 .dropdown-content {
@@ -48,10 +49,8 @@
 .dropdown-item {
   color: #3d3c42;
   font-family: var(--primary-font);
-  font-size: 12px;
-  font-style: normal;
+  font-size: var(--fs-primary);
   font-weight: var(--fw-semibold);
-  line-height: normal;
   letter-spacing: -0.12px;
   cursor: pointer;
 }

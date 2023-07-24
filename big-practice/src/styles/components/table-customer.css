@@ -7,8 +7,6 @@
   font-size: 22px;
   font-family: var(--primary-font);
   font-weight: var(--fw-semibold);
-  font-style: normal;
-  line-height: normal;
   letter-spacing: -0.22px;
 }
 
@@ -28,24 +26,21 @@
 
 .search-box {
   display: flex;
-  justify-content: center;
   align-items: center;
   margin: 0 15px;
   width: 216px;
-  height: 38px;
   border-radius: 10px;
   background: var(--bg-color);
+  padding-left: 8px;
 }
 
 .search-text {
   border: none;
   background: var(--bg-color);
   color: var(--primary-color);
-  font-size: 12px;
+  font-size: var(--fs-primary);
   font-family: var(--primary-font);
   font-weight: var(--fw-regular);
-  font-style: normal;
-  line-height: normal;
   letter-spacing: -0.12px;
   margin-left: 8px;
   outline: none;
@@ -55,7 +50,7 @@
   font-weight: bold;
   color: #3d3c42;
   font-family: var(--primary-font);
-  font-size: 12px;
+  font-size: var(--fs-primary);
   font-weight: var(--fw-semibold);
   letter-spacing: -0.12px;
 }
@@ -70,11 +65,9 @@
 
 .table-heading {
   color: var(--secondary-color);
-  font-size: 14px;
+  font-size: var(--fs-secondary);
   font-family: var(--primary-font);
-  font-style: normal;
   font-weight: var(--fw-medium);
-  line-height: normal;
   letter-spacing: -0.14px;
   padding-bottom: 34px;
   text-align: left;
@@ -83,11 +76,9 @@
 .table-body {
   position: relative;
   color: var(--text-color);
-  font-size: 14px;
+  font-size: var(--fs-secondary);
   font-family: var(--primary-font);
-  font-style: normal;
   font-weight: var(--fw-medium);
-  line-height: normal;
   letter-spacing: -0.14px;
   border-top: 1px solid #eee;
 }
@@ -101,33 +92,18 @@
 .action-panel {
   visibility: hidden;
   position: absolute;
-  /* height: 71px; */
   border-radius: 4px;
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   top: 72%;
   left: 95%;
-}
-
-.data-summary {
-  color: var(--secondary-color);
-  font-family: var(--primary-font);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: var(--fw-medium);
-  line-height: normal;
-  letter-spacing: -0.14px;
-  padding-top: 32px;
-}
-
-.table-footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  padding: 15px 35px 6px 19px;
 }
 
 .session-pagination {
-  padding-right: 30px;
+  float: right;
+  padding-right: 215px;
+  padding-top: 30px;
 }
 
 .arrow-button {
@@ -138,6 +114,9 @@
   background: #f5f5f5;
   margin-right: 10px;
   color: #404b52;
+  font-family: var(--primary-font);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
 }
 
 .img-dot-customer {

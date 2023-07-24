@@ -4,18 +4,18 @@
   color: #fff;
   font-size: 20px;
   font-family: var(--secondary-font);
-  font-style: normal;
   font-weight: var(--fw-semibold);
   line-height: 24px;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .btn-action-group {
   display: flex;
   justify-content: center;
-  padding-top: 115px;
-  padding-bottom: 87px;
+  padding-top: 100px;
+  padding-bottom: 60px;
 }
 
 .btn-active {
@@ -26,11 +26,9 @@
   border: 1px solid #00b087;
   background: rgba(22, 192, 152, 0.38);
   color:#008767;
-  font-size: 14px;
+  font-size: var(--fs-secondary);
   font-family: var(--primary-font);
-  font-style: normal;
   font-weight:var(--fw-medium);
-  line-height: normal;
   letter-spacing: -0.14px;
 }
 
@@ -42,11 +40,9 @@
   border: 1px solid var(--btn-color);
   background: #ffc5c5;
   color: var(--btn-color);
-  font-size: 14px;
+  font-size: var(--fs-secondary);
   font-family: var(--primary-font);
-  font-style: normal;
   font-weight:var(--fw-medium);
-  line-height: normal;
   letter-spacing: -0.14px;
 }
 
@@ -60,11 +56,11 @@
 }
 
 .action-btn {
-  padding: 15px 35px;
   color: var(--text-color);
   font-family: var(--secondary-font);
-  font-size: 14px;
+  font-size: var(--fs-secondary);
   font-weight: var(--fw-regular);
   border: none;
   background: #fff;
+  margin-bottom: 4px;
 }
