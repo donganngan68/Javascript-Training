@@ -4,8 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JavaScript</title>
+  <title>JavaScript training - Practice 1 </title>
+
+  <!-- style sheet -->
   <link rel="stylesheet" href="styles/main.css" type="text/css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -22,7 +25,7 @@
             <input class="search-text" type="text" placeholder="Search" />
           </div>
           <div class="dropdown">
-            <div class="selected-option">Sort by: Name</div>
+            <div class="selected-option">Sort by: <span class="sort-type">Name</span></div>
             <ul class="dropdown-content">
               <li class="dropdown-item" data-sortby="name">Name</li>
               <li class="dropdown-item" data-sortby="company">Company</li>
@@ -57,7 +60,6 @@
         <p class="data-summary">Showing data 1 to 8 of 256K entries</p>
         <div class="session-pagination">
           <button class="arrow-button prevPageButton">&lt;</button>
-          <span class="currentPagePlaceholder">1</span> / <span class="totalPagesPlaceholder">1</span>
           <button class="arrow-button nextPageButton">></button>
         </div>
       </div>

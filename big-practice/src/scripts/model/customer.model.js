@@ -1,18 +1,17 @@
-import { BASE_URL } from '../constants/url';
+const headerConfig = {
+  'Content-Type': 'application/json',
+}
 
 class CustomerService {
   getListCustomer = async () => {
-    const apiRequest = await fetch(`${BASE_URL}customers`);
-    const dataReponse = await apiRequest.json();
-    return dataReponse;
+    const apiRequest = await fetch(`${process.env.BASE_URL}customers`);
+    return await apiRequest.json();
   }
 
   createCustomer = async (customer) => {
-    const response = await fetch(`${BASE_URL}customers`, {
+    const response = await fetch(`${process.env.BASE_URL}customers`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: headerConfig,
       body: JSON.stringify(customer),
     })
     if (response.ok) {
@@ -23,11 +22,9 @@ class CustomerService {
   }
 
   editCustomer = async (customer) => {
-    const response = await fetch(`${BASE_URL}customers/${customer.id}`, {
+    const response = await fetch(`${process.env.BASE_URL}customers/${customer.id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: headerConfig,
       body: JSON.stringify(customer),
     })
     if (response.ok) {
@@ -38,11 +35,9 @@ class CustomerService {
   }
 
   deleteCustomer = async (id) => {
-    const response = await fetch(`${BASE_URL}customers/${id}`, {
+    const response = await fetch(`${process.env.BASE_URL}customers/${id}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: headerConfig,
     })
     if (response.ok) {
       return response.json();

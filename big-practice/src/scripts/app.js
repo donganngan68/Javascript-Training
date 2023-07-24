@@ -1,6 +1,6 @@
-import CustomerController from "./controllers/customer-controller";
-import CustomerView from "./views/customer-view";
-import CustomerService from './services/customer-service';
+import CustomerController from "./controllers/customer.controller";
+import CustomerView from "./views/customer.view";
+import CustomerService from './model/customer.model';
 
 export class App {
     constructor() {}

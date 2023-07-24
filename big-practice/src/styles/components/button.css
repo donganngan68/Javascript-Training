@@ -60,15 +60,11 @@
 }
 
 .action-btn {
-  padding: 15px 35px 10px 19px;
-  text-align: left;
+  padding: 15px 35px;
   color: var(--text-color);
   font-family: var(--secondary-font);
   font-size: 14px;
-  font-style: normal;
   font-weight: var(--fw-regular);
-  line-height: normal;
-  letter-spacing: -0.14px;
   border: none;
   background: #fff;
 }

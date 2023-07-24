@@ -1,10 +1,9 @@
-## Target: ##
+## Targets: ##
 - Understand & apply knowledge of HTML/CSS/JavaScript.
 - DOM manipulation with a simple table, form.
 ## Design on figma: ##
 - [Figma](https://www.figma.com/file/c3aFzD4P3igEohZkx9KfTq/Customer-dashboard?type=design&node-id=0%3A1&mode=design&t=ANuRshVFYkk0m5X5-1)
 ## Information: ##
-- Time line: 2023/07/03 – 2023/07/18
 - Editor: Visual Studio Code
 
 ## Team size: ##
@@ -12,44 +11,28 @@
 ## Folder structure ##
 - big-practice
 ~~~
-|-- src
-    |-- assets
-      |-- fonts
-      |-- images
-    |-- scripts
-      |-- controllers
-        |-- customer-controller.js
-      |-- services
-        |-- customer-service.js
-      |-- views
-        |--customer-view.js
-      |-- app.js
-      |-- main.js
-    |-- styles
-      |-- components
-        |-- common
-        |-- all.css
-        |-- container.css
-        |-- del-confirm-modal.css
-        |-- form.css
-        |-- modal-customer.css
-        |-- table-customer.css
-      |-- fonts.css
-      |-- main.css
-      |-- variables.css
-    |-- index.html
-|-- .editorconfig
-|-- .gitignore
-|--.prettierrc.json
-|-- package.json
-|-- README.md
-|-- vercel.json
-|-- yarn.lock
+├── .gitignore
+├── package.json
+├── yarn.lock
+├── README.md
+└── src
+    ├── favicon.ico
+    └── assets
+        ├── audios
+        ├── videos
+        └── images
+    ├── pages
+        ├── index.html
+        └── 404.html
+    ├── scripts
+        └── index.js
+    └── styles
+        └── main.css
 ~~~
 ## Getting started:
-Step 01: Clone repository with HTTPS:
+Step 01: Clone repository with SSH:
 ~~~
-git clone https://github.com/donganngan68/Javascript-Training.git
+git clone git@github.com:donganngan68/Javascript-Training.git
 ~~~
 Step 02: Change to branch feat/big-practice:
 ~~~

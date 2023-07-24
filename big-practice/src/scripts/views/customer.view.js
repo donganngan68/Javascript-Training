@@ -1,12 +1,12 @@
-import imgDot from '../../assets/images/dot.png';
-import { getElementById, querySelector, querySelectorAll } from '../../dom-helpers/get-element';
-import { NAME_REQUIRED_ERROR_MESSAGE, INVALID_NAME_ERROR_MESSAGE, INVALID_PHONE_ERROR_MESSAGE, PHONE_REQUIRED_ERROR_MESSAGE, COMPANY_REQUIRED_ERROR_MESSAGE, EMAIL_REQUIRED_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, COUNTRY_REQUIRED_ERROR_MESSAGE } from '../constants/error-messages';
+import imgDot from "../../assets/images/dot.png";
+import { getElementById, querySelector, querySelectorAll } from "../helpers";
+import { MESSAGES } from "../constants/messages";
 
 class CustomerView {
   constructor() {
-    this.selectedOptionSort = querySelector('.selected-option');
+    this.selectedOptionSort = querySelector('.sort-type');
     this.dropdownItems = querySelectorAll('.dropdown-item', this.dropDownContent);
-    this.imgDropdown = querySelector('.icon-dropdown');
+    this.imgDropdown = querySelector('.dropdown');
     this.dropDownContent = querySelector('.dropdown-content');
     this.searchInput = querySelector('.search-text');
     this.currentPagePlaceholder = querySelector('.currentPagePlaceholder');
@@ -74,29 +74,31 @@ class CustomerView {
     this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer);
     this.prevPageButton.addEventListener('click', this.handPrevPageButton);
     this.nextPageButton.addEventListener('click', this.handNextPageButton);
-    this.searchInput.addEventListener('keyup', (event) => {
-      if (event.keyCode === 13) {
-        this.handleSearchInput();
-      }
-    });
-    this.imgDropdown = addEventListener('click', this.handDropDownIcon);
+    this.handleSearch();
+    this.imgDropdown.addEventListener('click', this.handDropDownIcon);
     this.currentPage = 1;
     this.itemsPerPage = 8;
     this.customerList = undefined;
     this.totalPages = undefined;
   }
 
+  handleSearch = () => {
+    this.searchInput.addEventListener('keyup', (event) => {
+      if (event.keyCode === 13) {
+        this.handleSearchInput();
+      }
+    });
+  }
+
   handDropDownIcon = () => {
-    this.dropDownContent.classList.toggle('active')
+    this.dropDownContent.classList.toggle('active');
   }
 
   handDropDownIconAction = () => {
-    debugger
     this.dropdownItems.forEach((item) => {
       item.addEventListener('click', () => {
-        debugger
         const selectedSortBy = item.dataset.sortby;
-        this.selectedOptionSort.textContent = `Sort by: ${selectedSortBy.charAt(0).toUpperCase() + selectedSortBy.slice(1)}`;
+        this.selectedOptionSort.textContent = `${selectedSortBy.charAt(0).toUpperCase() + selectedSortBy.slice(1)}`;
         if (selectedSortBy) {
           this.sortData(selectedSortBy);
           this.renderData(this.customerList);
@@ -173,11 +175,11 @@ class CustomerView {
 
     if (this.nameInput.value.trim() === '') {
       isValid = false;
-      this.nameError.textContent = `${NAME_REQUIRED_ERROR_MESSAGE}`;
+      this.nameError.textContent = `${MESSAGES.NAME_REQUIRED}`;
       this.nameInput.classList.add('valid-check');
     } else if (!this.nameInput.value.match(nameRegex)) {
       isValid = false;
-      this.nameError.textContent = `${INVALID_NAME_ERROR_MESSAGE}`;
+      this.nameError.textContent = `${MESSAGES.INVALID_NAME}`;
       this.nameInput.classList.add('valid-check');
     } else {
       this.nameError.textContent = '';
@@ -186,7 +188,7 @@ class CustomerView {
 
     if (this.companyInput.value.trim() === '') {
       isValid = false;
-      this.companyError.textContent = `${COMPANY_REQUIRED_ERROR_MESSAGE}`;
+      this.companyError.textContent = `${MESSAGES.COMPANY_REQUIRED}`;
       this.companyInput.classList.add('valid-check');
     } else {
       this.companyError.textContent = '';
@@ -206,11 +208,11 @@ class CustomerView {
 
     if (this.phoneInput.value.trim() === '') {
       isValid = false;
-      this.phoneError.textContent = `${PHONE_REQUIRED_ERROR_MESSAGE}`;
+      this.phoneError.textContent = `${MESSAGES.PHONE_REQUIRED}`;
       this.phoneInput.classList.add('valid-check');
     } else if (!this.phoneInput.value.match(phoneRegex)) {
       isValid = false;
-      this.phoneError.textContent = `${INVALID_PHONE_ERROR_MESSAGE}`;
+      this.phoneError.textContent = `${MESSAGES.INVALID_PHONE}`;
       this.phoneInput.classList.add('valid-check');
     } else {
       this.phoneError.textContent = '';
@@ -232,11 +234,11 @@ class CustomerView {
 
     if (this.emailInput.value.trim() === '') {
       isValid = false;
-      this.emailError.textContent = `${EMAIL_REQUIRED_ERROR_MESSAGE}`;
+      this.emailError.textContent = `${MESSAGES.EMAIL_REQUIRED}`;
       this.emailInput.classList.add('valid-check');
     } else if (!this.emailInput.value.match(emailRegex)) {
       isValid = false;
-      this.emailError.textContent = `${INVALID_EMAIL_ERROR_MESSAGE}`;
+      this.emailError.textContent = `${MESSAGES.INVALID_EMAIL}`;
       this.emailInput.classList.add('valid-check');
     } else {
       this.emailError.textContent = '';
@@ -245,7 +247,7 @@ class CustomerView {
 
     if (country.value === '') {
       isValid = false;
-      this.countryError.textContent = `${COUNTRY_REQUIRED_ERROR_MESSAGE}`;
+      this.countryError.textContent = `${MESSAGES.COUNTRY_REQUIRED}`;
       country.classList.add('valid-check');
     } else {
       this.countryError.textContent = '';
@@ -289,7 +291,6 @@ class CustomerView {
   }
 
   renderData(list) {
-    debugger
     const customerListExists = this.customerList !== null && this.customerList !== undefined;
     if (!customerListExists) {
       this.customerList = list;
@@ -362,7 +363,7 @@ class CustomerView {
       }
 
       if (removeItemId) {
-        this.showDeleteCustomerModal();
+        this.modalCustomerDel.classList.add('show');
         this.btnConfirmDelete.value = removeItemId;
       }
 
@@ -388,17 +389,6 @@ class CustomerView {
     this.btnSubmit.value = '';
   }
 
-  // hideCustomerModal = () => {
-  //   this.countrySelect.selectedIndex = 0;
-  //   this.inputFields.forEach(function (input) {
-  //     input.value = '';
-  //     input.classList.remove('valid-check');
-  //   });
-  //   this.errorMessages.forEach(function (error) {
-  //     error.textContent = '';
-  //   });
-  //   this.formCustomer.classList.remove('show');
-  // }
   bindHandleSubmit = (handler) => {
     this.formCustomer.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -409,8 +399,10 @@ class CustomerView {
     });
   }
 
-  showDeleteCustomerModal = () => {
-    this.modalCustomerDel.classList.add('show');
+  bindHandleDeleteCustomer = (handler) => {
+    this.btnConfirmDelete.addEventListener('click', () => {
+      handler(this.btnConfirmDelete.value)
+    })
   }
 
   hideDeleteCustomerModal = () => {
@@ -426,22 +418,6 @@ class CustomerView {
   getDeleteCustomerId = () => {
     return this.btnConfirmDelete.value;
   }
-
-  // handleSubmitDataSuccess = () => {
-  //   this.formCustomer.classList.remove('show');
-  //   this.successSnackbar.style.visibility = 'visible';
-  //   setTimeout(() => {
-  //     this.successSnackbar.style.visibility = 'hidden';
-  //   }, 3000);
-  // }
-
-  // handleSubmitDataFailed = () => {
-  //   this.errorSnackbar.style.visibility = 'visible';
-  //   setTimeout(() => {
-  //     this.errorSnackbar.style.visibility = 'hidden';
-  //   }, 3000);
-  // }
-
 }
 
 export default CustomerView;

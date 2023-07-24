@@ -7,10 +7,8 @@ class CustomerController {
   init = () => {
     this.handleRenderTable();
     this.view.init();
-    this.view.bindHandleSubmit(this.handleSubmit)
-    this.view.bindHandleDeleteCustomer(this.handleDeleteCustomer)
-    // this.btnConfirmDelete.addEventListener('click', this.handleDeleteCustomer);
-    // this.formCustomer.addEventListener('submit', this.handleSubmit);
+    this.view.bindHandleSubmit(this.handleSubmit);
+    this.view.bindHandleDeleteCustomer(this.handleDeleteCustomer);
   }
 
   handleRenderTable = async () => {
