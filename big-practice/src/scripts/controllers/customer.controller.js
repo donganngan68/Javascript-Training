@@ -1,7 +1,7 @@
 class CustomerController {
-  constructor(view, service) {
+  constructor(view, model) {
     this.view = view;
-    this.service = service;
+    this.model = model;
   }
 
   init = () => {
@@ -13,7 +13,7 @@ class CustomerController {
 
   handleRenderTable = async () => {
     try {
-      const data = await this.service.getListCustomer();
+      const data = await this.model.getListCustomer();
       this.view.renderData(data);
     } catch (error) {
       console.error('Error fetching data:', error);// TODO: update later
@@ -22,7 +22,7 @@ class CustomerController {
 
   handleRenderForm = async () => {
     try {
-      const data = await this.service.editCustomer();
+      const data = await this.model.editCustomer();
       this.view.renderData(data);
     } catch (error) {
       console.error('Error fetching data:', error);// TODO: update later
@@ -30,7 +30,7 @@ class CustomerController {
   }
 
   handleSubmit = async (data) => {
-    try { 
+    try {
       if (data.id.length > 0) {
         await this.service.editCustomer(data);
       } else {

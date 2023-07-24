@@ -1,8 +1,15 @@
+import HttpRequestHelper from "../helpers/http-request-helper";
 const headerConfig = {
   'Content-Type': 'application/json',
 }
 
-class CustomerService {
+class CustomerModel {
+  path = 'customers';
+
+  constructor(httpRequestHelper) {
+    this.httpRequestHelper = httpRequestHelper;
+  }
+
   getListCustomer = async () => {
     const apiRequest = await fetch(`${process.env.BASE_URL}customers`);
     return await apiRequest.json();
@@ -21,21 +28,12 @@ class CustomerService {
     }
   }
 
-  editCustomer = async (customer) => {
-    const response = await fetch(`${process.env.BASE_URL}customers/${customer.id}`, {
-      method: 'PUT',
-      headers: headerConfig,
-      body: JSON.stringify(customer),
-    })
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Error creating customer');
-    }
+  editCustomer (customer) {
+    return this.httpRequestHelper.put(this.path, customer.id, customer );
   }
 
   deleteCustomer = async (id) => {
-    const response = await fetch(`${process.env.BASE_URL}customers/${id}`, {
+    const response = await fetch(`${process.env.BASE_URL}this.path/${id}`, {
       method: 'DELETE',
       headers: headerConfig,
     })
@@ -47,4 +45,4 @@ class CustomerService {
   }
 };
 
-export default CustomerService;
+export default CustomerModel;
