@@ -1,4 +1,4 @@
-import HttpRequestHelper  from "../helpers/api-request";
+import ApiRequest  from "../helpers/api-request";
 
 const baseUrl = process.env.BASE_URL; // Get key in env
 
@@ -6,11 +6,11 @@ class CustomerModel {
   path = 'customers';
 
   constructor() {
-    this.httpHelper =  new HttpRequestHelper(baseUrl);
+    this.httpHelper =  new ApiRequest(baseUrl);
   }
+
   async getListCustomer() {
-    const apiRequest = await fetch(`${this.httpHelper.baseUrl}${this.path}`);
-    const dataResponse = await apiRequest.json();
+    const dataResponse = await this.httpHelper.get(this.path);
     return dataResponse.reverse();
   }
 

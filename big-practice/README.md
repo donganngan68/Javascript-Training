@@ -11,23 +11,48 @@
 ## Folder structure ##
 - big-practice
 ~~~
-├── .gitignore
-├── package.json
 ├── yarn.lock
+├── yarn-error.log
+├── vercel.json
+├── package.json
+├── .prettierrc.json
+├── .gitignore
+├── .env
+├── .editorconfig
 ├── README.md
 └── src
-    ├── favicon.ico
     └── assets
-        ├── audios
-        ├── videos
-        └── images
-    ├── pages
-        ├── index.html
-        └── 404.html
     ├── scripts
-        └── index.js
-    └── styles
-        └── main.css
+        ├── constants
+            ├── index.js
+            └── messages.js
+        ├── controllers
+            └── customer.controller.js
+        ├── helpers
+            ├── api-request.js
+            ├── get-dom-element.js
+            └── index.js
+        ├── models
+            └── customer.model.js
+        ├── views
+            └── customer.view.js
+        ├── components
+            ├── all.css
+            ├── button.css
+            ├── container.css
+            ├── drop-down.css
+            ├── form.css
+            ├── modal-customer.css
+            ├── snackbar.css
+            ├── status-action.css
+            └── table-customer.css
+        ├── fonts.css
+        ├── main.css
+        ├── reset.css
+        └── variables.css
+
+    ├── favicon.ico
+    └── index.html
 ~~~
 ## Getting started:
 Step 01: Clone repository with SSH:

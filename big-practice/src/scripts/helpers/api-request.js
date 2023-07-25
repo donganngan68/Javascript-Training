@@ -5,8 +5,8 @@ class ApiRequest {
     console.log(baseUrl)
   }
 
-  get(path, id) {
-    return this.sendRequest(`${path}`, 'GET', data);
+  get(path) {
+    return this.sendRequest(`${path}`, 'GET');
   }
 
   post(path, data) {
@@ -22,10 +22,10 @@ class ApiRequest {
   }
 
   async sendRequest (path, method, body) {
-    const url = `${this.baseUrl}/${path}`;
+    const url = `${this.baseUrl}${path}`;
     const response = await fetch(url, {
       method,
-      header: {
+      headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body)
