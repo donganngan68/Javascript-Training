@@ -32,9 +32,10 @@ class CustomerController {
   handleSubmit = async (data) => {
     try {
       if (data.id.length > 0) {
-        await this.service.editCustomer(data);
+        await this.model.editCustomer(data);
       } else {
-        await this.service.createCustomer(data);
+        const {id, ...rest} = data
+        await this.model.createCustomer(rest);
       }
       this.handleRenderTable();
       this.view.handleSubmitDataSuccess();

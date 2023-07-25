@@ -1,15 +1,16 @@
-class HttpRequestHelper {
+class ApiRequest {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
+    console.log(baseUrl)
   }
 
   get(path, id) {
-    return this.sendRequest(`${path}/${id}`, { method: 'GET' });
+    return this.sendRequest(`${path}`, 'GET', data);
   }
 
   post(path, data) {
-    return this.sendRequest(path, { method: 'POST', body: data });
+    return this.sendRequest(`${path}`, 'POST', data );
   }
 
   put(path, id, data) {
@@ -17,13 +18,11 @@ class HttpRequestHelper {
   }
 
   delete(path, id) {
-
+    return this.sendRequest(`${path}/${id}`, 'DELETE', data);
   }
 
   async sendRequest (path, method, body) {
     const url = `${this.baseUrl}/${path}`;
-
-
     const response = await fetch(url, {
       method,
       header: {
@@ -40,4 +39,4 @@ class HttpRequestHelper {
   }
 }
 
-export default HttpRequestHelper;
+export default ApiRequest;
