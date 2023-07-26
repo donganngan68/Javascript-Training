@@ -19,13 +19,13 @@
   visibility: hidden;
 }
 
-.wrong-snackbar {
+.error-snackbar {
   display: flex;
   align-items: center;
   padding-left: 18px;
   gap: 18px;
   border-radius: 16px;
-  background: var(--wrong-snackbar);
+  background: var(--error-snackbar);
   width: 341px;
   height: 52px;
   color: #fff;
