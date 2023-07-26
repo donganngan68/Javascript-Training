@@ -7,9 +7,21 @@
 @import url("./components/all.css");
 
 .main {
+  position: relative;
   width: 100%;
   height: auto;
   background: #fff;
   border-radius: 20px;
   padding: 30px 22px 41px 38px;
+}
+
+.overlay {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 5;
 }

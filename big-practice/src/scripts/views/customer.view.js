@@ -24,6 +24,7 @@ class CustomerView {
     this.successSnackbar = querySelector('.valid-snackbar');
     this.errorSnackbar = querySelector('.error-snackbar');
     this.modalCustomerDel = querySelector('.modal-customer-del'); // Del = Delete
+    this.overlay = querySelector('.overlay');
 
     this.customerTable = querySelector('.customer-table');
     this.toggleInput = querySelector('.on-off-input');
@@ -68,7 +69,6 @@ class CustomerView {
     this.iconCancelSubmit.addEventListener('click', this.hideCustomerModal);
     this.btnCancelSubmit.addEventListener('click', this.hideCustomerModal);
     document.addEventListener('mousedown', this.handleOutsideClick);
-    this.handleTableRowAction();
     this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
     this.btnCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
     this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer);
@@ -267,6 +267,8 @@ class CustomerView {
       error.textContent = '';
     });
     this.formCustomer.classList.remove('show');
+    this.overlay.style.display = 'none';
+    this.modalCustomerDel.classList.remove('show');
   }
 
   handleOutsideClick = (event) => {
@@ -323,9 +325,9 @@ class CustomerView {
         </tr>
       `
         this.table.innerHTML = result;
-        this.handleTableRowAction(list);
       }
     )
+    this.handleTableRowAction(list);
     this.handDropDownIconAction();
   }
 
@@ -341,6 +343,10 @@ class CustomerView {
   }
 
   handleTableRowAction = (customers) => {
+    if (!customers?.length) {
+      return;
+    }
+    
     this.table.addEventListener('click', (e) => {
       const currentItem = e.target?.getAttribute('data-option-id');
 
@@ -351,20 +357,28 @@ class CustomerView {
       const isKeepActionsPanel = !!editItemId || !!removeItemId;
 
       // TODO: Refactor this
-      const actionsPanel = document.querySelectorAll('div[data-actions-id]');
+      const actionsPanel = querySelectorAll('div[data-actions-id]');
 
       if (editItemId) {
         this.formCustomer.classList.add('show');
+        this.overlay.style.display = 'block';
         const formTitle = querySelector('.form-title', this.formCustomer);
         formTitle.innerHTML = 'Update Customer';
-        customers && customers.map(item => {
+        customers.forEach(item => {
           item.id === editItemId && this.initializeEditForm(item);
         })
+
+        const currentPanel = document.querySelector(`div[data-actions-id="${editItemId}"]`);
+        currentPanel.style.visibility = "hidden";
       }
 
       if (removeItemId) {
         this.modalCustomerDel.classList.add('show');
+        this.overlay.style.display = 'block';
         this.btnConfirmDelete.value = removeItemId;
+
+        const currentPanel = document.querySelector(`div[data-actions-id="${removeItemId}"]`);
+        currentPanel.style.visibility = "hidden";
       }
 
       actionsPanel.forEach(nodeItem => {
@@ -384,6 +398,7 @@ class CustomerView {
 
   showCustomerModal = () => {
     this.formCustomer.classList.add('show');
+    this.overlay.style.display = 'block';
     const formTitle = querySelector('.form-title', this.formCustomer);
     formTitle.innerHTML = 'Create Customer';
     this.btnSubmit.value = '';
@@ -407,12 +422,6 @@ class CustomerView {
 
   hideDeleteCustomerModal = () => {
     this.modalCustomerDel.classList.remove('show');
-  }
-
-  handleOutsideClick = (event) => {
-    if (!this.modalCustomer.contains(event.target)) {
-      this.hideCustomerModal();
-    }
   }
 
   getDeleteCustomerId = () => {

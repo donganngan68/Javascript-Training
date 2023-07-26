@@ -9,6 +9,7 @@
   border-radius: 20px;
   margin-top: 50px;
   padding: 52px 47px 0 50px;
+  z-index: 10;
 }
 
 .modal-header {
