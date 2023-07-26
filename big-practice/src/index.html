@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript training - Practice 1</title>
 
+<<<<<<< Updated upstream
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -45,6 +50,58 @@
         <tbody class="table-customer-body">
         </tbody>
       </table>
+=======
+    <!-- style sheet -->
+    <link rel="stylesheet" href="styles/main.css" type="text/css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+
+  <body>
+    <div class="container">
+      <main class="main">
+        <div class="overlay"></div>
+        <!-- start header table -->
+        <header class="header">
+          <h2 class="header-title">All Customers</h2>
+
+          <div class="navbar">
+            <img src="./assets/images/add.png" alt="icon add customer" class="icon-add-modal" />
+
+            <div class="search-box">
+              <img class="icon-search" src="./assets/images/search.png" alt="searching customer" />
+              <input class="search-text" type="text" placeholder="Search" />
+            </div>
+
+            <div class="dropdown">
+              <div class="selected-option">Sort by: <span class="sort-type">Name</span></div>
+              <ul class="dropdown-content">
+                <li class="dropdown-item" data-sortby="name">Name</li>
+                <li class="dropdown-item" data-sortby="company">Company</li>
+                <li class="dropdown-item" data-sortby="phone">Phone</li>
+                <li class="dropdown-item" data-sortby="email">Email</li>
+                <li class="dropdown-item" data-sortby="country">Country</li>
+              </ul>
+              <img src="./assets/images/dropt.png" class="icon-dropdown" alt="dropdown sort" />
+            </div>
+          </div>
+        </header>
+        <!-- end header table -->
+
+        <!-- start table body -->
+        <table class="table-customer">
+          <thead>
+            <tr>
+              <th class="table-heading">Customer Name</th>
+              <th class="table-heading">Company</th>
+              <th class="table-heading">Phone Number</th>
+              <th class="table-heading">Email</th>
+              <th class="table-heading">Country</th>
+              <th class="table-heading">Status</th>
+            </tr>
+          </thead>
+          <tbody class="table-customer-body"></tbody>
+        </table>
+>>>>>>> Stashed changes
 
       <div class="table-footer">
         <p class="data-summary">Showing data 1 to 8 of 256K entries</p>
@@ -52,6 +109,7 @@
           <button class="arrow-button">></button>
           <button class="arrow-button">&lt;</button>
         </div>
+<<<<<<< Updated upstream
       </div>
       <!-- end table body -->
 
@@ -153,5 +211,107 @@
 
   <script type="module" src="./scripts/main.js"></script>
 </body>
+=======
 
+        <!-- end table body -->
+
+        <!-- start modal update customer -->
+        <section class="modal-customer show">
+          <form class="form-customer">
+            <div class="modal-header">
+              <h2 class="form-title"></h2>
+              <img src="./assets/images/cancel.png" alt="Icon cancel update customer form" class="icon-cancel-submit" />
+            </div>
+
+            <!-- start sign form -->
+            <section class="input-form-wrapper">
+              <div>
+                <p class="form-field">Customer Name</p>
+                <input type="text" class="input-control name" value="" />
+                <span class="mess-invalid-form name-error"></span>
+              </div>
+
+              <div>
+                <p class="form-field">Company</p>
+                <input type="text" class="input-control company" value="" />
+                <span class="mess-invalid-form company-error"></span>
+              </div>
+
+              <div>
+                <p class="form-field">Phone Number</p>
+                <input type="tel" class="input-control phone" value="" />
+                <span class="mess-invalid-form phone-error"></span>
+              </div>
+
+              <div>
+                <p class="form-field">Email</p>
+                <input class="input-control email" value="" />
+                <span class="mess-invalid-form email-error"></span>
+              </div>
+
+              <div>
+                <p class="form-field">Country</p>
+                <select class="input-control" id="country">
+                  <option value="">-- Select a country --</option>
+                  <option value="Viet Nam">Viet Nam</option>
+                  <option value="Cambodia">Cambodia</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Thailand">Thailand</option>
+                  <option value="Laos">Laos</option>
+                  <option value="Myanmar">Myanmar</option>
+                </select>
+                <span class="mess-invalid-form country-error"></span>
+              </div>
+
+              <div class="toggle-control">
+                <p class="toggle-control-title">Status</p>
+                <label class="toggle-input">
+                  <input class="on-off-input" type="checkbox" checked />
+                  <span class="toggle-input-slider toggle-input-round"></span>
+                </label>
+              </div>
+            </section>
+            <!-- end sign form -->
+
+            <!-- start button submit and cancel -->
+            <section class="btn-action-group">
+              <button class="btn btn-primary btn-submit" type="submit">Submit</button>
+              <button class="btn btn-secondary btn-cancel-submit" type="button">Cancel</button>
+            </section>
+            <!-- end button submit and cancel -->
+          </form>
+        </section>
+
+        <!-- end modal update customer -->
+
+        <!-- start modal delete -->
+        <section class="form-customer modal-customer-del">
+          <div class="modal-header">
+            <h2 class="form-title">Do you want to remove this customer?</h2>
+            <img src="./assets/images/cancel.png" alt="Icon cancel update customer form" class="icon-cancel-delete" />
+          </div>
+
+          <div class="btn-action-group btn-del">
+            <button class="btn btn-primary btn-confirm-delete" type="button">Yes</button>
+            <button class="btn btn-secondary btn-cancel-delete" type="button">No</button>
+          </div>
+        </section>
+        <!-- end modal delete -->
+
+        <!-- Start valid and wrong snackbar -->
+        <section class="valid-snackbar">
+          <img src="./assets/images/checkmark.png" alt="successfully" />
+          <p>Customer information has been successfully updated</p>
+        </section>
+
+        <section class="error-snackbar">
+          <img src="./assets/images/ellipse.png" alt="something went wrong" />
+          <p>Something went wrong</p>
+        </section>
+      </main>
+    </div>
+>>>>>>> Stashed changes
+
+    <script type="module" src="./scripts/main.js"></script>
+  </body>
 </html>

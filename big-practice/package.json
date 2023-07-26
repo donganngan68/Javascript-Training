@@ -12,5 +12,7 @@
   "dependencies": {
     "parcel": "^2.9.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^8.45.0"
+  }
 }
