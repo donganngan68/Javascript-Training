@@ -76,7 +76,7 @@ class CustomerView {
     this.nextPageButton.addEventListener('click', this.handNextPageButton);
     this.handleSearch();
     this.imgDropdown.addEventListener('click', this.handDropDownIcon);
-    document.addEventListener('click', this.handleSortOutsideClick);
+    document.addEventListener('click', this.handleOutsideSortClick);
     this.currentPage = 1;
     this.itemsPerPage = 8;
     this.customerList = undefined;
@@ -277,7 +277,7 @@ class CustomerView {
     }
   }
 
-  handleSortOutsideClick = (event) => {
+  handleOutsideSortClick = (event) => {
     if (!this.imgDropdown.contains(event.target)) {
       this.dropDownContent.classList.remove('active');
     }
