@@ -76,6 +76,7 @@ class CustomerView {
     this.nextPageButton.addEventListener('click', this.handNextPageButton);
     this.handleSearch();
     this.imgDropdown.addEventListener('click', this.handDropDownIcon);
+    document.addEventListener('click', this.handleSortOutsideClick);
     this.currentPage = 1;
     this.itemsPerPage = 8;
     this.customerList = undefined;
@@ -103,7 +104,6 @@ class CustomerView {
           this.sortData(selectedSortBy);
           this.renderData(this.customerList);
         }
-        this.dropDownContent.classList.remove('active');
       });
     });
   }
@@ -277,6 +277,12 @@ class CustomerView {
     }
   }
 
+  handleSortOutsideClick = (event) => {
+    if (!this.imgDropdown.contains(event.target)) {
+      this.dropDownContent.classList.remove('active');
+    }
+  }
+
   handleSubmitDataSuccess = () => {
     this.formCustomer.classList.remove('show');
     this.successSnackbar.style.visibility = 'visible';
@@ -346,7 +352,7 @@ class CustomerView {
     if (!customers?.length) {
       return;
     }
-    
+
     this.table.addEventListener('click', (e) => {
       const currentItem = e.target?.getAttribute('data-option-id');
 
@@ -384,7 +390,6 @@ class CustomerView {
       actionsPanel.forEach(nodeItem => {
         const panelId = nodeItem.getAttribute('data-actions-id');
         if (currentItem === panelId) {
-          // nodeItem.style.visibility = nodeItem.style.visibility === "visible" ? "hidden" : "visible";
           nodeItem.style.visibility = "visible";
         } else {
           // TODO: Refactor this condition

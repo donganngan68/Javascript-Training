@@ -50,7 +50,6 @@
         ├── main.css
         ├── reset.css
         └── variables.css
-
     ├── favicon.ico
     └── index.html
 ~~~
@@ -74,6 +73,7 @@ cd big-practice
 ~~~
 Step 05: Open terminal and type:
 ~~~
+cp .sample.env .env
 yarn install
 ~~~
 Step 06: Finally run with:

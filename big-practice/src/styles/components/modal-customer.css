@@ -1,17 +1,3 @@
-.form-customer{
-  display: none;
-  width: 768px;
-  height: auto;
-  position: absolute;
-  top: 10%;
-  left: 25%;
-  background-color: var(--bg-color);
-  border-radius: 20px;
-  margin-top: 50px;
-  padding: 52px 47px 0 50px;
-  z-index: 10;
-}
-
 .modal-header {
   display: flex;
   align-items: flex-start;
@@ -22,29 +8,10 @@
   cursor: pointer;
 }
 
-.form-title {
-  color: var(--primary-color);
-  font-size: 36px;
-  font-family: var(--primary-font);
-  font-weight: var(--fw-semibold);
-  letter-spacing: 0.36px;
-  padding-bottom: 52px;
-}
-
 .input-form-wrapper {
   display: grid;
   grid-template-columns: auto auto;
   grid-column-gap: 63px;
-}
-
-.form-field {
-  position: relative;
-  color: var(--accent-color);
-  font-size: 20px;
-  font-family: var(--secondary-font);
-  font-weight: var(--fw-bold);
-  line-height: var(--lineHeight-primary);
-  padding-bottom: 19px;
 }
 
 .input-control {
@@ -64,14 +31,6 @@
   font-family: var(--secondary-font);
   font-weight: var(--fw-medium);
   line-height: var(--lineHeight-primary);
-}
-
-.form-field::after {
-  content: '*';
-  color: var(--mess-color);
-  position: absolute;
-  top: -15%;
-  margin-left: 4px;
 }
 
 .mess-invalid-form {
