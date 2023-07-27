@@ -16,7 +16,7 @@ class CustomerController {
       const data = await this.model.getListCustomer();
       this.view.renderData(data);
     } catch (error) {
-      console.error('Error fetching data:', error);// TODO: update later
+      console.error('Error fetching data:', error); // TODO: update later
     }
   }
 
@@ -25,7 +25,7 @@ class CustomerController {
       const data = await this.model.editCustomer();
       this.view.renderData(data);
     } catch (error) {
-      console.error('Error fetching data:', error);// TODO: update later
+      console.error('Error fetching data:', error); // TODO: update later
     }
   }
 
@@ -34,7 +34,7 @@ class CustomerController {
       if (data.id.length > 0) {
         await this.model.editCustomer(data);
       } else {
-        const {id, ...rest} = data
+        const {id, ...rest} = data;
         await this.model.createCustomer(rest);
       }
       this.handleRenderTable();
@@ -47,7 +47,7 @@ class CustomerController {
 
   handleDeleteCustomer = async(id) => {
     try {
-      await this.service.deleteCustomer(id);
+      await this.model.deleteCustomer(id);
       this.handleRenderTable();
     } catch (error) {
       console.error('Error delete customer:', error); // TODO: update later

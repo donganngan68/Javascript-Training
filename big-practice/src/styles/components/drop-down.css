@@ -39,7 +39,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1;
   top: 80%;
-  right: 20%;
+  right: 15%;
 }
 
 .active {
@@ -53,6 +53,7 @@
   font-weight: var(--fw-semibold);
   letter-spacing: -0.12px;
   cursor: pointer;
+  padding: 10px;
 }
 
 .dropdown-item:hover {

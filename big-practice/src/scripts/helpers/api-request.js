@@ -18,7 +18,7 @@ class ApiRequest {
   }
 
   delete(path, id) {
-    return this.sendRequest(`${path}/${id}`, 'DELETE', data);
+    return this.sendRequest(`${path}/${id}`, 'DELETE');
   }
 
   async sendRequest (path, method, body) {
@@ -32,7 +32,6 @@ class ApiRequest {
     });
 
     if (response.ok) {
-      // return response.json();
       return await response.json();
     }
       throw new Error('Error creating customer');

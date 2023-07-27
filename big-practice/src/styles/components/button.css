@@ -65,3 +65,7 @@
   margin-bottom: 4px;
   cursor: pointer;
 }
+
+.arrow-button:disabled {
+  background: var(--primary-color);
+}

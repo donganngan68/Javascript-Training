@@ -13,8 +13,8 @@
   line-height: var(--lineHeight-primary);
   letter-spacing: -0.14px;
   position: absolute;
-  top: 4%;
-  left: 72%;
+  top: 0;
+  right: 5%;
   visibility: hidden;
 }
 

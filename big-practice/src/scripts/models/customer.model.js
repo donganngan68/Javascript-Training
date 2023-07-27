@@ -1,12 +1,12 @@
-import ApiRequest  from "../helpers/api-request";
+import ApiRequest from '../helpers/api-request';
 
-const baseUrl = process.env.BASE_URL; // Get key in env
+const baseUrl = process.env.BASE_URL // Get key in env
 
 class CustomerModel {
   path = 'customers';
 
   constructor() {
-    this.httpHelper =  new ApiRequest(baseUrl);
+    this.httpHelper = new ApiRequest(baseUrl);
   }
 
   async getListCustomer() {
@@ -14,17 +14,17 @@ class CustomerModel {
     return dataResponse.reverse();
   }
 
-  createCustomer (customer) {
+  createCustomer(customer) {
     return this.httpHelper.post(this.path, customer);
   }
 
-  editCustomer (customer) {
-    return this.httpHelper.put(this.path, customer.id, customer );
+  editCustomer(customer) {
+    return this.httpHelper.put(this.path, customer.id, customer);
   }
 
   deleteCustomer(id) {
-    return this.httpHelper.delete(this.path, customer.id, id);
+    return this.httpHelper.delete(this.path, id);
   }
-};
+}
 
 export default CustomerModel;
