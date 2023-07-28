@@ -93,8 +93,8 @@ class CustomerView {
     const endIndex = startIndex + this.itemsPerPage;
 
     let slicedItems = list.slice(startIndex, endIndex+1);
-
-    if(slicedItems.length < 9) {
+    const PAGE_SIZE = 9;
+    if(slicedItems.length < PAGE_SIZE) {
       this.nextPageButton.disabled = true;
     } else {
       this.nextPageButton.disabled = false;
@@ -427,7 +427,7 @@ class CustomerView {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.renderData(this.customerList);
-      this.updatePaginationPlaceholders();
+      // this.updatePaginationPlaceholders();
     }
   }
 
@@ -436,15 +436,15 @@ class CustomerView {
       this.prevPageButton.classList.remove('prevPageButton');
       this.currentPage++;
       this.renderData(this.customerList);
-      this.updatePaginationPlaceholders();
+      // this.updatePaginationPlaceholders();
       this.prevPageButton.classList.add('prevPageButton');
     }
   }
 
-  updatePaginationPlaceholders() {
-    this.currentPagePlaceholder.textContent = this.currentPage;
-    this.totalPagesPlaceholder.textContent = this.totalPages;
-  }
+  // updatePaginationPlaceholders() {
+  //   this.currentPagePlaceholder.textContent = this.currentPage;
+  //   this.totalPagesPlaceholder.textContent = this.totalPages;
+  // }
 }
 
 export default CustomerView;
