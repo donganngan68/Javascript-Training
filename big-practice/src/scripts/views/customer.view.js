@@ -88,15 +88,22 @@ class CustomerView {
       this.customerList = list;
     }
     this.totalPages = Math.ceil(list.length / this.itemsPerPage); // 8
-    console.log(this.totalPages)
+    
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
 
     let slicedItems = list.slice(startIndex, endIndex+1);
+
     if(slicedItems.length < 9) {
       this.nextPageButton.disabled = true;
     } else {
       this.nextPageButton.disabled = false;
+    }
+
+    if(this.currentPage > 1) {
+      this.prevPageButton.disabled = false;
+    } else {
+      this.prevPageButton.disabled = true;
     }
 
     const itemsToRender = list.slice(startIndex, endIndex);

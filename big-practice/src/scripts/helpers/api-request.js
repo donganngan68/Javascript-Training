@@ -2,7 +2,6 @@ class ApiRequest {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    console.log(baseUrl)
   }
 
   get(path) {

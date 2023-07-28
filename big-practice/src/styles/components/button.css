@@ -67,5 +67,7 @@
 }
 
 .arrow-button:disabled {
-  background: var(--primary-color);
+  cursor: not-allowed;
+  background-color: var(--accent-color);
+  opacity: 0.5;
 }
