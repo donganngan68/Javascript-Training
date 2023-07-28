@@ -1,11 +1,11 @@
-import CustomerController from "./controllers/customer-controller";
-import CustomerView from "./views/customer-view";
-import CustomerService from './services/customer-service';
+import CustomerController from "./controllers/customer.controller";
+import CustomerView from "./views/customer.view";
+import CustomerModel from './models/customer.model';
 
 export class App {
     startApp() {
         // Init the customer controller
-      const customerController = new CustomerController(new CustomerView(), new CustomerService());
+      const customerController = new CustomerController(new CustomerView(), new CustomerModel());
 
       customerController.init();
     }

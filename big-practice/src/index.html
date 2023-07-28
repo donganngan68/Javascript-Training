@@ -4,29 +4,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JavaScript</title>
+  <title>JavaScript training - Practice 1 </title>
+
+  <!-- style sheet -->
   <link rel="stylesheet" href="styles/main.css" type="text/css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
   <div class="container">
     <main class="main">
+      <div class="overlay"></div>
       <!-- start header table -->
-      <div class="header">
+      <header class="header">
         <h2 class="header-title">All Customers</h2>
 
         <div class="navbar">
           <img src="./assets/images/add.png" alt="icon add customer" class="icon-add-modal" />
+
           <div class="search-box">
-            <img src="./assets/images/search.png" alt="searching customer" />
+            <img class="icon-search" src="./assets/images/search.png" alt="searching customer" />
             <input class="search-text" type="text" placeholder="Search" />
           </div>
+
           <div class="dropdown">
-            <p class="dropdown select-dropdown">Sort by:&nbsp;<span class="dropdown-name">Name</span></p>
-            <img src="./assets/images/dropt.png" alt="dropdown sort" />
+            <div class="selected-option">Sort by: <span class="sort-type">Name</span></div>
+            <ul class="dropdown-content">
+              <li class="dropdown-item" data-sortby="name">Name</li>
+              <li class="dropdown-item" data-sortby="company">Company</li>
+              <li class="dropdown-item" data-sortby="phone">Phone</li>
+              <li class="dropdown-item" data-sortby="email">Email</li>
+              <li class="dropdown-item" data-sortby="country">Country</li>
+            </ul>
+            <img src="./assets/images/dropt.png" class="icon-dropdown" alt="dropdown sort" />
           </div>
+
         </div>
-      </div>
+      </header>
       <!-- end header table -->
 
       <!-- start table body -->
@@ -38,7 +52,7 @@
             <th class="table-heading">Phone Number</th>
             <th class="table-heading">Email</th>
             <th class="table-heading">Country</th>
-            <th class="table-heading">Status</th>
+            <th class="table-heading table-status">Status</th>
           </tr>
         </thead>
 
@@ -46,17 +60,15 @@
         </tbody>
       </table>
 
-      <div class="table-footer">
-        <p class="data-summary">Showing data 1 to 8 of 256K entries</p>
         <div class="session-pagination">
-          <button class="arrow-button">></button>
-          <button class="arrow-button">&lt;</button>
+          <button class="arrow-button prevPageButton">&lt;</button>
+          <button class="arrow-button nextPageButton">></button>
         </div>
-      </div>
+
       <!-- end table body -->
 
       <!-- start modal update customer -->
-      <div class="modal-customer show">
+      <section class="modal-customer show">
         <form class="form-customer">
           <div class="modal-header">
             <h2 class="form-title"></h2>
@@ -64,7 +76,7 @@
           </div>
 
           <!-- start sign form -->
-          <div class="input-form-wrapper">
+          <section class="input-form-wrapper">
             <div>
               <p class="form-field">Customer Name</p>
               <input type="text" class="input-control name" value="" />
@@ -110,17 +122,18 @@
                 <span class="toggle-input-slider toggle-input-round"></span>
               </label>
             </div>
-          </div>
+          </section>
           <!-- end sign form -->
 
           <!-- start button submit and cancel -->
-          <div class="btn-action-group">
+          <section class="btn-action-group">
             <button class="btn btn-primary btn-submit" type="submit">Submit</button>
             <button class="btn btn-secondary btn-cancel-submit" type="button">Cancel</button>
-          </div>
+          </section>
           <!-- end button submit and cancel -->
         </form>
-      </div>
+      </section>
+
       <!-- end modal update customer -->
 
       <!-- start modal delete -->
@@ -138,15 +151,15 @@
       <!-- end modal delete -->
 
       <!-- Start valid and wrong snackbar -->
-      <div class="valid-snackbar">
+      <section class="valid-snackbar">
         <img src="./assets/images/checkmark.png" alt="successfully">
         <p>Customer information has been successfully updated</p>
-      </div>
+      </section>
 
-      <div class="error-snackbar">
+      <section class="error-snackbar">
         <img src="./assets/images/ellipse.png" alt="something went wrong">
         <p>Something went wrong</p>
-      </div>
+      </section>
 
     </main>
   </div>

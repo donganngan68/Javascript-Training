@@ -2,7 +2,6 @@ class ApiRequest {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    console.log(baseUrl)
   }
 
   get(path) {
@@ -32,7 +31,7 @@ class ApiRequest {
     });
 
     if (response.ok) {
-      return response.json();
+      return await response.json();
     }
       throw new Error('Error creating customer');
   }

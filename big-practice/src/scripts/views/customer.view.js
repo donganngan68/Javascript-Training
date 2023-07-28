@@ -45,6 +45,24 @@ class CustomerView {
     this.countryError = this.countrySelect.nextElementSibling;
   }
 
+  init() {
+    this.iconAddCustomer.addEventListener('click', this.showCustomerModal);
+    this.iconCancelSubmit.addEventListener('click', this.hideCustomerModal);
+    this.btnCancelSubmit.addEventListener('click', this.hideCustomerModal);
+    document.addEventListener('mousedown', this.handleOutsideClick);
+    this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
+    this.btnCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
+    this.prevPageButton.addEventListener('click', this.handlePrevPageButton);
+    this.nextPageButton.addEventListener('click', this.handleNextPageButton);
+    this.handleSearch();
+    this.imgDropdown.addEventListener('click', this.handleDropDownIcon);
+    document.addEventListener('click', this.handleOutsideSortClick);
+    this.currentPage = 1;
+    this.itemsPerPage = 8;
+    this.customerList = undefined;
+    this.totalPages = undefined;
+  }
+
   getCustomer() {
     const name = this.nameInput.value;
     const company = this.companyInput.value;
@@ -64,101 +82,59 @@ class CustomerView {
     }
   }
 
-  init() {
-    this.iconAddCustomer.addEventListener('click', this.showCustomerModal);
-    this.iconCancelSubmit.addEventListener('click', this.hideCustomerModal);
-    this.btnCancelSubmit.addEventListener('click', this.hideCustomerModal);
-    document.addEventListener('mousedown', this.handleOutsideClick);
-    this.iconCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
-    this.btnCancelDelete.addEventListener('click', this.hideDeleteCustomerModal);
-    this.btnConfirmDelete.addEventListener('click', this.bindHandleDeleteCustomer);
-    this.prevPageButton.addEventListener('click', this.handPrevPageButton);
-    this.nextPageButton.addEventListener('click', this.handNextPageButton);
-    this.handleSearch();
-    this.imgDropdown.addEventListener('click', this.handDropDownIcon);
-    this.currentPage = 1;
-    this.itemsPerPage = 8;
-    this.customerList = undefined;
-    this.totalPages = undefined;
-  }
-
-  handleSearch = () => {
-    this.searchInput.addEventListener('keyup', (event) => {
-      if (event.keyCode === 13) {
-        this.handleSearchInput();
-      }
-    });
-  }
-
-  handDropDownIcon = () => {
-    this.dropDownContent.classList.toggle('active');
-  }
-
-  handDropDownIconAction = () => {
-    this.dropdownItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        const selectedSortBy = item.dataset.sortby;
-        this.selectedOptionSort.textContent = `${selectedSortBy.charAt(0).toUpperCase() + selectedSortBy.slice(1)}`;
-        if (selectedSortBy) {
-          this.sortData(selectedSortBy);
-          this.renderData(this.customerList);
-        }
-        this.dropDownContent.classList.remove('active');
-      });
-    });
-  }
-
-  sortData(sortBy) {
-    this.customerList.sort((a, b) => {
-      if (sortBy === 'name') {
-        return a.name.localeCompare(b.name);
-      } else if (sortBy === 'company') {
-        return a.company.localeCompare(b.company);
-      } else if (sortBy === 'phone') {
-        return a.phone.localeCompare(b.phone);
-      } else if (sortBy === 'email') {
-        return a.email.localeCompare(b.email);
-      } else if (sortBy === 'country') {
-        return a.country.localeCompare(b.country);
-      }
-    });
-  }
-
-  handleSearchInput = () => {
-    const searchTerm = this.searchInput.value.trim().toLowerCase();
-    const filteredList = this.customerList.filter((customer) => {
-      // Convert all fields to lowercase before comparison.
-      const { name, company, phone, email, country } = customer;
-      return (
-        name.toLowerCase().includes(searchTerm) ||
-        company.toLowerCase().includes(searchTerm) ||
-        phone.toLowerCase().includes(searchTerm) ||
-        email.toLowerCase().includes(searchTerm) ||
-        country.toLowerCase().includes(searchTerm)
-      );
-    });
-    this.renderData(filteredList);
-  }
-
-  handPrevPageButton = () => {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.renderData(this.customerList);
-      this.updatePaginationPlaceholders();
+  renderData(list) {
+    const customerListExists = this.customerList !== null && this.customerList !== undefined;
+    if (!customerListExists) {
+      this.customerList = list;
     }
-  }
+    this.totalPages = Math.ceil(list.length / this.itemsPerPage); // 8
 
-  handNextPageButton = () => {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.renderData(this.customerList);
-      this.updatePaginationPlaceholders();
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+
+    let slicedItems = list.slice(startIndex, endIndex+1);
+
+    if(slicedItems.length < 9) {
+      this.nextPageButton.disabled = true;
+    } else {
+      this.nextPageButton.disabled = false;
     }
-  }
 
-  updatePaginationPlaceholders() {
-    this.currentPagePlaceholder.textContent = this.currentPage;
-    this.totalPagesPlaceholder.textContent = this.totalPages;
+    if(this.currentPage > 1) {
+      this.prevPageButton.disabled = false;
+    } else {
+      this.prevPageButton.disabled = true;
+    }
+
+    const itemsToRender = list.slice(startIndex, endIndex);
+    let result = ''
+    itemsToRender.map(
+      (customer) => {
+        const { name, company, phone, email, country, status, id } = customer;
+        const customerStatus = status === true ? 'Active' : 'Inactive';
+        const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
+        result += `
+        <tr class="table-body customer-table">
+          <td class="table-data">${name}</td>
+          <td class="table-data">${company}</td>
+          <td class="table-data">${phone}</td>
+          <td class="table-data">${email}</td>
+          <td class="table-data">${country}</td>
+          <td class="table-data table-data-icon">
+            <button class="${btnStatusClassName}">${customerStatus}</button>
+            <img data-option-id="${id}" class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
+            <div data-actions-id="${id}" class="action-panel">
+              <button data-edit-id="${id}" class="action-btn">Edit</button>
+              <button data-remove-id="${id}" class="action-btn">Remove</button>
+            </div>
+          </td>
+        </tr>
+      `
+        this.table.innerHTML = result;
+      }
+    )
+    this.handleTableRowAction(list);
+    this.handleDropDownIconAction();
   }
 
   validateForm() {
@@ -204,7 +180,7 @@ class CustomerView {
      * [0-9]{8} matches exactly eight digits from 0 to 9, ensuring the total length of the phone number is 10 digits.
      * Therefore, this regex pattern helps validate whether a string represents a valid phone number starting with 0 and having a total of 10 digits.
     */
-    const phoneRegex = /^0[1-9]\d{8}$/;
+    const phoneRegex = /^0[1-9][0-9]{8}$/;
 
     if (this.phoneInput.value.trim() === '') {
       isValid = false;
@@ -245,101 +221,16 @@ class CustomerView {
       this.emailInput.classList.remove('valid-check');
     }
 
-    if (this.country.value === '') {
+    if (country.value === '') {
       isValid = false;
       this.countryError.textContent = `${MESSAGES.COUNTRY_REQUIRED}`;
-      this.country.classList.add('valid-check');
+      country.classList.add('valid-check');
     } else {
       this.countryError.textContent = '';
-      this.country.classList.remove('valid-check');
+      country.classList.remove('valid-check');
     }
 
     return isValid;
-  }
-
-  hideCustomerModal = () => {
-    this.countrySelect.selectedIndex = 0;
-    this.inputFields.forEach(function (input) {
-      input.value = '';
-      input.classList.remove('valid-check');
-    });
-    this.errorMessages.forEach(function (error) {
-      error.textContent = '';
-    });
-    this.formCustomer.classList.remove('show');
-    this.overlay.style.display = 'none';
-    this.modalCustomerDel.classList.remove('show');
-  }
-
-  handleOutsideClick = (event) => {
-    if (!this.modalCustomer.contains(event.target)) {
-      this.hideCustomerModal();
-    }
-  }
-
-  handleSubmitDataSuccess = () => {
-    this.formCustomer.classList.remove('show');
-    this.successSnackbar.style.visibility = 'visible';
-    setTimeout(() => {
-      this.successSnackbar.style.visibility = 'hidden';
-    }, 3000);
-  }
-
-  handleSubmitDataFailed = () => {
-    this.errorSnackbar.style.visibility = 'visible';
-    setTimeout(() => {
-      this.errorSnackbar.style.visibility = 'hidden';
-    }, 3000);
-  }
-
-  renderData(list) {
-    const customerListExists = this.customerList !== null && this.customerList !== undefined;
-    if (!customerListExists) {
-      this.customerList = list;
-    }
-    this.totalPages = Math.ceil(list.length / this.itemsPerPage);
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    const itemsToRender = list.slice(startIndex, endIndex);
-    let result = ''
-    itemsToRender.map(
-      (customer) => {
-        const { name, company, phone, email, country, status, id } = customer;
-        const customerStatus = status === true ? 'Active' : 'Inactive';
-        const btnStatusClassName = status === true ? 'btn-active' : 'btn-inactive';
-        result += `
-        <tr class="table-body customer-table">
-          <td class="table-data">${name}</td>
-          <td class="table-data">${company}</td>
-          <td class="table-data">${phone}</td>
-          <td class="table-data">${email}</td>
-          <td class="table-data">${country}</td>
-          <td class="table-data table-data-icon">
-            <button class="${btnStatusClassName}">${customerStatus}</button>
-            <img data-option-id="${id}" class="img-dot-customer" src="${imgDot}" alt="icon for click del or edit">
-            <div data-actions-id="${id}" class="action-panel">
-              <button data-edit-id="${id}" class="action-btn">Edit</button>
-              <button data-remove-id="${id}" class="action-btn">Remove</button>
-            </div>
-          </td>
-        </tr>
-      `
-        this.table.innerHTML = result;
-      }
-    )
-    this.handleTableRowAction(list);
-    this.handDropDownIconAction();
-  }
-
-  initializeEditForm = (customer) => {
-    const { name, company, phone, email, country, id, status } = customer;
-    this.nameInput.value = name;
-    this.companyInput.value = company;
-    this.phoneInput.value = phone;
-    this.emailInput.value = email;
-    this.countrySelect.value = country;
-    this.btnSubmit.value = id;
-    status === false ? this.toggleInput.removeAttribute('checked') : this.toggleInput.setAttribute('checked', 'checked');
   }
 
   handleTableRowAction = (customers) => {
@@ -403,6 +294,109 @@ class CustomerView {
     this.btnSubmit.value = '';
   }
 
+  hideCustomerModal = () => {
+    this.countrySelect.selectedIndex = 0;
+    this.inputFields.forEach(function (input) {
+      input.value = '';
+      input.classList.remove('valid-check');
+    });
+    this.errorMessages.forEach(function (error) {
+      error.textContent = '';
+    });
+    this.formCustomer.classList.remove('show');
+    this.overlay.style.display = 'none';
+  }
+
+  handleOutsideClick = (event) => {
+    if (!this.modalCustomer.contains(event.target)) {
+      this.hideCustomerModal();
+    }
+  }
+
+  handleSearch = () => {
+    this.searchInput.addEventListener('keyup', (event) => {
+      if (event.keyCode === 13) {
+        this.handleSearchInput();
+      }
+    });
+  }
+
+  handleSearchInput = () => {
+    const searchTerm = this.searchInput.value.trim().toLowerCase();
+    const filteredList = this.customerList.filter((customer) => {
+      // Convert all fields to lowercase before comparison.
+      const { name, company, phone, email, country } = customer;
+      return (
+        name.toLowerCase().includes(searchTerm) ||
+        company.toLowerCase().includes(searchTerm) ||
+        phone.toLowerCase().includes(searchTerm) ||
+        email.toLowerCase().includes(searchTerm) ||
+        country.toLowerCase().includes(searchTerm)
+      );
+    });
+    this.renderData(filteredList);
+  }
+
+  sortData(sortBy) {
+    this.customerList.sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === 'company') {
+        return a.company.localeCompare(b.company);
+      } else if (sortBy === 'phone') {
+        return a.phone.localeCompare(b.phone);
+      } else if (sortBy === 'email') {
+        return a.email.localeCompare(b.email);
+      } else if (sortBy === 'country') {
+        return a.country.localeCompare(b.country);
+      }
+    });
+  }
+
+  handleDropDownIcon = () => {
+    this.dropDownContent.classList.toggle('active');
+  }
+
+  handleDropDownIconAction = () => {
+    this.dropdownItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const selectedSortBy = item.dataset.sortby;
+        this.selectedOptionSort.textContent = `${selectedSortBy.charAt(0).toUpperCase() + selectedSortBy.slice(1)}`;
+        if (selectedSortBy) {
+          this.sortData(selectedSortBy);
+          this.renderData(this.customerList);
+        }
+      });
+    });
+  }
+
+  handleOutsideSortClick = (event) => {
+    if (!this.imgDropdown.contains(event.target)) {
+      this.dropDownContent.classList.remove('active');
+    }
+  }
+
+  initializeEditForm = (customer) => {
+    const { name, company, phone, email, country, id, status } = customer;
+    this.nameInput.value = name;
+    this.companyInput.value = company;
+    this.phoneInput.value = phone;
+    this.emailInput.value = email;
+    this.countrySelect.value = country;
+    this.btnSubmit.value = id;
+    status === false ? this.toggleInput.removeAttribute('checked') : this.toggleInput.setAttribute('checked', 'checked');
+  }
+
+  bindHandleDeleteCustomer = (handler) => {
+    this.btnConfirmDelete.addEventListener('click', () => {
+      handler(this.btnConfirmDelete.value);
+    })
+  }
+
+  hideDeleteCustomerModal = () => {
+    this.modalCustomerDel.classList.remove('show');
+  }
+
   bindHandleSubmit = (handler) => {
     this.formCustomer.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -413,18 +407,43 @@ class CustomerView {
     });
   }
 
-  bindHandleDeleteCustomer = (handler) => {
-    this.btnConfirmDelete.addEventListener('click', () => {
-      handler(this.btnConfirmDelete.value)
-    })
+  handleSubmitDataSuccess = () => {
+    this.overlay.style.display = 'none';
+    this.formCustomer.classList.remove('show');
+    this.successSnackbar.style.visibility = 'visible';
+    setTimeout(() => {
+      this.successSnackbar.style.visibility = 'hidden';
+    }, 3000);
   }
 
-  hideDeleteCustomerModal = () => {
-    this.modalCustomerDel.classList.remove('show');
+  handleSubmitDataFailed = () => {
+    this.errorSnackbar.style.visibility = 'visible';
+    setTimeout(() => {
+      this.errorSnackbar.style.visibility = 'hidden';
+    }, 3000);
   }
 
-  getDeleteCustomerId = () => {
-    return this.btnConfirmDelete.value;
+  handlePrevPageButton = () => {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.renderData(this.customerList);
+      this.updatePaginationPlaceholders();
+    }
+  }
+
+  handleNextPageButton = () => {
+    if (this.currentPage < this.totalPages) {
+      this.prevPageButton.classList.remove('prevPageButton');
+      this.currentPage++;
+      this.renderData(this.customerList);
+      this.updatePaginationPlaceholders();
+      this.prevPageButton.classList.add('prevPageButton');
+    }
+  }
+
+  updatePaginationPlaceholders() {
+    this.currentPagePlaceholder.textContent = this.currentPage;
+    this.totalPagesPlaceholder.textContent = this.totalPages;
   }
 }
 

@@ -1,10 +1,9 @@
-## Target: ##
+## Targets: ##
 - Understand & apply knowledge of HTML/CSS/JavaScript.
 - DOM manipulation with a simple table, form.
 ## Design on figma: ##
 - [Figma](https://www.figma.com/file/c3aFzD4P3igEohZkx9KfTq/Customer-dashboard?type=design&node-id=0%3A1&mode=design&t=ANuRshVFYkk0m5X5-1)
 ## Information: ##
-- Time line: 2023/07/03 – 2023/07/18
 - Editor: Visual Studio Code
 
 ## Team size: ##
@@ -12,44 +11,52 @@
 ## Folder structure ##
 - big-practice
 ~~~
-|-- src
-    |-- assets
-      |-- fonts
-      |-- images
-    |-- scripts
-      |-- controllers
-        |-- customer-controller.js
-      |-- services
-        |-- customer-service.js
-      |-- views
-        |--customer-view.js
-      |-- app.js
-      |-- main.js
-    |-- styles
-      |-- components
-        |-- common
-        |-- all.css
-        |-- container.css
-        |-- del-confirm-modal.css
-        |-- form.css
-        |-- modal-customer.css
-        |-- table-customer.css
-      |-- fonts.css
-      |-- main.css
-      |-- variables.css
-    |-- index.html
-|-- .editorconfig
-|-- .gitignore
-|--.prettierrc.json
-|-- package.json
-|-- README.md
-|-- vercel.json
-|-- yarn.lock
+├── yarn.lock
+├── yarn-error.log
+├── vercel.json
+├── package.json
+├── .prettierrc.json
+├── .gitignore
+├── .env
+├── .editorconfig
+├── README.md
+└── src
+    └── assets
+    ├── scripts
+        ├── constants
+            ├── index.js
+            └── messages.js
+        ├── controllers
+            └── customer.controller.js
+        ├── helpers
+            ├── api-request.js
+            ├── get-dom-element.js
+            └── index.js
+        ├── models
+            └── customer.model.js
+        ├── views
+            └── customer.view.js
+        ├── components
+            ├── all.css
+            ├── button.css
+            ├── container.css
+            ├── drop-down.css
+            ├── form.css
+            ├── modal-customer.css
+            ├── snackbar.css
+            ├── status-action.css
+            └── table-customer.css
+        ├── fonts.css
+        ├── main.css
+        ├── reset.css
+        └── variables.css
+    ├── favicon.ico
+    └── index.html
 ~~~
 ## Getting started:
-Step 01: Clone repository with HTTPS:
+Step 01: Clone repository with SSH:
 ~~~
-git clone https://github.com/donganngan68/Javascript-Training.git
+git clone git@github.com:donganngan68/Javascript-Training.git
 ~~~
 Step 02: Change to branch feat/big-practice:
 ~~~
@@ -66,6 +73,7 @@ cd big-practice
 ~~~
 Step 05: Open terminal and type:
 ~~~
+cp .sample.env .env
 yarn install
 ~~~
 Step 06: Finally run with:
