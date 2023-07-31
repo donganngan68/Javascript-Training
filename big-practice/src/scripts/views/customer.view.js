@@ -9,7 +9,6 @@ class CustomerView {
     this.imgDropdown = querySelector('.dropdown');
     this.dropDownContent = querySelector('.dropdown-content');
     this.searchInput = querySelector('.search-text');
-    this.currentPagePlaceholder = querySelector('.currentPagePlaceholder');
     this.totalPagesPlaceholder = querySelector('.totalPagesPlaceholder');
     this.prevPageButton = querySelector('.prevPageButton');
     this.nextPageButton = querySelector('.nextPageButton');
@@ -61,6 +60,7 @@ class CustomerView {
     this.itemsPerPage = 8;
     this.customerList = undefined;
     this.totalPages = undefined;
+    this.filteredList = undefined;
   }
 
   getCustomer() {
@@ -83,23 +83,18 @@ class CustomerView {
   }
 
   renderData(list) {
-    const customerListExists = this.customerList !== null && this.customerList !== undefined;
-    if (!customerListExists) {
-      this.customerList = list;
-    }
     this.totalPages = Math.ceil(list.length / this.itemsPerPage); // 8
-
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-
-    let slicedItems = list.slice(startIndex, endIndex+1);
-    const PAGE_SIZE = 9;
-    if(slicedItems.length < PAGE_SIZE) {
-      this.nextPageButton.disabled = true;
-    } else {
+    this.filteredList = list;
+    
+    // If endIndex < list.length mean that another elements of list are exist. 
+    if(endIndex < list.length) {
       this.nextPageButton.disabled = false;
+    } else {
+      this.nextPageButton.disabled = true;
     }
-
+    // If currentPage >  1 mean that it have the pre page of current page.
     if(this.currentPage > 1) {
       this.prevPageButton.disabled = false;
     } else {
@@ -140,6 +135,21 @@ class CustomerView {
   validateForm() {
     let isValid = true;
 
+    const isValidInput = (inputElement, errorElement, regex, errorMessage) => {
+      if (inputElement.value.trim() === '') {
+        isValid = false;
+        errorElement.textContent = errorMessage;
+        inputElement.classList.add('valid-check');
+      } else if (!inputElement.value.match(regex)) {
+        isValid = false;
+        errorElement.textContent = errorMessage;
+        inputElement.classList.add('valid-check');
+      } else {
+        errorElement.textContent = '';
+        inputElement.classList.remove('valid-check');
+      }
+    };
+
     // Regular expression to validate the customer name
     /**
      * The pattern starts and ends with the ^ and $ anchors, respectively, ensuring the entire string is matched.
@@ -148,29 +158,10 @@ class CustomerView {
      * Therefore, this regex pattern helps validate whether a string represents a valid name containing only letters and spaces, with a length between 2 and 30 characters.
     */
     const nameRegex = /^[a-zA-Z\s]{6,30}$/;
-
-    if (this.nameInput.value.trim() === '') {
-      isValid = false;
-      this.nameError.textContent = `${MESSAGES.NAME_REQUIRED}`;
-      this.nameInput.classList.add('valid-check');
-    } else if (!this.nameInput.value.match(nameRegex)) {
-      isValid = false;
-      this.nameError.textContent = `${MESSAGES.INVALID_NAME}`;
-      this.nameInput.classList.add('valid-check');
-    } else {
-      this.nameError.textContent = '';
-      this.nameInput.classList.remove('valid-check');
-    }
-
-    if (this.companyInput.value.trim() === '') {
-      isValid = false;
-      this.companyError.textContent = `${MESSAGES.COMPANY_REQUIRED}`;
-      this.companyInput.classList.add('valid-check');
-    } else {
-      this.companyError.textContent = '';
-      this.companyInput.classList.remove('valid-check');
-
-    }
+    isValidInput(this.nameInput, this.nameError, nameRegex, `${MESSAGES.NAME_REQUIRED}`);
+    
+    const companyRegex = /./;
+    isValidInput(this.companyInput, this.companyError, companyRegex, `${MESSAGES.COMPANY_REQUIRED}`);
 
     // Regular expression to validate the phone number (start with 0 and no additional zeros after the initial zero)
     /**
@@ -181,19 +172,7 @@ class CustomerView {
      * Therefore, this regex pattern helps validate whether a string represents a valid phone number starting with 0 and having a total of 10 digits.
     */
     const phoneRegex = /^0[1-9][0-9]{8}$/;
-
-    if (this.phoneInput.value.trim() === '') {
-      isValid = false;
-      this.phoneError.textContent = `${MESSAGES.PHONE_REQUIRED}`;
-      this.phoneInput.classList.add('valid-check');
-    } else if (!this.phoneInput.value.match(phoneRegex)) {
-      isValid = false;
-      this.phoneError.textContent = `${MESSAGES.INVALID_PHONE}`;
-      this.phoneInput.classList.add('valid-check');
-    } else {
-      this.phoneError.textContent = '';
-      this.phoneInput.classList.remove('valid-check');
-    }
+    isValidInput(this.phoneInput, this.phoneError, phoneRegex, `${MESSAGES.PHONE_REQUIRED}`);
 
     // Regular expression pattern to validate an email address
     /**
@@ -207,28 +186,10 @@ class CustomerView {
      * '$' asserts the end of the string.
     */
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    isValidInput(this.emailInput, this.emailError, emailRegex, `${MESSAGES.EMAIL_REQUIRED}`);
 
-    if (this.emailInput.value.trim() === '') {
-      isValid = false;
-      this.emailError.textContent = `${MESSAGES.EMAIL_REQUIRED}`;
-      this.emailInput.classList.add('valid-check');
-    } else if (!this.emailInput.value.match(emailRegex)) {
-      isValid = false;
-      this.emailError.textContent = `${MESSAGES.INVALID_EMAIL}`;
-      this.emailInput.classList.add('valid-check');
-    } else {
-      this.emailError.textContent = '';
-      this.emailInput.classList.remove('valid-check');
-    }
-
-    if (country.value === '') {
-      isValid = false;
-      this.countryError.textContent = `${MESSAGES.COUNTRY_REQUIRED}`;
-      country.classList.add('valid-check');
-    } else {
-      this.countryError.textContent = '';
-      country.classList.remove('valid-check');
-    }
+    const countryRegex = /./;
+    isValidInput(country, this.countryError, countryRegex, `${MESSAGES.COUNTRY_REQUIRED}`);
 
     return isValid;
   }
@@ -268,8 +229,8 @@ class CustomerView {
         this.overlay.style.display = 'block';
         this.btnConfirmDelete.value = removeItemId;
 
-        const currentPanel = document.querySelector(`div[data-actions-id="${removeItemId}"]`);
         currentPanel.style.visibility = "hidden";
+        const currentPanel = document.querySelector(`div[data-actions-id="${removeItemId}"]`);
       }
 
       actionsPanel.forEach(nodeItem => {
@@ -311,34 +272,32 @@ class CustomerView {
     if (!this.modalCustomer.contains(event.target)) {
       this.hideCustomerModal();
     }
+    if (!this.modalCustomerDel.contains(event.target)) {
+      this.modalCustomerDel.classList.remove('show');
+    }
   }
 
   handleSearch = () => {
-    this.searchInput.addEventListener('keyup', (event) => {
-      if (event.keyCode === 13) {
-        this.handleSearchInput();
-      }
+    this.searchInput.addEventListener('input', (event) => {
+      const searchTerm = this.searchInput.value.trim().toLowerCase();
+      const filteredList = this.customerList.filter((customer) => {
+        // Convert all fields to lowercase before comparison.
+        const { name, company, phone, email, country } = customer;
+        return (
+          name.toLowerCase().includes(searchTerm) ||
+          company.toLowerCase().includes(searchTerm) ||
+          phone.toLowerCase().includes(searchTerm) ||
+          email.toLowerCase().includes(searchTerm) ||
+          country.toLowerCase().includes(searchTerm)
+        );
+      });
+      this.renderData(filteredList);
+    
     });
-  }
-
-  handleSearchInput = () => {
-    const searchTerm = this.searchInput.value.trim().toLowerCase();
-    const filteredList = this.customerList.filter((customer) => {
-      // Convert all fields to lowercase before comparison.
-      const { name, company, phone, email, country } = customer;
-      return (
-        name.toLowerCase().includes(searchTerm) ||
-        company.toLowerCase().includes(searchTerm) ||
-        phone.toLowerCase().includes(searchTerm) ||
-        email.toLowerCase().includes(searchTerm) ||
-        country.toLowerCase().includes(searchTerm)
-      );
-    });
-    this.renderData(filteredList);
   }
 
   sortData(sortBy) {
-    this.customerList.sort((a, b) => {
+    this.filteredList.sort((a, b) => {
       if (sortBy === 'name') {
         return a.name.localeCompare(b.name);
       } else if (sortBy === 'company') {
@@ -364,7 +323,7 @@ class CustomerView {
         this.selectedOptionSort.textContent = `${selectedSortBy.charAt(0).toUpperCase() + selectedSortBy.slice(1)}`;
         if (selectedSortBy) {
           this.sortData(selectedSortBy);
-          this.renderData(this.customerList);
+          this.renderData(this.filteredList);
         }
       });
     });
@@ -426,25 +385,16 @@ class CustomerView {
   handlePrevPageButton = () => {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.renderData(this.customerList);
-      // this.updatePaginationPlaceholders();
+      this.renderData(this.filteredList);
     }
   }
 
   handleNextPageButton = () => {
     if (this.currentPage < this.totalPages) {
-      this.prevPageButton.classList.remove('prevPageButton');
       this.currentPage++;
-      this.renderData(this.customerList);
-      // this.updatePaginationPlaceholders();
-      this.prevPageButton.classList.add('prevPageButton');
+      this.renderData(this.filteredList);
     }
   }
-
-  // updatePaginationPlaceholders() {
-  //   this.currentPagePlaceholder.textContent = this.currentPage;
-  //   this.totalPagesPlaceholder.textContent = this.totalPages;
-  // }
 }
 
 export default CustomerView;

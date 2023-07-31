@@ -9,11 +9,11 @@ class ApiRequest {
   }
 
   post(path, data) {
-    return this.sendRequest(`${path}`, 'POST', data );
+    return this.sendRequest(`${path}`, 'POST', data);
   }
 
   put(path, id, data) {
-    return this.sendRequest(`${path}/${id}`, 'PUT', data );
+    return this.sendRequest(`${path}/${id}`, 'PUT', data);
   }
 
   delete(path, id) {
@@ -33,7 +33,7 @@ class ApiRequest {
     if (response.ok) {
       return await response.json();
     }
-      throw new Error('Error creating customer');
+    throw new Error('Error creating customer');
   }
 }
 

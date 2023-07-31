@@ -15,8 +15,9 @@ class CustomerController {
     try {
       const data = await this.model.getListCustomer();
       this.view.renderData(data);
+      this.view.customerList = data;
     } catch (error) {
-      console.error('Error fetching data:', error); // TODO: update later
+      // TODO: update later
     }
   }
 
@@ -25,34 +26,34 @@ class CustomerController {
       const data = await this.model.editCustomer();
       this.view.renderData(data);
     } catch (error) {
-      console.error('Error fetching data:', error); // TODO: update later
+      // TODO: update later
     }
   }
 
   handleSubmit = async (data) => {
     try {
-      if (data.id.length > 0) {
+      if (data.id) {
         await this.model.editCustomer(data);
       } else {
-        const {id, ...rest} = data;
+        const { id, ...rest } = data;
         await this.model.createCustomer(rest);
       }
       this.handleRenderTable();
       this.view.handleSubmitDataSuccess();
     } catch (error) {
-      console.error('Error submit form customer:', error); // TODO: update later
+      // TODO: update later
       this.view.handleSubmitDataFailed();
     }
   }
 
-  handleDeleteCustomer = async(id) => {
+  handleDeleteCustomer = async (id) => {
+    this.view.hideDeleteCustomerModal();
     try {
       await this.model.deleteCustomer(id);
       this.handleRenderTable();
     } catch (error) {
-      console.error('Error delete customer:', error); // TODO: update later
+      // TODO: update later
     }
-    this.view.hideDeleteCustomerModal();
   }
 }
 
